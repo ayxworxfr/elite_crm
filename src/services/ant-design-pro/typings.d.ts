@@ -2,6 +2,12 @@
 /* eslint-disable */
 
 declare namespace API {
+  type APIResult<T> = {
+    code: number;
+    data: T;
+    message: string;
+  };
+
   type CurrentUser = {
     name?: string;
     avatar?: string;
@@ -27,6 +33,9 @@ declare namespace API {
     status?: string;
     type?: string;
     currentAuthority?: string;
+    access_token?: string;
+    refresh_token?: string
+    expires_at?: number
   };
 
   type PageParams = {

@@ -117,7 +117,8 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({ ...values, type });
+      const rsp = await login({ ...values, type });
+      const msg = rsp?.data ?? {};
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
@@ -218,6 +219,7 @@ const Login: React.FC = () => {
             <>
               <ProFormText
                 name="username"
+                initialValue={'admin'}
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined />,
@@ -240,6 +242,7 @@ const Login: React.FC = () => {
               />
               <ProFormText.Password
                 name="password"
+                initialValue={'123456'}
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined />,

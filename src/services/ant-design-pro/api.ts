@@ -1,12 +1,38 @@
 // @ts-ignore
 /* eslint-disable */
-import { request } from '@umijs/max';
+import { handleRequest } from '@/services/ant-design-pro/response_handler';
+import { extend } from 'umi-request';
+
+const BASE_URL = 'http://localhost:8888';
+
+const request = extend({
+  prefix: BASE_URL, // 设置基础 URL
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// 添加拦截器
+request.interceptors.request.use((url, options) => {
+  const token = localStorage.getItem('access_token');
+  return {
+    url,
+    options: {
+      ...options,
+      headers: {
+        ...options.headers,
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    },
+  };
+});
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>('/api/protected/user/current', {
     method: 'GET',
     ...(options || {}),
   });
@@ -21,7 +47,7 @@ export async function outLogin(options?: { [key: string]: any }) {
 }
 
 /** 登录接口 POST /api/login/account */
-export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
+export async function login_old(body: API.LoginParams, options?: { [key: string]: any }) {
   return request<API.LoginResult>('/api/login/account', {
     method: 'POST',
     headers: {
@@ -30,6 +56,28 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
     data: body,
     ...(options || {}),
   });
+}
+
+export async function login(
+  params: API.LoginParams
+): Promise<API.APIResult<API.LoginResult> | null> {
+  return handleRequest(
+    async () => {
+      return request<API.APIResult<API.LoginResult>>('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: params,
+      });
+    },
+    (data) => {
+      // 登录成功后的处理逻辑
+      localStorage.setItem('role', data.currentAuthority ?? '');
+      localStorage.setItem('access_token', data.access_token ?? '');
+      localStorage.setItem('refresh_token', data.refresh_token ?? '');
+    }
+  );
 }
 
 /** 此处后端没有提供注释 GET /api/notices */
