@@ -46,6 +46,13 @@ export default [
     ],
   },
   {
+    path: '/role',
+    name: 'role',
+    icon: 'crown',
+    access: 'canAdmin',
+    component: './RoleList',
+  },
+  {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',
