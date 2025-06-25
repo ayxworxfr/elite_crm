@@ -1,6 +1,8 @@
 // @ts-ignore
 /* eslint-disable */
 import { handleRequest } from '@/services/ant-design-pro/response_handler';
+import type { RequestData } from '@ant-design/pro-table/es';
+import { request as mockRequest } from '@umijs/max';
 import { extend } from 'umi-request';
 
 const BASE_URL = 'http://localhost:8888';
@@ -40,7 +42,7 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/login/outLogin */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/login/outLogin', {
+  return mockRequest<Record<string, any>>('/api/login/outLogin', {
     method: 'POST',
     ...(options || {}),
   });
@@ -48,7 +50,7 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/login/account */
 export async function login_old(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  return mockRequest<API.LoginResult>('/api/login/account', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -82,7 +84,7 @@ export async function login(
 
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
-  return request<API.NoticeIconList>('/api/notices', {
+  return mockRequest<API.NoticeIconList>('/api/notices', {
     method: 'GET',
     ...(options || {}),
   });
@@ -99,7 +101,7 @@ export async function rule(
   },
   options?: { [key: string]: any },
 ) {
-  return request<API.RuleList>('/api/rule', {
+  return mockRequest<API.RuleList>('/api/rule', {
     method: 'GET',
     params: {
       ...params,
@@ -110,7 +112,7 @@ export async function rule(
 
 /** 更新规则 PUT /api/rule */
 export async function updateRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/rule', {
+  return mockRequest<API.RuleListItem>('/api/rule', {
     method: 'POST',
     data: {
       method: 'update',
@@ -121,7 +123,7 @@ export async function updateRule(options?: { [key: string]: any }) {
 
 /** 新建规则 POST /api/rule */
 export async function addRule(options?: { [key: string]: any }) {
-  return request<API.RuleListItem>('/api/rule', {
+  return mockRequest<API.RuleListItem>('/api/rule', {
     method: 'POST',
     data: {
       method: 'post',
@@ -132,7 +134,7 @@ export async function addRule(options?: { [key: string]: any }) {
 
 /** 删除规则 DELETE /api/rule */
 export async function removeRule(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/rule', {
+  return mockRequest<Record<string, any>>('/api/rule', {
     method: 'POST',
     data: {
       method: 'delete',
@@ -140,3 +142,38 @@ export async function removeRule(options?: { [key: string]: any }) {
     },
   });
 }
+
+export async function getRoleList(
+  params: API.PageParams & { keyword?: string }
+): Promise<Partial<RequestData<API.Role>>> {
+  const response = await handleRequest(
+    async () => {
+      return request<API.APIResult<API.Role[]>>('/api/protected/role/list', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: {
+          // 转换 ProTable 参数到 getRoleList 期望的参数
+          offset: (params.current! - 1) * params.pageSize!,
+          limit: params.pageSize,
+          // 添加其他需要的参数
+          ...params,
+        }
+      });
+    }
+  );
+
+  if (!response) {
+    return {
+      total: 0,
+      data: []
+    }
+  }
+
+  return {
+    total: 100,
+    data: response.data,
+  };
+}
+

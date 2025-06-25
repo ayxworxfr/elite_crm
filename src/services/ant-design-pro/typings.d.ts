@@ -8,6 +8,15 @@ declare namespace API {
     message: string;
   };
 
+  type PageResult<T> = {
+    code: number;
+    data: {
+      total: number;
+      records: T[];
+    };
+    message: string;
+  };
+
   type CurrentUser = {
     name?: string;
     avatar?: string;
@@ -107,4 +116,22 @@ declare namespace API {
     description?: string;
     type?: NoticeIconItemType;
   };
+
+  type RolePageParams = {
+    offset?: number;
+    limit?: number;
+    flag?: number;
+    name?: string;
+    code?: string;
+  }
+
+  type Role = {
+    id?: number;
+    name?: string;
+    code?: string;
+    description?: string;
+    status?: number;
+    create_time?: string;
+    update_time?: string;
+  }
 }
