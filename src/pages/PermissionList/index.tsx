@@ -1,4 +1,4 @@
-import { addRule, getRoleList, removeRule, updateRule } from '@/services/ant-design-pro/api';
+import { addRule, getPermissionList, removeRule, updateRule } from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
@@ -21,7 +21,7 @@ import UpdateForm from './components/UpdateForm';
  * @zh-CN 添加节点
  * @param fields
  */
-const handleAdd = async (fields: API.Role) => {
+const handleAdd = async (fields: API.Permission) => {
   const hide = message.loading('正在添加');
   try {
     await addRule({ ...fields });
@@ -66,7 +66,7 @@ const handleUpdate = async (fields: FormValueType) => {
  *
  * @param selectedRows
  */
-const handleRemove = async (selectedRows: API.Role[]) => {
+const handleRemove = async (selectedRows: API.Permission[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
   try {
@@ -83,7 +83,7 @@ const handleRemove = async (selectedRows: API.Role[]) => {
   }
 };
 
-const RoleList: React.FC = () => {
+const PermissionList: React.FC = () => {
   /**
    * @en-US Pop-up window of new window
    * @zh-CN 新建窗口的弹窗
@@ -98,8 +98,8 @@ const RoleList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
 
   const actionRef = useRef<ActionType | null>(null);
-  const [currentRow, setCurrentRow] = useState<API.Role>();
-  const [selectedRowsState, setSelectedRows] = useState<API.Role[]>([]);
+  const [currentRow, setCurrentRow] = useState<API.Permission>();
+  const [selectedRowsState, setSelectedRows] = useState<API.Permission[]>([]);
 
   /**
    * @en-US International configuration
@@ -107,12 +107,12 @@ const RoleList: React.FC = () => {
    * */
   const intl = useIntl();
 
-  const columns: ProColumns<API.Role>[] = [
+  const columns: ProColumns<API.Permission>[] = [
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.updateForm.roleName.nameLabel"
-          defaultMessage="Role name"
+          id="pages.searchTable.updateForm.permissionName.nameLabel"
+          defaultMessage="Permission name"
         />
       ),
       dataIndex: 'name',
@@ -242,7 +242,7 @@ const RoleList: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProTable<API.Role, API.PageParams>
+      <ProTable<API.Permission, API.PageParams>
         headerTitle={intl.formatMessage({
           id: 'pages.searchTable.title',
           defaultMessage: 'Enquiry form',
@@ -263,7 +263,7 @@ const RoleList: React.FC = () => {
             <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
           </Button>,
         ]}
-        request={getRoleList}
+        request={getPermissionList}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {
@@ -312,14 +312,14 @@ const RoleList: React.FC = () => {
       )}
       <ModalForm
         title={intl.formatMessage({
-          id: 'pages.searchTable.createForm.newRole',
-          defaultMessage: 'New role',
+          id: 'pages.searchTable.createForm.newPermission',
+          defaultMessage: 'New permission',
         })}
         width="400px"
         open={createModalOpen}
         onOpenChange={handleModalOpen}
         onFinish={async (value) => {
-          const success = await handleAdd(value as API.Role);
+          const success = await handleAdd(value as API.Permission);
           if (success) {
             handleModalOpen(false);
             if (actionRef.current) {
@@ -334,8 +334,8 @@ const RoleList: React.FC = () => {
               required: true,
               message: (
                 <FormattedMessage
-                  id="pages.searchTable.roleName"
-                  defaultMessage="Role name is required"
+                  id="pages.searchTable.permissionName"
+                  defaultMessage="Permission name is required"
                 />
               ),
             },
@@ -376,7 +376,7 @@ const RoleList: React.FC = () => {
         closable={false}
       >
         {currentRow?.name && (
-          <ProDescriptions<API.Role>
+          <ProDescriptions<API.Permission>
             column={2}
             title={currentRow?.name}
             request={async () => ({
@@ -385,7 +385,7 @@ const RoleList: React.FC = () => {
             params={{
               id: currentRow?.name,
             }}
-            columns={columns as ProDescriptionsItemProps<API.Role>[]}
+            columns={columns as ProDescriptionsItemProps<API.Permission>[]}
           />
         )}
       </Drawer>
@@ -393,4 +393,4 @@ const RoleList: React.FC = () => {
   );
 };
 
-export default RoleList;
+export default PermissionList;

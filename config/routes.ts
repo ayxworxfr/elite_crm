@@ -53,6 +53,13 @@ export default [
     component: './RoleList',
   },
   {
+    path: '/permission',
+    name: 'permission',
+    icon: 'crown',
+    access: 'canAdmin',
+    component: './PermissionList',
+  },
+  {
     name: 'list.table-list',
     icon: 'table',
     path: '/list',

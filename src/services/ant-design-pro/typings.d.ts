@@ -134,4 +134,25 @@ declare namespace API {
     create_time?: string;
     update_time?: string;
   }
+
+  type Permission = {
+    id?: number; 
+    name?: string;
+    code: string; 
+    description: string;
+    parentId: number;
+    type: number;
+    path: string;
+    method: string;
+    status: number;
+    createTime: string;
+    updateTime: string;
+  }
+
+  type PermissionPageParams = {
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    status?: number;
+  }
 }

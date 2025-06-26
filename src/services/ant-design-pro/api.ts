@@ -177,3 +177,48 @@ export async function getRoleList(
   };
 }
 
+
+/**
+ * 获取权限列表
+ */
+export async function getPermissionList(params: API.PermissionPageParams) {
+  return request<API.APIResult<API.Permission[]>>('/api/protected/permission/list', {
+    method: 'GET',
+    params: {
+      offset: (params.current! - 1) * params.pageSize!,
+      limit: params.pageSize,
+      keyword: params.keyword,
+      status: params.status,
+    },
+  });
+}
+
+/**
+ * 添加权限
+ */
+export async function addPermission(data: API.Permission) {
+  return request('/api/protected/permission/add', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 更新权限
+ */
+export async function updatePermission(data: API.Permission) {
+  return request(`/api/protected/permission/${data.ID}`, {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 删除权限
+ */
+export async function removePermission(params: { ids: number[] }) {
+  return request('/api/protected/permission/delete', {
+    method: 'DELETE',
+    params,
+  });
+}
