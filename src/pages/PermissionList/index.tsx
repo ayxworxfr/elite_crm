@@ -1,4 +1,4 @@
-import { addRule, getPermissionList, removeRule, updateRule } from '@/services/ant-design-pro/api';
+import { addPermission, getPermissionList, removePermission, updatePermission } from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
@@ -24,7 +24,7 @@ import UpdateForm from './components/UpdateForm';
 const handleAdd = async (fields: API.Permission) => {
   const hide = message.loading('正在添加');
   try {
-    await addRule({ ...fields });
+    await addPermission({ ...fields });
     hide();
     message.success('Added successfully');
     return true;
@@ -44,11 +44,7 @@ const handleAdd = async (fields: API.Permission) => {
 const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('Configuring');
   try {
-    await updateRule({
-      name: fields.name,
-      desc: fields.desc,
-      key: fields.key,
-    });
+    await updatePermission(fields);
     hide();
 
     message.success('Configuration is successful');
@@ -70,8 +66,8 @@ const handleRemove = async (selectedRows: API.Permission[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
   try {
-    await removeRule({
-      key: selectedRows.map((row) => row.code),
+    await removePermission({
+      ids: selectedRows.map((row) => row.id?row.id:0),
     });
     hide();
     message.success('Deleted successfully and will refresh soon');
@@ -247,7 +243,7 @@ const PermissionList: React.FC = () => {
           defaultMessage: 'Enquiry form',
         })}
         actionRef={actionRef}
-        rowKey="key"
+        rowKey="id"
         search={{
           labelWidth: 120,
         }}
@@ -342,7 +338,26 @@ const PermissionList: React.FC = () => {
           width="md"
           name="name"
         />
-        <ProFormTextArea width="md" name="desc" />
+        <ProFormTextArea width="md" name="description" placeholder={intl.formatMessage({
+            id: 'pages.searchTable.createDescription',
+            defaultMessage: 'Please enter a description'
+          }
+        )} />
+        <ProFormText
+          rules={[
+            {
+              required: true,
+              message: (
+                <FormattedMessage
+                  id="pages.searchTable.createCode"
+                  defaultMessage="Code is required"
+                />
+              ),
+            },
+          ]}
+          width="md"
+          name="code"
+        />
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {

@@ -1,5 +1,4 @@
 import {
-  ProFormDateTimePicker,
   ProFormRadio,
   ProFormSelect,
   ProFormText,
@@ -16,13 +15,13 @@ export type FormValueType = {
   type?: string;
   time?: string;
   frequency?: string;
-} & Partial<API.RuleListItem>;
+} & Partial<API.Role>;
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
   onSubmit: (values: FormValueType) => Promise<void>;
   updateModalOpen: boolean;
-  values: Partial<API.RuleListItem>;
+  values: Partial<API.Role>;
 };
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
@@ -43,8 +42,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             }}
             destroyOnHidden
             title={intl.formatMessage({
-              id: 'pages.searchTable.updateForm.ruleConfig',
-              defaultMessage: '规则配置',
+              id: 'pages.searchTable.updateForm.roleConfig',
+              defaultMessage: '角色配置',
             })}
             open={props.updateModalOpen}
             footer={submitter}
@@ -61,7 +60,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       <StepsForm.StepForm
         initialValues={{
           name: props.values.name,
-          desc: props.values.desc,
+          description: props.values.description,
         }}
         title={intl.formatMessage({
           id: 'pages.searchTable.updateForm.basicConfig',
@@ -71,8 +70,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <ProFormText
           name="name"
           label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleName.nameLabel',
-            defaultMessage: '规则名称',
+            id: 'pages.searchTable.updateForm.roleName.nameLabel',
+            defaultMessage: '角色名称',
           })}
           width="md"
           rules={[
@@ -80,31 +79,31 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
               required: true,
               message: (
                 <FormattedMessage
-                  id="pages.searchTable.updateForm.ruleName.nameRules"
-                  defaultMessage="请输入规则名称！"
+                  id="pages.searchTable.updateForm.roleName.nameroles"
+                  defaultMessage="请输入角色名称！"
                 />
               ),
             },
           ]}
         />
         <ProFormTextArea
-          name="desc"
+          name="description"
           width="md"
           label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleDesc.descLabel',
-            defaultMessage: '规则描述',
+            id: 'pages.searchTable.updateForm.roleDesc.descLabel',
+            defaultMessage: '角色描述',
           })}
           placeholder={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleDesc.descPlaceholder',
+            id: 'pages.searchTable.updateForm.roleDesc.descPlaceholder',
             defaultMessage: '请输入至少五个字符',
           })}
-          rules={[
+          roles={[
             {
               required: true,
               message: (
                 <FormattedMessage
-                  id="pages.searchTable.updateForm.ruleDesc.descRules"
-                  defaultMessage="请输入至少五个字符的规则描述！"
+                  id="pages.searchTable.updateForm.roleDesc.descroles"
+                  defaultMessage="请输入至少五个字符的角色描述！"
                 />
               ),
               min: 5,
@@ -118,8 +117,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: '0',
         }}
         title={intl.formatMessage({
-          id: 'pages.searchTable.updateForm.ruleProps.title',
-          defaultMessage: '配置规则属性',
+          id: 'pages.searchTable.updateForm.roleProps.title',
+          defaultMessage: '配置角色属性',
         })}
       >
         <ProFormSelect
@@ -138,72 +137,30 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           name="template"
           width="md"
           label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleProps.templateLabel',
-            defaultMessage: '规则模板',
+            id: 'pages.searchTable.updateForm.roleProps.templateLabel',
+            defaultMessage: '角色模板',
           })}
           valueEnum={{
-            0: '规则模板一',
-            1: '规则模板二',
+            0: '角色模板一',
+            1: '角色模板二',
           }}
         />
         <ProFormRadio.Group
-          name="type"
+          name="status"
           label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.ruleProps.typeLabel',
-            defaultMessage: '规则类型',
+            id: 'pages.searchTable.updateForm.roleProps.statusLabel',
+            defaultMessage: '角色状态',
           })}
           options={[
             {
-              value: '0',
-              label: '强',
-            },
-            {
               value: '1',
-              label: '弱',
+              label: '启用中',
             },
-          ]}
-        />
-      </StepsForm.StepForm>
-      <StepsForm.StepForm
-        initialValues={{
-          type: '1',
-          frequency: 'month',
-        }}
-        title={intl.formatMessage({
-          id: 'pages.searchTable.updateForm.schedulingPeriod.title',
-          defaultMessage: '设定调度周期',
-        })}
-      >
-        <ProFormDateTimePicker
-          name="time"
-          width="md"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.schedulingPeriod.timeLabel',
-            defaultMessage: '开始时间',
-          })}
-          rules={[
             {
-              required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.updateForm.schedulingPeriod.timeRules"
-                  defaultMessage="请选择开始时间！"
-                />
-              ),
+              value: '2',
+              label: '已禁用',
             },
           ]}
-        />
-        <ProFormSelect
-          name="frequency"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.object',
-            defaultMessage: '监控对象',
-          })}
-          width="md"
-          valueEnum={{
-            month: '月',
-            week: '周',
-          }}
         />
       </StepsForm.StepForm>
     </StepsForm>

@@ -138,15 +138,15 @@ declare namespace API {
   type Permission = {
     id?: number; 
     name?: string;
-    code: string; 
-    description: string;
-    parentId: number;
-    type: number;
-    path: string;
-    method: string;
-    status: number;
-    createTime: string;
-    updateTime: string;
+    code?: string; 
+    description?: string;
+    parent_id?: number;
+    type?: number;
+    path?: string;
+    method?: string;
+    status?: number;
+    create_time?: string;
+    update_time?: string;
   }
 
   type PermissionPageParams = {

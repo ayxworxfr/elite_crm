@@ -170,6 +170,35 @@ export async function getRoleList(
   };
 }
 
+/**
+ * 添加角色
+ */
+export async function addRole(data: API.Role) {
+  return request('/api/protected/role', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 更新角色
+ */
+export async function updateRole(data: API.Role) {
+  return request(`/api/protected/role`, {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 删除角色
+ */
+export async function removeRole(params: { ids: number[] }) {
+  return request('/api/protected/role', {
+    method: 'DELETE',
+    params,
+  });
+}
 
 /**
  * 获取权限列表
@@ -205,7 +234,7 @@ export async function getPermissionList(
  * 添加权限
  */
 export async function addPermission(data: API.Permission) {
-  return request('/api/protected/permission/add', {
+  return request('/api/protected/permission', {
     method: 'POST',
     data,
   });
@@ -215,7 +244,7 @@ export async function addPermission(data: API.Permission) {
  * 更新权限
  */
 export async function updatePermission(data: API.Permission) {
-  return request(`/api/protected/permission/${data.id}`, {
+  return request(`/api/protected/permission`, {
     method: 'PUT',
     data,
   });
@@ -225,7 +254,7 @@ export async function updatePermission(data: API.Permission) {
  * 删除权限
  */
 export async function removePermission(params: { ids: number[] }) {
-  return request('/api/protected/permission/delete', {
+  return request('/api/protected/permission', {
     method: 'DELETE',
     params,
   });
