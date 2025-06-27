@@ -164,16 +164,9 @@ export async function getRoleList(
     }
   );
 
-  if (!response) {
-    return {
-      total: 0,
-      data: []
-    }
-  }
-
   return {
     total: 100,
-    data: response.data,
+    data: response?.data,
   };
 }
 
@@ -181,16 +174,31 @@ export async function getRoleList(
 /**
  * 获取权限列表
  */
-export async function getPermissionList(params: API.PermissionPageParams) {
-  return request<API.APIResult<API.Permission[]>>('/api/protected/permission/list', {
-    method: 'GET',
-    params: {
-      offset: (params.current! - 1) * params.pageSize!,
-      limit: params.pageSize,
-      keyword: params.keyword,
-      status: params.status,
-    },
-  });
+export async function getPermissionList(
+  params: API.PageParams & { keyword?: string }
+): Promise<Partial<RequestData<API.Permission>>> {
+  const response = await handleRequest(
+    async () => {
+      return request<API.APIResult<API.Permission[]>>('/api/protected/permission/list', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: {
+          // 转换 ProTable 参数到 getRoleList 期望的参数
+          offset: (params.current! - 1) * params.pageSize!,
+          limit: params.pageSize,
+          // 添加其他需要的参数
+          ...params,
+        }
+      });
+    }
+  );
+
+  return {
+    total: 100,
+    data: response?.data,
+  };
 }
 
 /**
@@ -207,7 +215,7 @@ export async function addPermission(data: API.Permission) {
  * 更新权限
  */
 export async function updatePermission(data: API.Permission) {
-  return request(`/api/protected/permission/${data.ID}`, {
+  return request(`/api/protected/permission/${data.id}`, {
     method: 'PUT',
     data,
   });

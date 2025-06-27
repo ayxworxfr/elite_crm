@@ -51,7 +51,7 @@ export default {
   'pages.searchTable.nameStatus.running': '运行中',
   'pages.searchTable.nameStatus.online': '已上线',
   'pages.searchTable.nameStatus.abnormal': '异常',
-  'pages.searchTable.titleUpdatedAt': '上次调度时间',
+  'pages.searchTable.titleUpdatedAt': '上次更新时间',
   'pages.searchTable.exception': '请输入异常原因！',
   'pages.searchTable.titleOption': '操作',
   'pages.searchTable.config': '配置',
@@ -64,4 +64,11 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+  // crm_admin
+  'pages.searchTable.updateForm.permissionName.nameLabel': "权限名称",
+  'pages.searchTable.updateForm.roleName.nameLabel': "角色名称",
+  'pages.searchTable.updateForm.codeName.nameLabel': '编码',
+  'pages.searchTable.titleCode': '编码',
+  'pages.searchTable.titleMethod': '请求方法',
+  'pages.searchTable.titlePath': '请求路径',
 };

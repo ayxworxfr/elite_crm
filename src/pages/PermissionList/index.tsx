@@ -130,25 +130,24 @@ const PermissionList: React.FC = () => {
       },
     },
     {
+      title: <FormattedMessage id="pages.searchTable.titleCode" defaultMessage="Code" />,
+      dataIndex: 'code',
+      valueType: 'textarea',
+    },
+    {
       title: <FormattedMessage id="pages.searchTable.titleDesc" defaultMessage="Description" />,
       dataIndex: 'description',
       valueType: 'textarea',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleCallNo"
-          defaultMessage="Number of service calls"
-        />
-      ),
-      dataIndex: 'callNo',
-      sorter: true,
-      hideInForm: true,
-      renderText: (val: string) =>
-        `${val}${intl.formatMessage({
-          id: 'pages.searchTable.tenThousand',
-          defaultMessage: ' 万 ',
-        })}`,
+      title: <FormattedMessage id="pages.searchTable.titleMethod" defaultMessage="Method" />,
+      dataIndex: 'method',
+      valueType: 'textarea',
+    },
+    {
+      title: <FormattedMessage id="pages.searchTable.titlePath" defaultMessage="Path" />,
+      dataIndex: 'path',
+      valueType: 'textarea',
     },
     {
       title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status" />,
@@ -191,7 +190,7 @@ const PermissionList: React.FC = () => {
       title: (
         <FormattedMessage
           id="pages.searchTable.titleUpdatedAt"
-          defaultMessage="Last scheduled time"
+          defaultMessage="Last Updated time"
         />
       ),
       sorter: true,
@@ -313,7 +312,7 @@ const PermissionList: React.FC = () => {
       <ModalForm
         title={intl.formatMessage({
           id: 'pages.searchTable.createForm.newPermission',
-          defaultMessage: 'New permission',
+          defaultMessage: 'New rermission',
         })}
         width="400px"
         open={createModalOpen}
