@@ -2,6 +2,21 @@
 /* eslint-disable */
 
 declare namespace API {
+  type APIResult<T> = {
+    code: number;
+    data: T;
+    message: string;
+  };
+
+  type PageResult<T> = {
+    code: number;
+    data: {
+      total: number;
+      records: T[];
+    };
+    message: string;
+  };
+
   type CurrentUser = {
     name?: string;
     avatar?: string;
@@ -27,6 +42,9 @@ declare namespace API {
     status?: string;
     type?: string;
     currentAuthority?: string;
+    access_token?: string;
+    refresh_token?: string
+    expires_at?: number
   };
 
   type PageParams = {
@@ -98,4 +116,43 @@ declare namespace API {
     description?: string;
     type?: NoticeIconItemType;
   };
+
+  type RolePageParams = {
+    offset?: number;
+    limit?: number;
+    flag?: number;
+    name?: string;
+    code?: string;
+  }
+
+  type Role = {
+    id?: number;
+    name?: string;
+    code?: string;
+    description?: string;
+    status?: number;
+    create_time?: string;
+    update_time?: string;
+  }
+
+  type Permission = {
+    id?: number; 
+    name?: string;
+    code: string; 
+    description: string;
+    parentId: number;
+    type: number;
+    path: string;
+    method: string;
+    status: number;
+    createTime: string;
+    updateTime: string;
+  }
+
+  type PermissionPageParams = {
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    status?: number;
+  }
 }
