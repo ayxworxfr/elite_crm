@@ -30,6 +30,46 @@ request.interceptors.request.use((url, options) => {
   };
 });
 
+
+/**
+ * 创建通用分页查询函数
+ * @param apiPath - API路径
+ * @param transformParams - 参数转换函数
+ * @returns 分页查询函数
+ */
+export function createPageQuery<T, P extends object = {}>(
+  apiPath: string,
+  transformParams: (params: P & { current?: number; pageSize?: number }) => any = defaultTransformParams
+) {
+  return async (params: P & { current?: number; pageSize?: number }): Promise<Partial<RequestData<T>>> => {
+    try {
+      const response = await request(apiPath, {
+        method: 'GET',
+        params: transformParams(params),
+      });
+
+      return {
+        total: response?.data?.total || 0,
+        data: response?.data?.records || [],
+      };
+    } catch (error) {
+      return {
+        total: 0,
+        data: [],
+      };
+    }
+  };
+}
+
+/** 默认的参数转换函数 */
+function defaultTransformParams(params: { current?: number; pageSize?: number } & Record<string, any>) {
+  return {
+    offset: (params.current! - 1) * params.pageSize!,
+    limit: params.pageSize,
+    ...params,
+  };
+}
+
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
@@ -143,69 +183,48 @@ export async function removeRule(options?: { [key: string]: any }) {
   });
 }
 
-export async function getRoleList(
-  params: API.PageParams & { keyword?: string }
-): Promise<Partial<RequestData<API.Role>>> {
-  const response = await handleRequest(
-    async () => {
-      return request<API.APIResult<API.Role[]>>('/api/protected/role/list', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        params: {
-          // 转换 ProTable 参数到 getRoleList 期望的参数
-          offset: (params.current! - 1) * params.pageSize!,
-          limit: params.pageSize,
-          // 添加其他需要的参数
-          ...params,
-        }
-      });
-    }
-  );
+export const getRoleList = createPageQuery<API.Role>('/api/protected/role/list');
 
-  return {
-    total: 100,
-    data: response?.data,
-  };
+/**
+ * 添加角色
+ */
+export async function addRole(data: API.Role) {
+  return request('/api/protected/role', {
+    method: 'POST',
+    data,
+  });
 }
 
+/**
+ * 更新角色
+ */
+export async function updateRole(data: API.Role) {
+  return request(`/api/protected/role`, {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 删除角色
+ */
+export async function removeRole(params: { ids: number[] }) {
+  return request('/api/protected/role', {
+    method: 'DELETE',
+    data: params
+  });
+}
 
 /**
  * 获取权限列表
  */
-export async function getPermissionList(
-  params: API.PageParams & { keyword?: string }
-): Promise<Partial<RequestData<API.Permission>>> {
-  const response = await handleRequest(
-    async () => {
-      return request<API.APIResult<API.Permission[]>>('/api/protected/permission/list', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        params: {
-          // 转换 ProTable 参数到 getRoleList 期望的参数
-          offset: (params.current! - 1) * params.pageSize!,
-          limit: params.pageSize,
-          // 添加其他需要的参数
-          ...params,
-        }
-      });
-    }
-  );
-
-  return {
-    total: 100,
-    data: response?.data,
-  };
-}
+export const getPermissionList = createPageQuery<API.Permission>('/api/protected/permission/list');
 
 /**
  * 添加权限
  */
 export async function addPermission(data: API.Permission) {
-  return request('/api/protected/permission/add', {
+  return request('/api/protected/permission', {
     method: 'POST',
     data,
   });
@@ -215,7 +234,7 @@ export async function addPermission(data: API.Permission) {
  * 更新权限
  */
 export async function updatePermission(data: API.Permission) {
-  return request(`/api/protected/permission/${data.id}`, {
+  return request(`/api/protected/permission`, {
     method: 'PUT',
     data,
   });
@@ -225,8 +244,8 @@ export async function updatePermission(data: API.Permission) {
  * 删除权限
  */
 export async function removePermission(params: { ids: number[] }) {
-  return request('/api/protected/permission/delete', {
+  return request('/api/protected/permission', {
     method: 'DELETE',
-    params,
+    data: params
   });
 }
