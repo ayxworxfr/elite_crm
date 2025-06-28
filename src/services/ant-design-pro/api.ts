@@ -63,10 +63,16 @@ export function createPageQuery<T, P extends object = {}>(
 
 /** 默认的参数转换函数 */
 function defaultTransformParams(params: { current?: number; pageSize?: number } & Record<string, any>) {
+  let result: Record<string, any> = {}; // 将 result 的类型设置为 Record<string, any>
+  for (const key in params) {
+    if (key !== 'current' && key !== 'pageSize') {
+      result[key] = params[key];
+    }
+  }
   return {
     offset: (params.current! - 1) * params.pageSize!,
     limit: params.pageSize,
-    ...params,
+    ...result,
   };
 }
 
