@@ -3,6 +3,7 @@
 import { handleRequest } from '@/services/ant-design-pro/response_handler';
 import type { RequestData } from '@ant-design/pro-table/es';
 import { request as mockRequest } from '@umijs/max';
+import { List } from 'lodash';
 import { extend } from 'umi-request';
 
 const BASE_URL = 'http://localhost:8888';
@@ -219,6 +220,22 @@ export async function removeRole(params: { ids: number[] }) {
     method: 'DELETE',
     data: params
   });
+}
+
+
+export async function getRolePermissionList(
+  params: API.PageParams & { keyword?: string }
+): Promise<List<API.Permission>> {
+  const response = await handleRequest(
+    async () => {
+      return request<API.APIResult<API.Permission[]>>('/api/protected/role/permissions', {
+        method: 'GET',
+        params: defaultTransformParams(params)
+      });
+    }
+  );
+
+  return response?.data ?? [];
 }
 
 /**
