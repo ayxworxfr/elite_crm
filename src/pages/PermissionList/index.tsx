@@ -361,6 +361,7 @@ const PermissionList: React.FC = () => {
       </ModalForm>
       <UpdateForm
         onSubmit={async (value) => {
+          value.id = currentRow?.id;
           const success = await handleUpdate(value);
           if (success) {
             handleUpdateModalOpen(false);

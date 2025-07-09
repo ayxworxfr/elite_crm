@@ -225,7 +225,7 @@ export async function removeRole(params: { ids: number[] }) {
 
 export async function getRolePermissionList(
   params: API.PageParams & { keyword?: string }
-): Promise<List<API.Permission>> {
+): Promise<API.Permission[]> {
   const response = await handleRequest(
     async () => {
       return request<API.APIResult<API.Permission[]>>('/api/protected/role/permissions', {

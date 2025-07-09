@@ -1,4 +1,4 @@
-import { getRolePermissionList } from '@/services/ant-design-pro/api';
+import { getPermissionList, getRolePermissionList } from '@/services/ant-design-pro/api';
 import {
   ProFormRadio,
   ProFormSelect,
@@ -10,19 +10,8 @@ import { FormattedMessage, useIntl } from '@umijs/max';
 import { Modal } from 'antd';
 import React from 'react';
 
-// 模拟权限数据，实际中应该从接口获取等方式得到
-const permissionData = [
-  { id: 1, name: '权限一' },
-  { id: 2, name: '权限二' },
-  { id: 3, name: '权限三' },
-  { id: 4, name: '权限四' },
-];
-
 export type FormValueType = {
-  target?: string;
-  template?: string;
-  type?: string;
-  permissions?: number[];
+  permission_ids?: number[];
 } & Partial<API.Role>;
 
 export type UpdateFormProps = {
@@ -35,33 +24,30 @@ export type UpdateFormProps = {
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const intl = useIntl();
 
-
-  // 用于存储从接口获取到的权限数据
-  const [permissionData, setPermissionData] = React.useState<API.Permission[]>([]);
-
   // 用于标记权限数据是否正在加载
   const [loading, setLoading] = React.useState(false);
+  // 用于存储从接口获取到的权限数据
+  const [permissionData, setPermissionData] = React.useState<API.Permission[]>([]);
+  const [allPermissions, setAllPermissions] = React.useState<API.Permission[]>([]);
 
   // 在组件挂载时获取权限数据
   React.useEffect(() => {
-    const fetchPermissionData = async () => {
+    const fetchAllPermissions = async () => {
       setLoading(true);
       try {
         const params = {
-          pageSize: 100,
+          pageSize: 1000,
           current: 1,
-          role_id: props.values.id,
-          flags: 3,
         };
-        const result = await getRolePermissionList(params);
-        setPermissionData(Array.from(result)); // 转换为普通数组
+        const result = await getPermissionList(params);
+        setAllPermissions(result.data || []);
       } catch (error) {
-        console.error('获取权限数据失败', error);
+        console.error('获取权限列表失败', error);
       } finally {
         setLoading(false);
       }
     };
-    fetchPermissionData();
+    fetchAllPermissions();
   }, []);
 
   return (
@@ -98,6 +84,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       <StepsForm.StepForm
         initialValues={{
           name: props.values.name,
+          code: props.values.code,
           description: props.values.description,
         }}
         title={intl.formatMessage({
@@ -108,7 +95,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <ProFormText
           name="name"
           label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.roleName.nameLabel',
+            id: 'pages.searchTable.updateForm.role.nameLabel',
             defaultMessage: '角色名称',
           })}
           width="md"
@@ -117,7 +104,26 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
               required: true,
               message: (
                 <FormattedMessage
-                  id="pages.searchTable.updateForm.roleName.nameroles"
+                  id="pages.searchTable.updateForm.role.namePlaceholder"
+                  defaultMessage="请输入角色名称！"
+                />
+              ),
+            },
+          ]}
+        />
+        <ProFormText
+          name="code"
+          label={intl.formatMessage({
+            id: 'pages.searchTable.updateForm.role.codeLabel',
+            defaultMessage: '角色编码',
+          })}
+          width="md"
+          rules={[
+            {
+              required: true,
+              message: (
+                <FormattedMessage
+                  id="pages.searchTable.updateForm.role.codePlaceholder"
                   defaultMessage="请输入角色名称！"
                 />
               ),
@@ -151,38 +157,14 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       </StepsForm.StepForm>
       <StepsForm.StepForm
         initialValues={{
-          target: '0',
-          template: '0',
+          status: props.values.status,
+          permission_ids: props.values.permissions?.map((permission) => permission.id) || [],
         }}
         title={intl.formatMessage({
           id: 'pages.searchTable.updateForm.roleProps.title',
           defaultMessage: '配置角色属性',
         })}
       >
-        <ProFormSelect
-          name="target"
-          width="md"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.object',
-            defaultMessage: '监控对象',
-          })}
-          valueEnum={{
-            0: '表一',
-            1: '表二',
-          }}
-        />
-        <ProFormSelect
-          name="template"
-          width="md"
-          label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.roleProps.templateLabel',
-            defaultMessage: '角色模板',
-          })}
-          valueEnum={{
-            0: '角色模板一',
-            1: '角色模板二',
-          }}
-        />
         <ProFormRadio.Group
           name="status"
           label={intl.formatMessage({
@@ -191,17 +173,17 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           })}
           options={[
             {
-              value: '1',
+              value: 0,
               label: '启用中',
             },
             {
-              value: '2',
+              value: 1,
               label: '已禁用',
             },
           ]}
         />
         <ProFormSelect
-            name="permissions"
+            name="permission_ids"
             width="md"
             label={intl.formatMessage({
               id: 'pages.searchTable.updateForm.roleProps.permissionsLabel',
@@ -209,8 +191,26 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             })}
             disabled={loading}
             request={async () => {
-              return permissionData.map(({ id, name }) => ({ value: id, label: name }));
-            }}  
+              setLoading(true);
+              try {
+                const params = {
+                  pageSize: 1000,
+                  current: 1,
+                  role_id: props.values.id,
+                };
+                // 已经选择的列表
+                const result = await getRolePermissionList(params);
+                setPermissionData(result);
+                // 修改permission_ids
+                const ids = result.map((permission) => permission.id);
+
+              } catch (error) {
+                console.error('获取权限数据失败', error);
+              } finally {
+                setLoading(false);
+              }
+              return allPermissions.map(({ id, name }) => ({ value: id, label: name }));
+            }}
             mode="multiple" // 设置为多选模式
             placeholder={intl.formatMessage({
               id: 'pages.searchTable.updateForm.roleProps.permissionsPlaceholder',
