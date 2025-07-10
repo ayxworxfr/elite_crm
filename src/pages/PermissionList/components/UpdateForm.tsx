@@ -9,13 +9,7 @@ import { FormattedMessage, useIntl } from '@umijs/max';
 import { Modal } from 'antd';
 import React from 'react';
 
-export type FormValueType = {
-  target?: string;
-  template?: string;
-  type?: string;
-  time?: string;
-  frequency?: string;
-} & Partial<API.Permission>;
+export type FormValueType = {} & Partial<API.Permission>;
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
@@ -113,8 +107,11 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       </StepsForm.StepForm>
       <StepsForm.StepForm
         initialValues={{
-          target: '0',
-          template: '0',
+          method: props.values.method,
+          parent_id: props.values.parent_id,
+          type: props.values.type,
+          path: props.values.path,
+          status: props.values.status,
         }}
         title={intl.formatMessage({
           id: 'pages.searchTable.updateForm.permissionProps.title',
@@ -122,15 +119,18 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         })}
       >
         <ProFormSelect
-          name="target"
+          name="method"
           width="md"
           label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.object',
-            defaultMessage: '监控对象',
+            id: 'pages.searchTable.updateForm.permission.methodLabel',
+            defaultMessage: '请求方法',
           })}
           valueEnum={{
-            0: '表一',
-            1: '表二',
+            '*': '*',
+            GET: 'GET',
+            POST: 'POST',
+            PUT: 'PUT',
+            DELETE: 'DELETE',
           }}
         />
         <ProFormSelect
@@ -153,11 +153,11 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           })}
           options={[
             {
-              value: '1',
+              value: 0,
               label: '启用中',
             },
             {
-              value: '2',
+              value: 1,
               label: '已禁用',
             },
           ]}

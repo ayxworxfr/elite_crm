@@ -3,6 +3,7 @@
 import { handleRequest } from '@/services/ant-design-pro/response_handler';
 import type { RequestData } from '@ant-design/pro-table/es';
 import { request as mockRequest } from '@umijs/max';
+import { List } from 'lodash';
 import { extend } from 'umi-request';
 
 const BASE_URL = 'http://localhost:8888';
@@ -63,10 +64,16 @@ export function createPageQuery<T, P extends object = {}>(
 
 /** 默认的参数转换函数 */
 function defaultTransformParams(params: { current?: number; pageSize?: number } & Record<string, any>) {
+  let result: Record<string, any> = {}; // 将 result 的类型设置为 Record<string, any>
+  for (const key in params) {
+    if (key !== 'current' && key !== 'pageSize') {
+      result[key] = params[key];
+    }
+  }
   return {
     offset: (params.current! - 1) * params.pageSize!,
     limit: params.pageSize,
-    ...params,
+    ...result,
   };
 }
 
@@ -213,6 +220,22 @@ export async function removeRole(params: { ids: number[] }) {
     method: 'DELETE',
     data: params
   });
+}
+
+
+export async function getRolePermissionList(
+  params: API.PageParams & { keyword?: string }
+): Promise<API.Permission[]> {
+  const response = await handleRequest(
+    async () => {
+      return request<API.APIResult<API.Permission[]>>('/api/protected/role/permissions', {
+        method: 'GET',
+        params: defaultTransformParams(params)
+      });
+    }
+  );
+
+  return response?.data ?? [];
 }
 
 /**

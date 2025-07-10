@@ -133,6 +133,7 @@ declare namespace API {
     status?: number;
     create_time?: string;
     update_time?: string;
+    permissions?: Permission[];
   }
 
   type Permission = {
