@@ -9,8 +9,7 @@ import { FormattedMessage, useIntl } from '@umijs/max';
 import { Modal } from 'antd';
 import React from 'react';
 
-export type FormValueType = {
-} & Partial<API.Permission>;
+export type FormValueType = {} & Partial<API.Permission>;
 
 export type UpdateFormProps = {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
@@ -128,10 +127,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           })}
           valueEnum={{
             '*': '*',
-            'GET': 'GET',
-            'POST': 'POST',
-            'PUT': 'PUT',
-            'DELETE': 'DELETE',
+            GET: 'GET',
+            POST: 'POST',
+            PUT: 'PUT',
+            DELETE: 'DELETE',
           }}
         />
         <ProFormSelect

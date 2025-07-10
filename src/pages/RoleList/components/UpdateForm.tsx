@@ -1,4 +1,3 @@
-import { getPermissionList, getRolePermissionList } from '@/services/ant-design-pro/api';
 import {
   ProFormRadio,
   ProFormSelect,
@@ -9,6 +8,10 @@ import {
 import { FormattedMessage, useIntl } from '@umijs/max';
 import { Modal } from 'antd';
 import React from 'react';
+import {
+  getPermissionList,
+  getRolePermissionList,
+} from '@/services/ant-design-pro/api';
 
 export type FormValueType = {
   permission_ids?: number[];
@@ -27,8 +30,12 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   // 用于标记权限数据是否正在加载
   const [loading, setLoading] = React.useState(false);
   // 用于存储从接口获取到的权限数据
-  const [permissionData, setPermissionData] = React.useState<API.Permission[]>([]);
-  const [allPermissions, setAllPermissions] = React.useState<API.Permission[]>([]);
+  const [selectedPermissions, setSelectedPermissions] = React.useState<
+    number[]
+  >([]);
+  const [allPermissions, setAllPermissions] = React.useState<API.Permission[]>(
+    [],
+  );
 
   // 在组件挂载时获取权限数据
   React.useEffect(() => {
@@ -158,7 +165,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       <StepsForm.StepForm
         initialValues={{
           status: props.values.status,
-          permission_ids: props.values.permissions?.map((permission) => permission.id) || [],
+          permission_ids:
+            props.values.permissions?.map((permission) => permission.id) || [],
         }}
         title={intl.formatMessage({
           id: 'pages.searchTable.updateForm.roleProps.title',
@@ -183,50 +191,56 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           ]}
         />
         <ProFormSelect
-            name="permission_ids"
-            width="md"
-            label={intl.formatMessage({
-              id: 'pages.searchTable.updateForm.roleProps.permissionsLabel',
-              defaultMessage: '权限列表',
-            })}
-            disabled={loading}
-            request={async () => {
-              setLoading(true);
-              try {
-                const params = {
-                  pageSize: 1000,
-                  current: 1,
-                  role_id: props.values.id,
-                };
-                // 已经选择的列表
-                const result = await getRolePermissionList(params);
-                setPermissionData(result);
-                // 修改permission_ids
-                const ids = result.map((permission) => permission.id);
-
-              } catch (error) {
-                console.error('获取权限数据失败', error);
-              } finally {
-                setLoading(false);
-              }
-              return allPermissions.map(({ id, name }) => ({ value: id, label: name }));
-            }}
-            mode="multiple" // 设置为多选模式
-            placeholder={intl.formatMessage({
-              id: 'pages.searchTable.updateForm.roleProps.permissionsPlaceholder',
-              defaultMessage: '请选择权限',
-            })}
-            rules={[
-              {
-                required: true,
-                message: (intl.formatMessage({
-                    id: 'pages.searchTable.updateForm.roleProps.permissionsRequired',
-                    defaultMessage: '请至少选择一项权限！',
-                  })
-                ),
-              },
-            ]}
-          />
+          name="permission_ids"
+          width="md"
+          label={intl.formatMessage({
+            id: 'pages.searchTable.updateForm.roleProps.permissionsLabel',
+            defaultMessage: '权限列表',
+          })}
+          disabled={loading}
+          fieldProps={{
+            mode: 'multiple',
+            value: selectedPermissions,
+            onChange: (value) => setSelectedPermissions(value),
+          }}
+          request={async () => {
+            setLoading(true);
+            try {
+              const params = {
+                pageSize: 1000,
+                current: 1,
+                role_id: props.values.id,
+              };
+              // 已经选择的列表
+              const result = await getRolePermissionList(params);
+              // 修改permission_ids
+              const ids = result.map((permission) => permission.id || 0);
+              setSelectedPermissions(ids);
+            } catch (error) {
+              console.error('获取权限数据失败', error);
+            } finally {
+              setLoading(false);
+            }
+            return allPermissions.map(({ id, name }) => ({
+              value: id,
+              label: name,
+            }));
+          }}
+          mode="multiple" // 设置为多选模式
+          placeholder={intl.formatMessage({
+            id: 'pages.searchTable.updateForm.roleProps.permissionsPlaceholder',
+            defaultMessage: '请选择权限',
+          })}
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage({
+                id: 'pages.searchTable.updateForm.roleProps.permissionsRequired',
+                defaultMessage: '请至少选择一项权限！',
+              }),
+            },
+          ]}
+        />
       </StepsForm.StepForm>
     </StepsForm>
   );

@@ -1,6 +1,9 @@
-import { addPermission, getPermissionList, removePermission, updatePermission } from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
+import type {
+  ActionType,
+  ProColumns,
+  ProDescriptionsItemProps,
+} from '@ant-design/pro-components';
 import {
   FooterToolbar,
   ModalForm,
@@ -13,6 +16,12 @@ import {
 import { FormattedMessage, useIntl } from '@umijs/max';
 import { Button, Drawer, Input, message } from 'antd';
 import React, { useRef, useState } from 'react';
+import {
+  addPermission,
+  getPermissionList,
+  removePermission,
+  updatePermission,
+} from '@/services/ant-design-pro/api';
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 
@@ -67,7 +76,7 @@ const handleRemove = async (selectedRows: API.Permission[]) => {
   if (!selectedRows) return true;
   try {
     await removePermission({
-      ids: selectedRows.map((row) => row.id?row.id:0),
+      ids: selectedRows.map((row) => (row.id ? row.id : 0)),
     });
     hide();
     message.success('Deleted successfully and will refresh soon');
@@ -126,27 +135,52 @@ const PermissionList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleCode" defaultMessage="Code" />,
+      title: (
+        <FormattedMessage
+          id="pages.searchTable.titleCode"
+          defaultMessage="Code"
+        />
+      ),
       dataIndex: 'code',
       valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleDesc" defaultMessage="Description" />,
+      title: (
+        <FormattedMessage
+          id="pages.searchTable.titleDesc"
+          defaultMessage="Description"
+        />
+      ),
       dataIndex: 'description',
       valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleMethod" defaultMessage="Method" />,
+      title: (
+        <FormattedMessage
+          id="pages.searchTable.titleMethod"
+          defaultMessage="Method"
+        />
+      ),
       dataIndex: 'method',
       valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titlePath" defaultMessage="Path" />,
+      title: (
+        <FormattedMessage
+          id="pages.searchTable.titlePath"
+          defaultMessage="Path"
+        />
+      ),
       dataIndex: 'path',
       valueType: 'textarea',
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleStatus" defaultMessage="Status" />,
+      title: (
+        <FormattedMessage
+          id="pages.searchTable.titleStatus"
+          defaultMessage="Status"
+        />
+      ),
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
@@ -161,13 +195,19 @@ const PermissionList: React.FC = () => {
         },
         1: {
           text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.running" defaultMessage="Running" />
+            <FormattedMessage
+              id="pages.searchTable.nameStatus.running"
+              defaultMessage="Running"
+            />
           ),
           status: 'Processing',
         },
         2: {
           text: (
-            <FormattedMessage id="pages.searchTable.nameStatus.online" defaultMessage="Online" />
+            <FormattedMessage
+              id="pages.searchTable.nameStatus.online"
+              defaultMessage="Online"
+            />
           ),
           status: 'Success',
         },
@@ -212,7 +252,12 @@ const PermissionList: React.FC = () => {
       },
     },
     {
-      title: <FormattedMessage id="pages.searchTable.titleOption" defaultMessage="Operating" />,
+      title: (
+        <FormattedMessage
+          id="pages.searchTable.titleOption"
+          defaultMessage="Operating"
+        />
+      ),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
@@ -223,7 +268,10 @@ const PermissionList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="pages.searchTable.config" defaultMessage="Configuration" />
+          <FormattedMessage
+            id="pages.searchTable.config"
+            defaultMessage="Configuration"
+          />
         </a>,
         <a key="subscribeAlert" href="https://procomponents.ant.design/">
           <FormattedMessage
@@ -255,7 +303,8 @@ const PermissionList: React.FC = () => {
               handleModalOpen(true);
             }}
           >
-            <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
+            <PlusOutlined />{' '}
+            <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
           </Button>,
         ]}
         request={getPermissionList}
@@ -270,9 +319,15 @@ const PermissionList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage id="pages.searchTable.chosen" defaultMessage="Chosen" />{' '}
+              <FormattedMessage
+                id="pages.searchTable.chosen"
+                defaultMessage="Chosen"
+              />{' '}
               <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
-              <FormattedMessage id="pages.searchTable.item" defaultMessage="项" />
+              <FormattedMessage
+                id="pages.searchTable.item"
+                defaultMessage="项"
+              />
               &nbsp;&nbsp;
               <span>
                 <FormattedMessage
@@ -280,7 +335,10 @@ const PermissionList: React.FC = () => {
                   defaultMessage="Total number of service calls"
                 />{' '}
                 {selectedRowsState.reduce((pre, item) => pre + item.id!, 0)}{' '}
-                <FormattedMessage id="pages.searchTable.tenThousand" defaultMessage="万" />
+                <FormattedMessage
+                  id="pages.searchTable.tenThousand"
+                  defaultMessage="万"
+                />
               </span>
             </div>
           }
@@ -338,11 +396,14 @@ const PermissionList: React.FC = () => {
           width="md"
           name="name"
         />
-        <ProFormTextArea width="md" name="description" placeholder={intl.formatMessage({
+        <ProFormTextArea
+          width="md"
+          name="description"
+          placeholder={intl.formatMessage({
             id: 'pages.searchTable.createDescription',
-            defaultMessage: 'Please enter a description'
-          }
-        )} />
+            defaultMessage: 'Please enter a description',
+          })}
+        />
         <ProFormText
           rules={[
             {
