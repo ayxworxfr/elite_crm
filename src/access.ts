@@ -6,6 +6,6 @@ export default function access(
 ) {
   const { currentUser } = initialState ?? {};
   return {
-    canAdmin: currentUser && currentUser.access === 'crm_admin',
+    canAdmin: currentUser && currentUser.access === 'sys_admin',
   };
 }
