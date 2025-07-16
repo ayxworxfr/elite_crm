@@ -1,4 +1,8 @@
 import {
+  getPermissionList,
+  getRolePermissionList,
+} from '@/services/ant-design-pro/api';
+import {
   ProFormRadio,
   ProFormSelect,
   ProFormText,
@@ -8,10 +12,6 @@ import {
 import { FormattedMessage, useIntl } from '@umijs/max';
 import { Modal } from 'antd';
 import React from 'react';
-import {
-  getPermissionList,
-  getRolePermissionList,
-} from '@/services/ant-design-pro/api';
 
 export type FormValueType = {
   permission_ids?: number[];
@@ -182,11 +182,11 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           options={[
             {
               value: 0,
-              label: '启用中',
+              label: '已禁用',
             },
             {
               value: 1,
-              label: '已禁用',
+              label: '启用中',
             },
           ]}
         />

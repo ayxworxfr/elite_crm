@@ -154,11 +154,11 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           options={[
             {
               value: 0,
-              label: '启用中',
+              label: '已禁用',
             },
             {
               value: 1,
-              label: '已禁用',
+              label: '启用中',
             },
           ]}
         />
