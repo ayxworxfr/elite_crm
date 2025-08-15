@@ -1,0 +1,17 @@
+http://localhost:8080 {
+    reverse_proxy /api/* {
+        to https://crm.heron-sense.com
+        lb_policy round_robin
+	header_up Host crm.heron-sense.com
+    }
+
+    reverse_proxy /* localhost:8000
+}
+
+http://localhost:8888 {
+    reverse_proxy /* {
+        to https://crm.heron-sense.com
+        lb_policy round_robin
+	header_up Host crm.heron-sense.com
+    }
+}

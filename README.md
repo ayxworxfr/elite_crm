@@ -129,6 +129,8 @@ Modern browsers.
 
 ## Contributing
 
+caddy run --config ~/Caddy/Caddyfile
+
 Any type of contribution is welcome, here are some examples of how you may contribute to this project:
 
 - Use Ant Design Pro in your daily work.
