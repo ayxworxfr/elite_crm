@@ -134,8 +134,8 @@ const Login: React.FC = () => {
     try {
       // 登录
       const rsp = await login({ ...values, type });
-      const msg = rsp?.data ?? {};
-      if (msg.status === 'ok') {
+      
+      if (rsp && rsp.code === 100000) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
           defaultMessage: '登录成功！',
@@ -145,10 +145,15 @@ const Login: React.FC = () => {
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
         return;
+      } else {
+        // 登录失败
+        const errorMessage = rsp?.message || '登录失败，请重试！';
+        message.error(errorMessage);
+        setUserLoginState({
+          status: 'error',
+          type: type as string,
+        });
       }
-      console.log(msg);
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
@@ -156,6 +161,10 @@ const Login: React.FC = () => {
       });
       console.log(error);
       message.error(defaultLoginFailureMessage);
+      setUserLoginState({
+        status: 'error',
+        type: type as string,
+      });
     }
   };
   const { status, type: loginType } = userLoginState;
@@ -184,10 +193,8 @@ const Login: React.FC = () => {
             maxWidth: '75vw',
           }}
           logo={<img alt="logo" src="/logo.svg" />}
-          title="Ant Design"
-          subTitle={intl.formatMessage({
-            id: 'pages.layouts.userLayout.title',
-          })}
+          title="Elite CRM"
+          subTitle="客户关系管理系统"
           initialValues={{
             autoLogin: true,
           }}

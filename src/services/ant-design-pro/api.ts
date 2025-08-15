@@ -6,7 +6,10 @@ import { request as mockRequest } from '@umijs/max';
 import { List } from 'lodash';
 import { extend } from 'umi-request';
 
-const BASE_URL = 'http://localhost:8888';
+// 根据环境设置不同的API地址
+const BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://crm.heron-sense.com' 
+  : 'http://localhost:8888';
 
 const request = extend({
   prefix: BASE_URL, // 设置基础 URL
