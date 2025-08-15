@@ -10,7 +10,7 @@ export default async () => {
     ...config,
     testEnvironmentOptions: {
       ...(config?.testEnvironmentOptions || {}),
-      url: 'http://localhost:8000',
+      url: 'https://crm.heron-sense.com',
     },
     setupFiles: [...(config.setupFiles || []), './tests/setupTests.jsx'],
     globals: {
