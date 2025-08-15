@@ -272,3 +272,38 @@ export async function removePermission(params: { ids: number[] }) {
     data: params
   });
 }
+
+/**
+ * 获取客户列表
+ */
+export const getCustomerList = createPageQuery<API.Customer>('/api/protected/customer/list');
+
+/**
+ * 添加客户
+ */
+export async function addCustomer(data: API.CreateCustomerRequest): Promise<API.APIResult<any>> {
+  return request('/api/protected/customer', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 更新客户
+ */
+export async function updateCustomer(data: API.UpdateCustomerRequest): Promise<API.APIResult<any>> {
+  return request(`/api/protected/customer`, {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 删除客户
+ */
+export async function removeCustomer(params: { ids: number[] }) {
+  return request('/api/protected/customer', {
+    method: 'DELETE',
+    data: params
+  });
+}

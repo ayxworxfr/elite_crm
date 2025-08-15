@@ -156,4 +156,97 @@ declare namespace API {
     keyword?: string;
     status?: number;
   }
+
+  type Customer = {
+    customer_id?: number;
+    customer_name?: string;
+    customer_type?: string;
+    industry?: string;
+    scale?: string;
+    website?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
+    description?: string;
+    source_id?: number;
+    owner_id?: number;
+    owner?: {
+      id?: number;
+      username?: string;
+      email?: string;
+      phone?: string;
+      avatar_url?: string;
+      department?: any;
+      roles?: any;
+      status?: number;
+      create_time?: string;
+      update_time?: string;
+      last_login_time?: string;
+    };
+    status?: number;
+    create_by?: {
+      id?: number;
+      username?: string;
+      email?: string;
+      phone?: string;
+      avatar_url?: string;
+      department?: any;
+      roles?: any;
+      status?: number;
+      create_time?: string;
+      update_time?: string;
+      last_login_time?: string;
+    };
+    create_time?: string;
+    update_time?: string;
+  }
+
+  type CreateCustomerRequest = {
+    customer_name: string;
+    customer_type: string;
+    industry?: string;
+    scale?: string;
+    website?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
+    description?: string;
+    source_id?: number | undefined;
+    owner_id: number;
+    tag_ids?: number[];
+  }
+
+  type UpdateCustomerRequest = {
+    id: number;
+    customer_name?: string;
+    customer_type?: string;
+    industry?: string;
+    scale?: string;
+    website?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
+    description?: string;
+    source_id?: number | null;
+    owner_id?: number | null;
+    tag_ids?: number[] | null;
+    status?: number;
+  }
+
+  type CustomerPageParams = {
+    current?: number;
+    pageSize?: number;
+    keyword?: string;
+    customer_name?: string;
+    customer_type?: string;
+    industry?: string;
+    scale?: string;
+    website?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
+    status?: number;
+    create_time_start?: string;
+    create_time_end?: string;
+  }
 }

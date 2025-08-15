@@ -29,6 +29,74 @@ export default [
     component: './Welcome',
   },
   {
+    path: '/dashboard',
+    name: 'dashboard',
+    icon: 'dashboard',
+    routes: [
+      {
+        path: '/dashboard',
+        redirect: '/dashboard/analysis',
+      },
+      {
+        path: '/dashboard/analysis',
+        name: 'dashboard.analysis',
+        icon: 'lineChart',
+        component: './Welcome',
+      },
+      {
+        path: '/dashboard/workplace',
+        name: 'dashboard.workplace',
+        icon: 'appstore',
+        component: './Welcome',
+      },
+    ],
+  },
+  {
+    path: '/crm',
+    name: 'crm',
+    icon: 'team',
+    routes: [
+      {
+        path: '/crm/client',
+        name: 'client',
+        icon: 'user',
+        component: './client',
+      },
+      {
+        path: '/crm/import',
+        name: 'import',
+        icon: 'import',
+        component: './contact',
+      },
+    ],
+  },
+  {
+    path: '/system',
+    name: 'system',
+    icon: 'setting',
+    access: 'canAdmin',
+    routes: [
+      {
+        path: '/system/user',
+        name: 'user',
+        icon: 'user',
+        component: './TableList',
+      },
+      {
+        path: '/system/role',
+        name: 'role',
+        icon: 'crown',
+        component: './RoleList',
+      },
+      {
+        path: '/system/permission',
+        name: 'permission',
+        icon: 'safety',
+        component: './PermissionList',
+      },
+    ],
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',
@@ -44,20 +112,6 @@ export default [
         component: './Admin',
       },
     ],
-  },
-  {
-    path: '/role',
-    name: 'role',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './RoleList',
-  },
-  {
-    path: '/permission',
-    name: 'permission',
-    icon: 'crown',
-    access: 'canAdmin',
-    component: './PermissionList',
   },
   {
     name: 'list.table-list',
