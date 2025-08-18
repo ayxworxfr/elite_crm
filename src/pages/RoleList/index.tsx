@@ -25,69 +25,6 @@ import {
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 
-/**
- * @en-US Add node
- * @zh-CN 添加节点
- * @param fields
- */
-const handleAdd = async (fields: API.Role) => {
-  const hide = message.loading('正在添加');
-  try {
-    await addRole({ ...fields });
-    hide();
-    message.success('Added successfully');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Adding failed, please try again!');
-    return false;
-  }
-};
-
-/**
- * @en-US Update node
- * @zh-CN 更新节点
- *
- * @param fields
- */
-const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('Configuring');
-  try {
-    await updateRole(fields);
-    hide();
-
-    message.success('Configuration is successful');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Configuration failed, please try again!');
-    return false;
-  }
-};
-
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.Role[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await removeRole({
-      ids: selectedRows.map((row) => (row.id ? row.id : 0)),
-    });
-    hide();
-    message.success('Deleted successfully and will refresh soon');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Delete failed, please try again');
-    return false;
-  }
-};
-
 const RoleList: React.FC = () => {
   /**
    * @en-US Pop-up window of new window
@@ -112,14 +49,72 @@ const RoleList: React.FC = () => {
    * */
   const intl = useIntl();
 
+  /**
+   * @en-US Add node
+   * @zh-CN 添加节点
+   * @param fields
+   */
+  const handleAdd = async (fields: API.Role) => {
+    const hide = message.loading(intl.formatMessage({ id: 'pages.role.message.adding' }));
+    try {
+      await addRole({ ...fields });
+      hide();
+      message.success(intl.formatMessage({ id: 'pages.role.message.addSuccess' }));
+      return true;
+    } catch (error) {
+      hide();
+      message.error(intl.formatMessage({ id: 'pages.role.message.addFailed' }));
+      return false;
+    }
+  };
+
+  /**
+   * @en-US Update node
+   * @zh-CN 更新节点
+   *
+   * @param fields
+   */
+  const handleUpdate = async (fields: FormValueType) => {
+    const hide = message.loading(intl.formatMessage({ id: 'pages.role.message.updating' }));
+    try {
+      await updateRole(fields);
+      hide();
+
+      message.success(intl.formatMessage({ id: 'pages.role.message.updateSuccess' }));
+      return true;
+    } catch (error) {
+      hide();
+      message.error(intl.formatMessage({ id: 'pages.role.message.updateFailed' }));
+      return false;
+    }
+  };
+
+  /**
+   *  Delete node
+   * @zh-CN 删除节点
+   *
+   * @param selectedRows
+   */
+  const handleRemove = async (selectedRows: API.Role[]) => {
+    const hide = message.loading(intl.formatMessage({ id: 'pages.role.message.deleting' }));
+    if (!selectedRows) return true;
+    try {
+      await removeRole({
+        ids: selectedRows.map((row) => (row.id ? row.id : 0)),
+      });
+      hide();
+      message.success(intl.formatMessage({ id: 'pages.role.message.deleteSuccess' }));
+      return true;
+    } catch (error) {
+      hide();
+      message.error(intl.formatMessage({ id: 'pages.role.message.deleteFailed' }));
+      return false;
+    }
+  };
+
   const columns: ProColumns<API.Role>[] = [
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.updateForm.roleName.nameLabel"
-          defaultMessage="Role name"
-        />
-      ),
+      title: intl.formatMessage({ id: 'common.field.name' }),
       dataIndex: 'name',
       render: (dom, entity) => {
         return (
@@ -135,80 +130,26 @@ const RoleList: React.FC = () => {
       },
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleCode"
-          defaultMessage="Code"
-        />
-      ),
+      title: intl.formatMessage({ id: 'common.field.code' }),
       dataIndex: 'code',
       valueType: 'textarea',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleDesc"
-          defaultMessage="Description"
-        />
-      ),
+      title: intl.formatMessage({ id: 'common.field.description' }),
       dataIndex: 'description',
       valueType: 'textarea',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleStatus"
-          defaultMessage="Status"
-        />
-      ),
+      title: intl.formatMessage({ id: 'common.field.status' }),
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
-        0: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.default"
-              defaultMessage="Shut down"
-            />
-          ),
-          status: 'Default',
-        },
-        1: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.running"
-              defaultMessage="Running"
-            />
-          ),
-          status: 'Processing',
-        },
-        2: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.online"
-              defaultMessage="Online"
-            />
-          ),
-          status: 'Success',
-        },
-        3: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.abnormal"
-              defaultMessage="Abnormal"
-            />
-          ),
-          status: 'Error',
-        },
+        0: { text: intl.formatMessage({ id: 'common.status.disabled' }), status: 'Default' },
+        1: { text: intl.formatMessage({ id: 'common.status.enabled' }), status: 'Success' },
       },
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleUpdatedAt"
-          defaultMessage="Last Updated time"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.searchTable.titleUpdatedAt' }),
       sorter: true,
       dataIndex: 'update_time',
       valueType: 'dateTime',
@@ -223,7 +164,6 @@ const RoleList: React.FC = () => {
               {...rest}
               placeholder={intl.formatMessage({
                 id: 'pages.searchTable.exception',
-                defaultMessage: 'Please enter the reason for the exception!',
               })}
             />
           );
@@ -232,32 +172,21 @@ const RoleList: React.FC = () => {
       },
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleOption"
-          defaultMessage="Operating"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.searchTable.titleOption' }),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
         <a
-          key="config"
+          key="edit"
           onClick={() => {
             handleUpdateModalOpen(true);
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage
-            id="pages.searchTable.config"
-            defaultMessage="Configuration"
-          />
+          {intl.formatMessage({ id: 'common.action.edit' })}
         </a>,
-        <a key="subscribeAlert" href="https://procomponents.ant.design/">
-          <FormattedMessage
-            id="pages.searchTable.subscribeAlert"
-            defaultMessage="Subscribe to alerts"
-          />
+        <a key="delete" onClick={() => handleRemove([record])}>
+          {intl.formatMessage({ id: 'common.action.delete' })}
         </a>,
       ],
     },
@@ -266,10 +195,7 @@ const RoleList: React.FC = () => {
   return (
     <PageContainer>
       <ProTable<API.Role, API.PageParams>
-        headerTitle={intl.formatMessage({
-          id: 'pages.searchTable.title',
-          defaultMessage: 'Enquiry form',
-        })}
+        headerTitle={intl.formatMessage({ id: 'pages.role.list.title' })}
         actionRef={actionRef}
         rowKey="id"
         search={{
@@ -284,7 +210,7 @@ const RoleList: React.FC = () => {
             }}
           >
             <PlusOutlined />{' '}
-            <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
+            {intl.formatMessage({ id: 'pages.role.create.title' })}
           </Button>,
         ]}
         request={getRoleList}
@@ -310,15 +236,7 @@ const RoleList: React.FC = () => {
               />
               &nbsp;&nbsp;
               <span>
-                <FormattedMessage
-                  id="pages.searchTable.totalServiceCalls"
-                  defaultMessage="Total number of service calls"
-                />{' '}
-                {selectedRowsState.reduce((pre, item) => pre + item.id!, 0)}{' '}
-                <FormattedMessage
-                  id="pages.searchTable.tenThousand"
-                  defaultMessage="万"
-                />
+                {intl.formatMessage({ id: 'common.count.selected' })} {selectedRowsState.length} {intl.formatMessage({ id: 'common.count.items' })}
               </span>
             </div>
           }
@@ -330,24 +248,12 @@ const RoleList: React.FC = () => {
               actionRef.current?.reloadAndRest?.();
             }}
           >
-            <FormattedMessage
-              id="pages.searchTable.batchDeletion"
-              defaultMessage="Batch deletion"
-            />
-          </Button>
-          <Button type="primary">
-            <FormattedMessage
-              id="pages.searchTable.batchApproval"
-              defaultMessage="Batch approval"
-            />
+            {intl.formatMessage({ id: 'common.action.batchDelete' })}
           </Button>
         </FooterToolbar>
       )}
       <ModalForm
-        title={intl.formatMessage({
-          id: 'pages.searchTable.createForm.newRole',
-          defaultMessage: 'New role',
-        })}
+        title={intl.formatMessage({ id: 'pages.role.create.title' })}
         width="400px"
         open={createModalOpen}
         onOpenChange={handleModalOpen}
@@ -362,42 +268,48 @@ const RoleList: React.FC = () => {
         }}
       >
         <ProFormText
+          label={intl.formatMessage({ id: 'pages.role.field.name' })}
           rules={[
             {
               required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.roleName"
-                  defaultMessage="Role name is required"
-                />
-              ),
+              message: intl.formatMessage({ id: 'pages.role.validation.nameRequired' }),
+            },
+            {
+              max: 50,
+              message: intl.formatMessage({ id: 'pages.role.validation.nameMax' }),
             },
           ]}
           width="md"
           name="name"
-        />
-        <ProFormTextArea
-          width="md"
-          name="description"
-          placeholder={intl.formatMessage({
-            id: 'pages.searchTable.createDescription',
-            defaultMessage: 'Please enter a description',
-          })}
+          placeholder={intl.formatMessage({ id: 'pages.role.placeholder.name' })}
         />
         <ProFormText
+          label={intl.formatMessage({ id: 'pages.role.field.code' })}
           rules={[
             {
               required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.createCode"
-                  defaultMessage="Code is required"
-                />
-              ),
+              message: intl.formatMessage({ id: 'pages.role.validation.codeRequired' }),
+            },
+            {
+              max: 50,
+              message: intl.formatMessage({ id: 'pages.role.validation.codeMax' }),
             },
           ]}
           width="md"
           name="code"
+          placeholder={intl.formatMessage({ id: 'pages.role.placeholder.code' })}
+        />
+        <ProFormTextArea
+          label={intl.formatMessage({ id: 'pages.role.field.description' })}
+          width="md"
+          name="description"
+          placeholder={intl.formatMessage({ id: 'pages.role.placeholder.description' })}
+          rules={[
+            {
+              max: 200,
+              message: intl.formatMessage({ id: 'pages.role.validation.descriptionMax' }),
+            },
+          ]}
         />
       </ModalForm>
       <UpdateForm

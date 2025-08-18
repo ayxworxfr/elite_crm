@@ -180,14 +180,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             defaultMessage: '角色状态',
           })}
           options={[
-            {
-              value: 0,
-              label: '已禁用',
-            },
-            {
-              value: 1,
-              label: '启用中',
-            },
+            { value: 0, label: intl.formatMessage({ id: 'common.status.disabled' }) },
+            { value: 1, label: intl.formatMessage({ id: 'common.status.enabled' }) },
           ]}
         />
         <ProFormSelect

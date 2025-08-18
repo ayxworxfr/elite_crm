@@ -1,0 +1,101 @@
+export default {
+  // Ações Comuns
+  'common.action.cancel': 'Cancelar',
+  'common.action.confirm': 'Confirmar',
+  'common.action.back': 'Voltar',
+  'common.action.refresh': 'Atualizar',
+  'common.action.search': 'Pesquisar',
+  'common.action.reset': 'Redefinir',
+  'common.action.export': 'Exportar',
+  'common.action.import': 'Importar',
+  'common.action.batchDelete': 'Exclusão em Lote',
+  'common.action.batchUpdate': 'Atualização em Lote',
+  'common.action.batchExport': 'Exportação em Lote',
+
+  // Rótulos de Campos Comuns
+  'common.field.name': 'Nome',
+  'common.field.code': 'Código',
+  'common.field.description': 'Descrição',
+  'common.field.status': 'Status',
+  'common.field.createTime': 'Tempo de Criação',
+  'common.field.updateTime': 'Tempo de Atualização',
+  'common.field.creator': 'Criador',
+  'common.field.updater': 'Atualizador',
+  'common.field.remark': 'Observação',
+  'common.field.sort': 'Ordenação',
+  'common.field.type': 'Tipo',
+  'common.field.category': 'Categoria',
+
+  // Placeholders Comuns
+  'common.placeholder.name': 'Por favor, insira o nome',
+  'common.placeholder.code': 'Por favor, insira o código',
+  'common.placeholder.description': 'Por favor, insira a descrição',
+  'common.placeholder.search': 'Por favor, insira palavras-chave de pesquisa',
+  'common.placeholder.select': 'Por favor, selecione',
+  'common.placeholder.date': 'Por favor, selecione a data',
+  'common.placeholder.time': 'Por favor, selecione o horário',
+
+  // Mensagens de Validação Comuns
+  'common.validation.required': 'Este campo é obrigatório',
+  'common.validation.nameRequired': 'Por favor, insira o nome',
+  'common.validation.codeRequired': 'Por favor, insira o código',
+  'common.validation.descriptionRequired': 'Por favor, insira a descrição',
+  'common.validation.nameMax': 'O nome não pode exceder 50 caracteres',
+  'common.validation.codeMax': 'O código não pode exceder 50 caracteres',
+  'common.validation.descriptionMax': 'A descrição não pode exceder 200 caracteres',
+  'common.validation.email': 'Por favor, insira o formato correto de email',
+  'common.validation.phone': 'Por favor, insira o formato correto de telefone',
+  'common.validation.url': 'Por favor, insira o formato correto de URL',
+
+  // Mensagens de Operação Comuns
+  'common.message.adding': 'Adicionando...',
+  'common.message.addSuccess': 'Adicionado com sucesso',
+  'common.message.addFailed': 'Falha ao adicionar, tente novamente',
+  'common.message.updating': 'Atualizando...',
+  'common.message.updateSuccess': 'Atualizado com sucesso',
+  'common.message.updateFailed': 'Falha ao atualizar, tente novamente',
+  'common.message.deleting': 'Excluindo...',
+  'common.message.deleteSuccess': 'Excluído com sucesso',
+  'common.message.deleteFailed': 'Falha ao excluir, tente novamente',
+  'common.message.loading': 'Carregando...',
+  'common.message.saving': 'Salvando...',
+  'common.message.exporting': 'Exportando...',
+  'common.message.importing': 'Importando...',
+  'common.message.deleteConfirm': 'Tem certeza de que deseja excluir este registro?',
+
+  // Dicas Comuns
+  'common.tip.confirmDelete': 'Tem certeza de que deseja excluir?',
+  'common.tip.confirmBatchDelete': 'Tem certeza de que deseja excluir em lote os itens selecionados?',
+  'common.tip.operationSuccess': 'Operação bem-sucedida',
+  'common.tip.operationFailed': 'Operação falhou',
+  'common.tip.noData': 'Nenhum dado disponível',
+  'common.tip.loading': 'Carregando...',
+  'common.tip.selectItems': 'Por favor, selecione os itens para operar',
+
+  // Contagem Comum
+  'common.count.selected': 'Selecionado',
+  'common.count.items': 'itens',
+  'common.count.total': 'Total',
+  'common.count.page': 'Página',
+  'common.count.records': 'registros',
+
+  // Tempo Comum
+  'common.time.today': 'Hoje',
+  'common.time.yesterday': 'Ontem',
+  'common.time.thisWeek': 'Esta Semana',
+  'common.time.lastWeek': 'Semana Passada',
+  'common.time.thisMonth': 'Este Mês',
+  'common.time.lastMonth': 'Mês Passado',
+  'common.time.thisYear': 'Este Ano',
+  'common.time.lastYear': 'Ano Passado',
+
+  // Botões Comuns
+  'common.button.submit': 'Enviar',
+  'common.button.reset': 'Redefinir',
+  'common.button.search': 'Pesquisar',
+  'common.button.advanced': 'Pesquisa Avançada',
+  'common.button.collapse': 'Recolher',
+  'common.button.expand': 'Expandir',
+  'common.button.more': 'Mais',
+  'common.button.less': 'Menos',
+};

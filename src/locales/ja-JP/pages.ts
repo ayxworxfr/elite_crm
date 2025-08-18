@@ -74,4 +74,89 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': 'バッチ削除',
   'pages.searchTable.batchApproval': 'バッチ承認',
+
+  // 営業機会管理モジュール
+  'pages.salesOpportunity.title': '営業機会管理',
+  'pages.salesOpportunity.list.title': '営業機会リスト',
+  'pages.salesOpportunity.create.title': '営業機会を作成',
+  'pages.salesOpportunity.edit.title': '営業機会を編集',
+  'pages.salesOpportunity.advance.title': '機会段階を推進',
+  'pages.salesOpportunity.activity.title': '機会活動を追加',
+  'pages.salesOpportunity.analytics.title': '営業分析',
+  
+  // フィールドラベル
+  'pages.salesOpportunity.field.opportunityName': '機会名',
+  'pages.salesOpportunity.field.customerId': '顧客ID',
+  'pages.salesOpportunity.field.ownerId': '担当者ID',
+  'pages.salesOpportunity.field.amount': '金額',
+  'pages.salesOpportunity.field.probability': '成功確率',
+  'pages.salesOpportunity.field.expectedCloseDate': '予想成約日',
+  'pages.salesOpportunity.field.status': 'ステータス',
+  'pages.salesOpportunity.field.stage': '段階',
+  'pages.salesOpportunity.field.sourceId': 'ソースID',
+  'pages.salesOpportunity.field.nextAction': '次のアクション',
+  'pages.salesOpportunity.field.nextActionDate': '次のアクション日',
+  'pages.salesOpportunity.field.description': '説明',
+  'pages.salesOpportunity.field.actionType': 'アクションタイプ',
+  'pages.salesOpportunity.field.actionDate': 'アクション日',
+
+  // 契約管理モジュール
+  'pages.contract.title': '契約管理',
+  'pages.contract.list.title': '契約リスト',
+  'pages.contract.create.title': '契約を作成',
+  'pages.contract.edit.title': '契約を編集',
+  'pages.contract.items.title': '契約項目',
+  'pages.contract.status.title': '契約ステータス',
+  
+  // フィールドラベル
+  'pages.contract.field.contractNo': '契約番号',
+  'pages.contract.field.contractName': '契約名',
+  'pages.contract.field.customerId': '顧客ID',
+  'pages.contract.field.opportunityId': '機会ID',
+  'pages.contract.field.ownerId': '担当者ID',
+  'pages.contract.field.amount': '契約金額',
+  'pages.contract.field.startDate': '開始日',
+  'pages.contract.field.endDate': '終了日',
+  'pages.contract.field.status': 'ステータス',
+  'pages.contract.field.signingDate': '署名日',
+  'pages.contract.field.contractType': '契約タイプ',
+  'pages.contract.field.paymentTerms': '支払い条件',
+  'pages.contract.field.description': '契約説明',
+  'pages.contract.field.fileUrl': 'ファイルURL',
+  
+  // 契約ステータス
+  'pages.contract.status.draft': '下書き',
+  'pages.contract.status.approval': '承認中',
+  'pages.contract.status.signed': '署名済み',
+  'pages.contract.status.terminated': '終了',
+  
+  // 契約タイプ
+  'pages.contract.type.sales': '販売契約',
+  'pages.contract.type.purchase': '購入契約',
+  'pages.contract.type.service': 'サービス契約',
+  'pages.contract.type.lease': 'リース契約',
+  
+  // 契約項目
+  'pages.contract.item.title': '契約項目',
+  'pages.contract.item.create.title': '契約項目を作成',
+  'pages.contract.item.edit.title': '契約項目を編集',
+  'pages.contract.item.field.itemName': '項目名',
+  'pages.contract.item.field.specification': '仕様',
+  'pages.contract.item.field.quantity': '数量',
+  'pages.contract.item.field.unitPrice': '単価',
+  'pages.contract.item.field.discount': '割引',
+  'pages.contract.item.field.amount': '金額',
+  
+  // 操作メッセージ
+  'pages.contract.message.creating': '契約を作成中...',
+  'pages.contract.message.createSuccess': '契約が正常に作成されました！',
+  'pages.contract.message.createFailed': '契約の作成に失敗しました。もう一度お試しください！',
+  'pages.contract.message.updating': '契約を更新中...',
+  'pages.contract.message.updateSuccess': '契約が正常に更新されました！',
+  'pages.contract.message.updateFailed': '契約の更新に失敗しました。もう一度お試しください！',
+  'pages.contract.message.deleting': '契約を削除中...',
+  'pages.contract.message.deleteSuccess': '契約が正常に削除されました！',
+  'pages.contract.message.deleteFailed': '契約の削除に失敗しました。もう一度お試しください！',
+  'pages.contract.message.statusUpdateSuccess': 'ステータスが正常に更新されました！',
+  'pages.contract.message.statusUpdateFailed': 'ステータスの更新に失敗しました。もう一度お試しください！',
 };

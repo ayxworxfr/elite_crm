@@ -49,4 +49,6 @@ export default {
   'menu.editor.flow': '流程編輯器',
   'menu.editor.mind': '腦圖編輯器',
   'menu.editor.koni': '拓撲編輯器',
+  'menu.sales-opportunity': '銷售機會管理',
+  'menu.contract': '合同管理',
 };

@@ -1,0 +1,101 @@
+export default {
+  // Aksi Umum
+  'common.action.cancel': 'Batal',
+  'common.action.confirm': 'Konfirmasi',
+  'common.action.back': 'Kembali',
+  'common.action.refresh': 'Segarkan',
+  'common.action.search': 'Cari',
+  'common.action.reset': 'Reset',
+  'common.action.export': 'Ekspor',
+  'common.action.import': 'Impor',
+  'common.action.batchDelete': 'Hapus Batch',
+  'common.action.batchUpdate': 'Update Batch',
+  'common.action.batchExport': 'Ekspor Batch',
+
+  // Label Field Umum
+  'common.field.name': 'Nama',
+  'common.field.code': 'Kode',
+  'common.field.description': 'Deskripsi',
+  'common.field.status': 'Status',
+  'common.field.createTime': 'Waktu Dibuat',
+  'common.field.updateTime': 'Waktu Diperbarui',
+  'common.field.creator': 'Pembuat',
+  'common.field.updater': 'Pembaruan',
+  'common.field.remark': 'Catatan',
+  'common.field.sort': 'Urutan',
+  'common.field.type': 'Jenis',
+  'common.field.category': 'Kategori',
+
+  // Placeholder Umum
+  'common.placeholder.name': 'Silakan masukkan nama',
+  'common.placeholder.code': 'Silakan masukkan kode',
+  'common.placeholder.description': 'Silakan masukkan deskripsi',
+  'common.placeholder.search': 'Silakan masukkan kata kunci pencarian',
+  'common.placeholder.select': 'Silakan pilih',
+  'common.placeholder.date': 'Silakan pilih tanggal',
+  'common.placeholder.time': 'Silakan pilih waktu',
+
+  // Pesan Validasi Umum
+  'common.validation.required': 'Bidang ini wajib diisi',
+  'common.validation.nameRequired': 'Silakan masukkan nama',
+  'common.validation.codeRequired': 'Silakan masukkan kode',
+  'common.validation.descriptionRequired': 'Silakan masukkan deskripsi',
+  'common.validation.nameMax': 'Nama tidak boleh melebihi 50 karakter',
+  'common.validation.codeMax': 'Kode tidak boleh melebihi 50 karakter',
+  'common.validation.descriptionMax': 'Deskripsi tidak boleh melebihi 200 karakter',
+  'common.validation.email': 'Silakan masukkan format email yang benar',
+  'common.validation.phone': 'Silakan masukkan format telepon yang benar',
+  'common.validation.url': 'Silakan masukkan format URL yang benar',
+
+  // Pesan Operasi Umum
+  'common.message.adding': 'Menambahkan...',
+  'common.message.addSuccess': 'Berhasil ditambahkan',
+  'common.message.addFailed': 'Gagal menambahkan, silakan coba lagi',
+  'common.message.updating': 'Memperbarui...',
+  'common.message.updateSuccess': 'Berhasil diperbarui',
+  'common.message.updateFailed': 'Gagal memperbarui, silakan coba lagi',
+  'common.message.deleting': 'Menghapus...',
+  'common.message.deleteSuccess': 'Berhasil dihapus',
+  'common.message.deleteFailed': 'Gagal menghapus, silakan coba lagi',
+  'common.message.loading': 'Memuat...',
+  'common.message.saving': 'Menyimpan...',
+  'common.message.exporting': 'Mengekspor...',
+  'common.message.importing': 'Mengimpor...',
+  'common.message.deleteConfirm': 'Apakah Anda yakin ingin menghapus catatan ini?',
+
+  // Tip Umum
+  'common.tip.confirmDelete': 'Apakah Anda yakin ingin menghapus?',
+  'common.tip.confirmBatchDelete': 'Apakah Anda yakin ingin menghapus batch item yang dipilih?',
+  'common.tip.operationSuccess': 'Operasi berhasil',
+  'common.tip.operationFailed': 'Operasi gagal',
+  'common.tip.noData': 'Tidak ada data tersedia',
+  'common.tip.loading': 'Memuat...',
+  'common.tip.selectItems': 'Silakan pilih item untuk dioperasikan',
+
+  // Hitungan Umum
+  'common.count.selected': 'Dipilih',
+  'common.count.items': 'item',
+  'common.count.total': 'Total',
+  'common.count.page': 'Halaman',
+  'common.count.records': 'catatan',
+
+  // Waktu Umum
+  'common.time.today': 'Hari Ini',
+  'common.time.yesterday': 'Kemarin',
+  'common.time.thisWeek': 'Minggu Ini',
+  'common.time.lastWeek': 'Minggu Lalu',
+  'common.time.thisMonth': 'Bulan Ini',
+  'common.time.lastMonth': 'Bulan Lalu',
+  'common.time.thisYear': 'Tahun Ini',
+  'common.time.lastYear': 'Tahun Lalu',
+
+  // Tombol Umum
+  'common.button.submit': 'Kirim',
+  'common.button.reset': 'Reset',
+  'common.button.search': 'Cari',
+  'common.button.advanced': 'Pencarian Lanjutan',
+  'common.button.collapse': 'Ciutkan',
+  'common.button.expand': 'Perluas',
+  'common.button.more': 'Lebih',
+  'common.button.less': 'Kurang',
+};
