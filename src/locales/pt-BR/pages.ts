@@ -74,4 +74,89 @@ export default {
   'pages.searchTable.tenThousand': '0000',
   'pages.searchTable.batchDeletion': 'deleção em lote',
   'pages.searchTable.batchApproval': 'aprovação em lote',
+
+  // Módulo de Gestão de Oportunidades de Vendas
+  'pages.salesOpportunity.title': 'Gestão de Oportunidades de Vendas',
+  'pages.salesOpportunity.list.title': 'Lista de Oportunidades de Vendas',
+  'pages.salesOpportunity.create.title': 'Criar Oportunidade de Venda',
+  'pages.salesOpportunity.edit.title': 'Editar Oportunidade de Venda',
+  'pages.salesOpportunity.advance.title': 'Avançar Estágio da Oportunidade',
+  'pages.salesOpportunity.activity.title': 'Adicionar Atividade da Oportunidade',
+  'pages.salesOpportunity.analytics.title': 'Análise de Vendas',
+  
+  // Rótulos de Campo
+  'pages.salesOpportunity.field.opportunityName': 'Nome da Oportunidade',
+  'pages.salesOpportunity.field.customerId': 'ID do Cliente',
+  'pages.salesOpportunity.field.ownerId': 'ID do Proprietário',
+  'pages.salesOpportunity.field.amount': 'Valor',
+  'pages.salesOpportunity.field.probability': 'Probabilidade',
+  'pages.salesOpportunity.field.expectedCloseDate': 'Data de Fechamento Esperada',
+  'pages.salesOpportunity.field.status': 'Status',
+  'pages.salesOpportunity.field.stage': 'Estágio',
+  'pages.salesOpportunity.field.sourceId': 'ID da Fonte',
+  'pages.salesOpportunity.field.nextAction': 'Próxima Ação',
+  'pages.salesOpportunity.field.nextActionDate': 'Data da Próxima Ação',
+  'pages.salesOpportunity.field.description': 'Descrição',
+  'pages.salesOpportunity.field.actionType': 'Tipo de Ação',
+  'pages.salesOpportunity.field.actionDate': 'Data da Ação',
+
+  // Módulo de Gestão de Contratos
+  'pages.contract.title': 'Gestão de Contratos',
+  'pages.contract.list.title': 'Lista de Contratos',
+  'pages.contract.create.title': 'Criar Contrato',
+  'pages.contract.edit.title': 'Editar Contrato',
+  'pages.contract.items.title': 'Itens do Contrato',
+  'pages.contract.status.title': 'Status do Contrato',
+  
+  // Rótulos de Campo
+  'pages.contract.field.contractNo': 'Número do Contrato',
+  'pages.contract.field.contractName': 'Nome do Contrato',
+  'pages.contract.field.customerId': 'ID do Cliente',
+  'pages.contract.field.opportunityId': 'ID da Oportunidade',
+  'pages.contract.field.ownerId': 'ID do Proprietário',
+  'pages.contract.field.amount': 'Valor do Contrato',
+  'pages.contract.field.startDate': 'Data de Início',
+  'pages.contract.field.endDate': 'Data de Término',
+  'pages.contract.field.status': 'Status',
+  'pages.contract.field.signingDate': 'Data de Assinatura',
+  'pages.contract.field.contractType': 'Tipo de Contrato',
+  'pages.contract.field.paymentTerms': 'Termos de Pagamento',
+  'pages.contract.field.description': 'Descrição do Contrato',
+  'pages.contract.field.fileUrl': 'URL do Arquivo',
+  
+  // Status do Contrato
+  'pages.contract.status.draft': 'Rascunho',
+  'pages.contract.status.approval': 'Em Aprovação',
+  'pages.contract.status.signed': 'Assinado',
+  'pages.contract.status.terminated': 'Terminado',
+  
+  // Tipos de Contrato
+  'pages.contract.type.sales': 'Contrato de Venda',
+  'pages.contract.type.purchase': 'Contrato de Compra',
+  'pages.contract.type.service': 'Contrato de Serviço',
+  'pages.contract.type.lease': 'Contrato de Locação',
+  
+  // Itens do Contrato
+  'pages.contract.item.title': 'Itens do Contrato',
+  'pages.contract.item.create.title': 'Criar Item do Contrato',
+  'pages.contract.item.edit.title': 'Editar Item do Contrato',
+  'pages.contract.item.field.itemName': 'Nome do Item',
+  'pages.contract.item.field.specification': 'Especificação',
+  'pages.contract.item.field.quantity': 'Quantidade',
+  'pages.contract.item.field.unitPrice': 'Preço Unitário',
+  'pages.contract.item.field.discount': 'Desconto',
+  'pages.contract.item.field.amount': 'Valor',
+  
+  // Mensagens de Operação
+  'pages.contract.message.creating': 'Criando contrato...',
+  'pages.contract.message.createSuccess': 'Contrato criado com sucesso!',
+  'pages.contract.message.createFailed': 'Falha ao criar contrato, tente novamente!',
+  'pages.contract.message.updating': 'Atualizando contrato...',
+  'pages.contract.message.updateSuccess': 'Contrato atualizado com sucesso!',
+  'pages.contract.message.updateFailed': 'Falha ao atualizar contrato, tente novamente!',
+  'pages.contract.message.deleting': 'Excluindo contrato...',
+  'pages.contract.message.deleteSuccess': 'Contrato excluído com sucesso!',
+  'pages.contract.message.deleteFailed': 'Falha ao excluir contrato, tente novamente!',
+  'pages.contract.message.statusUpdateSuccess': 'Status atualizado com sucesso!',
+  'pages.contract.message.statusUpdateFailed': 'Falha ao atualizar status, tente novamente!',
 };

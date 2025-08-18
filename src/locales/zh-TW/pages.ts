@@ -68,4 +68,89 @@ export default {
   'pages.searchTable.tenThousand': '萬',
   'pages.searchTable.batchDeletion': '批量刪除',
   'pages.searchTable.batchApproval': '批量審批',
+
+  // 銷售機會管理模組
+  'pages.salesOpportunity.title': '銷售機會管理',
+  'pages.salesOpportunity.list.title': '銷售機會列表',
+  'pages.salesOpportunity.create.title': '新建銷售機會',
+  'pages.salesOpportunity.edit.title': '編輯銷售機會',
+  'pages.salesOpportunity.advance.title': '推進機會階段',
+  'pages.salesOpportunity.activity.title': '添加機會活動',
+  'pages.salesOpportunity.analytics.title': '銷售分析',
+  
+  // 字段標籤
+  'pages.salesOpportunity.field.opportunityName': '機會名稱',
+  'pages.salesOpportunity.field.customerId': '客戶ID',
+  'pages.salesOpportunity.field.ownerId': '負責人ID',
+  'pages.salesOpportunity.field.amount': '金額',
+  'pages.salesOpportunity.field.probability': '成功概率',
+  'pages.salesOpportunity.field.expectedCloseDate': '預計成交日期',
+  'pages.salesOpportunity.field.status': '狀態',
+  'pages.salesOpportunity.field.stage': '階段',
+  'pages.salesOpportunity.field.sourceId': '來源ID',
+  'pages.salesOpportunity.field.nextAction': '下一步行動',
+  'pages.salesOpportunity.field.nextActionDate': '下一步行動日期',
+  'pages.salesOpportunity.field.description': '描述',
+  'pages.salesOpportunity.field.actionType': '活動類型',
+  'pages.salesOpportunity.field.actionDate': '活動日期',
+
+  // 合同管理模組
+  'pages.contract.title': '合同管理',
+  'pages.contract.list.title': '合同列表',
+  'pages.contract.create.title': '新建合同',
+  'pages.contract.edit.title': '編輯合同',
+  'pages.contract.items.title': '合同項目條目',
+  'pages.contract.status.title': '合同狀態',
+  
+  // 字段標籤
+  'pages.contract.field.contractNo': '合同編號',
+  'pages.contract.field.contractName': '合同名稱',
+  'pages.contract.field.customerId': '客戶ID',
+  'pages.contract.field.opportunityId': '商機ID',
+  'pages.contract.field.ownerId': '負責人ID',
+  'pages.contract.field.amount': '合同金額',
+  'pages.contract.field.startDate': '開始日期',
+  'pages.contract.field.endDate': '結束日期',
+  'pages.contract.field.status': '狀態',
+  'pages.contract.field.signingDate': '簽署日期',
+  'pages.contract.field.contractType': '合同類型',
+  'pages.contract.field.paymentTerms': '付款條件',
+  'pages.contract.field.description': '合同描述',
+  'pages.contract.field.fileUrl': '文件URL',
+  
+  // 合同狀態
+  'pages.contract.status.draft': '草稿',
+  'pages.contract.status.approval': '審批中',
+  'pages.contract.status.signed': '已簽署',
+  'pages.contract.status.terminated': '已終止',
+  
+  // 合同類型
+  'pages.contract.type.sales': '銷售合同',
+  'pages.contract.type.purchase': '採購合同',
+  'pages.contract.type.service': '服務合同',
+  'pages.contract.type.lease': '租賃合同',
+  
+  // 合同項目條目
+  'pages.contract.item.title': '合同項目條目',
+  'pages.contract.item.create.title': '新建項目條目',
+  'pages.contract.item.edit.title': '編輯項目條目',
+  'pages.contract.item.field.itemName': '項目名稱',
+  'pages.contract.item.field.specification': '規格',
+  'pages.contract.item.field.quantity': '數量',
+  'pages.contract.item.field.unitPrice': '單價',
+  'pages.contract.item.field.discount': '折扣',
+  'pages.contract.item.field.amount': '金額',
+  
+  // 操作消息
+  'pages.contract.message.creating': '正在創建合同...',
+  'pages.contract.message.createSuccess': '合同創建成功！',
+  'pages.contract.message.createFailed': '合同創建失敗，請重試！',
+  'pages.contract.message.updating': '正在更新合同...',
+  'pages.contract.message.updateSuccess': '合同更新成功！',
+  'pages.contract.message.updateFailed': '合同更新失敗，請重試！',
+  'pages.contract.message.deleting': '正在刪除合同...',
+  'pages.contract.message.deleteSuccess': '合同刪除成功！',
+  'pages.contract.message.deleteFailed': '合同刪除失敗，請重試！',
+  'pages.contract.message.statusUpdateSuccess': '狀態更新成功！',
+  'pages.contract.message.statusUpdateFailed': '狀態更新失敗，請重試！',
 };

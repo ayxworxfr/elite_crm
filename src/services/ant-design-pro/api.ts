@@ -1,12 +1,15 @@
 // @ts-ignore
 /* eslint-disable */
 import { handleRequest } from '@/services/ant-design-pro/response_handler';
+import { TokenManager } from '@/services/auth/tokenManager';
+import { API_BASE_URL } from '@/services/config';
 import type { RequestData } from '@ant-design/pro-table/es';
 import { request as mockRequest } from '@umijs/max';
-import { List } from 'lodash';
 import { extend } from 'umi-request';
 
-const BASE_URL = 'http://localhost:8888';
+const BASE_URL = API_BASE_URL;
+
+const tokenManager = TokenManager.getInstance();
 
 const request = extend({
   prefix: BASE_URL, // 设置基础 URL
@@ -16,9 +19,9 @@ const request = extend({
   },
 });
 
-// 添加拦截器
+// 请求拦截器
 request.interceptors.request.use((url, options) => {
-  const token = localStorage.getItem('access_token');
+  const token = tokenManager.getAccessToken();
   return {
     url,
     options: {
@@ -29,6 +32,39 @@ request.interceptors.request.use((url, options) => {
       },
     },
   };
+});
+
+// 使用中间件方式处理token刷新
+request.use(async (ctx, next) => {
+  await next();
+  
+  // 检查响应状态，如果是401则尝试刷新token
+  if (ctx.res?.status === 401 && 
+      !ctx.req.url.includes('/api/refresh')) {
+    
+    try {
+      // 尝试刷新token
+      const newToken = await tokenManager.refreshToken();
+      
+      // 更新请求头并重试原请求
+      const retryOptions = {
+        ...ctx.req.options,
+        headers: {
+          ...ctx.req.options.headers,
+          Authorization: `Bearer ${newToken}`,
+        },
+      };
+      
+      // 重试原请求
+      const retryResponse = await request(ctx.req.url, retryOptions);
+      ctx.res = retryResponse;
+    } catch (refreshError) {
+      // 刷新失败，跳转登录页
+      tokenManager.clearTokens();
+      window.location.href = '/user/login';
+      throw refreshError;
+    }
+  }
 });
 
 
@@ -107,6 +143,14 @@ export async function login_old(body: API.LoginParams, options?: { [key: string]
   });
 }
 
+/** 刷新Token接口 POST /api/refresh */
+export async function refreshToken(refreshToken: string) {
+  return request<API.RefreshTokenResult>('/api/refresh/token', {
+    method: 'POST',
+    data: { refresh_token: refreshToken },
+  });
+}
+
 export async function login(
   params: API.LoginParams
 ): Promise<API.APIResult<API.LoginResult> | null> {
@@ -123,8 +167,10 @@ export async function login(
     (data) => {
       // 登录成功后的处理逻辑
       localStorage.setItem('role', data.currentAuthority ?? '');
-      localStorage.setItem('access_token', data.access_token ?? '');
-      localStorage.setItem('refresh_token', data.refresh_token ?? '');
+      // 使用TokenManager设置token
+      if (data.access_token && data.refresh_token) {
+        tokenManager.setTokens(data.access_token, data.refresh_token);
+      }
     }
   );
 }
@@ -270,5 +316,218 @@ export async function removePermission(params: { ids: number[] }) {
   return request('/api/protected/permission', {
     method: 'DELETE',
     data: params
+  });
+}
+
+/**
+ * 用户管理
+ */
+export const getUserList = createPageQuery<API.User>('/api/protected/user/list');
+
+export async function addUser(data: API.User) {
+  return request('/api/protected/user', {
+    method: 'POST',
+    data,
+  });
+}
+
+export async function updateUser(data: API.User) {
+  return request('/api/protected/user', {
+    method: 'PUT',
+    data,
+  });
+}
+
+export async function removeUser(params: { ids: number[] }) {
+  return request('/api/protected/user', {
+    method: 'DELETE',
+    data: params,
+  });
+}
+
+/**
+ * 获取销售机会列表
+ */
+export const getSalesOpportunityList = createPageQuery<API.SalesOpportunity>('/api/protected/sales/opportunity/list');
+
+/**
+ * 获取销售机会详情
+ */
+export async function getSalesOpportunity(id: number) {
+  return request(`/api/protected/sales/opportunity`, {
+    method: 'GET',
+    params: { id },
+  });
+}
+
+/**
+ * 创建销售机会
+ */
+export async function addSalesOpportunity(data: API.SalesOpportunity) {
+  return request('/api/protected/sales/opportunity', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 更新销售机会
+ */
+export async function updateSalesOpportunity(data: API.SalesOpportunity) {
+  return request(`/api/protected/sales/opportunity`, {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 删除销售机会
+ */
+export async function removeSalesOpportunity(params: { ids: number[] }) {
+  return request('/api/protected/sales/opportunity', {
+    method: 'DELETE',
+    data: params
+  });
+}
+
+/**
+ * 推进商机阶段
+ */
+export async function advanceOpportunityStage(data: { opportunity_id: number; new_status: number }) {
+  return request('/api/protected/sales/opportunity/advance-stage', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 标记商机失败
+ */
+export async function loseOpportunity(data: { opportunity_id: number; reason: string }) {
+  return request('/api/protected/sales/opportunity/lose', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 添加商机活动
+ */
+export async function addOpportunityActivity(data: { opportunity_id: number; action_type: string; description: string }) {
+  return request('/api/protected/sales/opportunity/activity', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 获取销售分析数据
+ */
+export async function getSalesAnalytics(params: { start_date: string; end_date: string; owner_id?: number; department_id?: number; customer_id?: number; source_id?: number; group_by: string }) {
+  return request('/api/protected/sales/opportunity/analytics', {
+    method: 'GET',
+    params,
+  });
+}
+
+// ==================== 合同管理模块 ====================
+
+/**
+ * 获取合同列表
+ */
+export const getContractList = createPageQuery<API.Contract>('/api/protected/contract/list');
+
+/**
+ * 获取合同详情
+ */
+export async function getContract(id: number) {
+  return request<API.APIResult<API.Contract>>(`/api/protected/contract`, {
+    method: 'GET',
+    params: { id },
+  });
+}
+
+/**
+ * 创建合同
+ */
+export async function createContract(data: API.CreateContractRequest) {
+  return request<API.APIResult<API.Contract>>('/api/protected/contract', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 更新合同
+ */
+export async function updateContract(data: API.UpdateContractRequest) {
+  return request<API.APIResult<API.Contract>>('/api/protected/contract', {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 删除合同
+ */
+export async function removeContract(params: { ids: number[] }) {
+  return request<API.APIResult<null>>('/api/protected/contract', {
+    method: 'DELETE',
+    data: params,
+  });
+}
+
+/**
+ * 更新合同状态
+ */
+export async function updateContractStatus(data: { contract_id: number; status: number }) {
+  return request<API.APIResult<API.Contract>>('/api/protected/contract/status', {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 获取合同项目条目列表
+ */
+export const getContractItemList = createPageQuery<API.ContractItem>('/api/protected/contract/item/list');
+
+/**
+ * 获取合同项目条目详情
+ */
+export async function getContractItem(id: number) {
+  return request<API.APIResult<API.Contract>>(`/api/protected/contract/item`, {
+    method: 'GET',
+    params: { id },
+  });
+}
+
+/**
+ * 创建合同项目条目
+ */
+export async function createContractItem(data: Omit<API.ContractItem, 'item_id' | 'create_time' | 'update_time'>) {
+  return request<API.APIResult<API.ContractItem>>('/api/protected/contract/item', {
+    method: 'POST',
+    data,
+  });
+}
+
+/**
+ * 更新合同项目条目
+ */
+export async function updateContractItem(data: Partial<API.ContractItem> & { item_id: number }) {
+  return request<API.APIResult<API.ContractItem>>('/api/protected/contract/item', {
+    method: 'PUT',
+    data,
+  });
+}
+
+/**
+ * 删除合同项目条目
+ */
+export async function removeContractItem(params: { ids: number[] }) {
+  return request<API.APIResult<null>>('/api/protected/contract/item', {
+    method: 'DELETE',
+    data: params,
   });
 }

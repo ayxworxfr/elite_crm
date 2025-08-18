@@ -49,4 +49,6 @@ export default {
   'menu.editor.flow': 'フローエディタ',
   'menu.editor.mind': 'マインドエディター',
   'menu.editor.koni': 'コニエディター',
+  'menu.sales-opportunity': '営業機会管理',
+  'menu.contract': '契約管理',
 };

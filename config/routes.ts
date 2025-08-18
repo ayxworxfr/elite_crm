@@ -46,6 +46,13 @@ export default [
     ],
   },
   {
+    path: '/user-manage',
+    name: 'user',
+    icon: 'user',
+    access: 'canAdmin',
+    component: './UserList',
+  },
+  {
     path: '/role',
     name: 'role',
     icon: 'crown',
@@ -58,6 +65,18 @@ export default [
     icon: 'crown',
     access: 'canAdmin',
     component: './PermissionList',
+  },
+  {
+    path: '/sales-opportunity',
+    name: 'sales-opportunity',
+    icon: 'fund',
+    component: './SalesOpportunityList',
+  },
+  {
+    path: '/contract',
+    name: 'contract',
+    icon: 'file',
+    component: './ContractList',
   },
   {
     name: 'list.table-list',

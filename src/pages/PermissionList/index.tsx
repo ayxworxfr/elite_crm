@@ -25,69 +25,6 @@ import {
 import type { FormValueType } from './components/UpdateForm';
 import UpdateForm from './components/UpdateForm';
 
-/**
- * @en-US Add node
- * @zh-CN 添加节点
- * @param fields
- */
-const handleAdd = async (fields: API.Permission) => {
-  const hide = message.loading('正在添加');
-  try {
-    await addPermission({ ...fields });
-    hide();
-    message.success('Added successfully');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Adding failed, please try again!');
-    return false;
-  }
-};
-
-/**
- * @en-US Update node
- * @zh-CN 更新节点
- *
- * @param fields
- */
-const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('Configuring');
-  try {
-    await updatePermission(fields);
-    hide();
-
-    message.success('Configuration is successful');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Configuration failed, please try again!');
-    return false;
-  }
-};
-
-/**
- *  Delete node
- * @zh-CN 删除节点
- *
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.Permission[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await removePermission({
-      ids: selectedRows.map((row) => (row.id ? row.id : 0)),
-    });
-    hide();
-    message.success('Deleted successfully and will refresh soon');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('Delete failed, please try again');
-    return false;
-  }
-};
-
 const PermissionList: React.FC = () => {
   /**
    * @en-US Pop-up window of new window
@@ -112,14 +49,72 @@ const PermissionList: React.FC = () => {
    * */
   const intl = useIntl();
 
+  /**
+   * @en-US Add node
+   * @zh-CN 添加节点
+   * @param fields
+   */
+  const handleAdd = async (fields: API.Permission) => {
+    const hide = message.loading(intl.formatMessage({ id: 'pages.permission.message.adding' }));
+    try {
+      await addPermission({ ...fields });
+      hide();
+      message.success(intl.formatMessage({ id: 'pages.permission.message.addSuccess' }));
+      return true;
+    } catch (error) {
+      hide();
+      message.error(intl.formatMessage({ id: 'pages.permission.message.addFailed' }));
+      return false;
+    }
+  };
+
+  /**
+   * @en-US Update node
+   * @zh-CN 更新节点
+   *
+   * @param fields
+   */
+  const handleUpdate = async (fields: FormValueType) => {
+    const hide = message.loading(intl.formatMessage({ id: 'pages.permission.message.updating' }));
+    try {
+      await updatePermission(fields);
+      hide();
+
+      message.success(intl.formatMessage({ id: 'pages.permission.message.updateSuccess' }));
+      return true;
+    } catch (error) {
+      hide();
+      message.error(intl.formatMessage({ id: 'pages.permission.message.updateFailed' }));
+      return false;
+    }
+  };
+
+  /**
+   *  Delete node
+   * @zh-CN 删除节点
+   *
+   * @param selectedRows
+   */
+  const handleRemove = async (selectedRows: API.Permission[]) => {
+    const hide = message.loading(intl.formatMessage({ id: 'pages.permission.message.deleting' }));
+    if (!selectedRows) return true;
+    try {
+      await removePermission({
+        ids: selectedRows.map((row) => (row.id ? row.id : 0)),
+      });
+      hide();
+      message.success(intl.formatMessage({ id: 'pages.permission.message.deleteSuccess' }));
+      return true;
+    } catch (error) {
+      hide();
+      message.error(intl.formatMessage({ id: 'pages.permission.message.deleteFailed' }));
+      return false;
+    }
+  };
+
   const columns: ProColumns<API.Permission>[] = [
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.updateForm.permissionName.nameLabel"
-          defaultMessage="Permission name"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.permission.field.name' }),
       dataIndex: 'name',
       render: (dom, entity) => {
         return (
@@ -135,91 +130,32 @@ const PermissionList: React.FC = () => {
       },
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleCode"
-          defaultMessage="Code"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.permission.field.code' }),
       dataIndex: 'code',
       valueType: 'textarea',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleDesc"
-          defaultMessage="Description"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.permission.field.description' }),
       dataIndex: 'description',
       valueType: 'textarea',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleMethod"
-          defaultMessage="Method"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.permission.field.method' }),
       dataIndex: 'method',
       valueType: 'textarea',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titlePath"
-          defaultMessage="Path"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.permission.field.path' }),
       dataIndex: 'path',
       valueType: 'textarea',
     },
     {
-      title: (
-        <FormattedMessage
-          id="pages.searchTable.titleStatus"
-          defaultMessage="Status"
-        />
-      ),
+      title: intl.formatMessage({ id: 'pages.permission.field.status' }),
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
-        0: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.default"
-              defaultMessage="Shut down"
-            />
-          ),
-          status: 'Default',
-        },
-        1: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.running"
-              defaultMessage="Running"
-            />
-          ),
-          status: 'Processing',
-        },
-        2: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.online"
-              defaultMessage="Online"
-            />
-          ),
-          status: 'Success',
-        },
-        3: {
-          text: (
-            <FormattedMessage
-              id="pages.searchTable.nameStatus.abnormal"
-              defaultMessage="Abnormal"
-            />
-          ),
-          status: 'Error',
-        },
+        0: { text: intl.formatMessage({ id: 'common.status.disabled' }), status: 'Default' },
+        1: { text: intl.formatMessage({ id: 'common.status.enabled' }), status: 'Success' },
       },
     },
     {
@@ -262,22 +198,16 @@ const PermissionList: React.FC = () => {
       valueType: 'option',
       render: (_, record) => [
         <a
-          key="config"
+          key="edit"
           onClick={() => {
             handleUpdateModalOpen(true);
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage
-            id="pages.searchTable.config"
-            defaultMessage="Configuration"
-          />
+          {intl.formatMessage({ id: 'common.action.edit' })}
         </a>,
-        <a key="subscribeAlert" href="https://procomponents.ant.design/">
-          <FormattedMessage
-            id="pages.searchTable.subscribeAlert"
-            defaultMessage="Subscribe to alerts"
-          />
+        <a key="delete" onClick={() => handleRemove([record])}>
+          {intl.formatMessage({ id: 'common.action.delete' })}
         </a>,
       ],
     },
@@ -286,10 +216,7 @@ const PermissionList: React.FC = () => {
   return (
     <PageContainer>
       <ProTable<API.Permission, API.PageParams>
-        headerTitle={intl.formatMessage({
-          id: 'pages.searchTable.title',
-          defaultMessage: 'Enquiry form',
-        })}
+        headerTitle={intl.formatMessage({ id: 'pages.permission.list.title' })}
         actionRef={actionRef}
         rowKey="id"
         search={{
@@ -304,7 +231,7 @@ const PermissionList: React.FC = () => {
             }}
           >
             <PlusOutlined />{' '}
-            <FormattedMessage id="pages.searchTable.new" defaultMessage="New" />
+            {intl.formatMessage({ id: 'pages.permission.create.title' })}
           </Button>,
         ]}
         request={getPermissionList}
@@ -319,27 +246,7 @@ const PermissionList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              <FormattedMessage
-                id="pages.searchTable.chosen"
-                defaultMessage="Chosen"
-              />{' '}
-              <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a>{' '}
-              <FormattedMessage
-                id="pages.searchTable.item"
-                defaultMessage="项"
-              />
-              &nbsp;&nbsp;
-              <span>
-                <FormattedMessage
-                  id="pages.searchTable.totalServiceCalls"
-                  defaultMessage="Total number of service calls"
-                />{' '}
-                {selectedRowsState.reduce((pre, item) => pre + item.id!, 0)}{' '}
-                <FormattedMessage
-                  id="pages.searchTable.tenThousand"
-                  defaultMessage="万"
-                />
-              </span>
+              {intl.formatMessage({ id: 'pages.permission.selected' })} <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> {intl.formatMessage({ id: 'pages.permission.items' })}
             </div>
           }
         >
@@ -350,24 +257,12 @@ const PermissionList: React.FC = () => {
               actionRef.current?.reloadAndRest?.();
             }}
           >
-            <FormattedMessage
-              id="pages.searchTable.batchDeletion"
-              defaultMessage="Batch deletion"
-            />
-          </Button>
-          <Button type="primary">
-            <FormattedMessage
-              id="pages.searchTable.batchApproval"
-              defaultMessage="Batch approval"
-            />
+            {intl.formatMessage({ id: 'pages.permission.action.batchDelete' })}
           </Button>
         </FooterToolbar>
       )}
       <ModalForm
-        title={intl.formatMessage({
-          id: 'pages.searchTable.createForm.newPermission',
-          defaultMessage: 'New rermission',
-        })}
+        title={intl.formatMessage({ id: 'pages.permission.create.title' })}
         width="400px"
         open={createModalOpen}
         onOpenChange={handleModalOpen}
@@ -382,42 +277,80 @@ const PermissionList: React.FC = () => {
         }}
       >
         <ProFormText
+          label={intl.formatMessage({ id: 'pages.permission.field.name' })}
           rules={[
             {
               required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.permissionName"
-                  defaultMessage="Permission name is required"
-                />
-              ),
+              message: intl.formatMessage({ id: 'pages.permission.validation.nameRequired' }),
+            },
+            {
+              max: 50,
+              message: intl.formatMessage({ id: 'pages.permission.validation.nameMax' }),
             },
           ]}
           width="md"
           name="name"
-        />
-        <ProFormTextArea
-          width="md"
-          name="description"
-          placeholder={intl.formatMessage({
-            id: 'pages.searchTable.createDescription',
-            defaultMessage: 'Please enter a description',
-          })}
+          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.name' })}
         />
         <ProFormText
+          label={intl.formatMessage({ id: 'pages.permission.field.code' })}
           rules={[
             {
               required: true,
-              message: (
-                <FormattedMessage
-                  id="pages.searchTable.createCode"
-                  defaultMessage="Code is required"
-                />
-              ),
+              message: intl.formatMessage({ id: 'pages.permission.validation.codeRequired' }),
+            },
+            {
+              max: 50,
+              message: intl.formatMessage({ id: 'pages.permission.validation.codeMax' }),
             },
           ]}
           width="md"
           name="code"
+          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.code' })}
+        />
+        <ProFormText
+          label={intl.formatMessage({ id: 'pages.permission.field.method' })}
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage({ id: 'pages.permission.validation.methodRequired' }),
+            },
+            {
+              max: 10,
+              message: intl.formatMessage({ id: 'pages.permission.validation.methodMax' }),
+            },
+          ]}
+          width="md"
+          name="method"
+          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.method' })}
+        />
+        <ProFormText
+          label={intl.formatMessage({ id: 'pages.permission.field.path' })}
+          rules={[
+            {
+              required: true,
+              message: intl.formatMessage({ id: 'pages.permission.validation.pathRequired' }),
+            },
+            {
+              max: 200,
+              message: intl.formatMessage({ id: 'pages.permission.validation.pathMax' }),
+            },
+          ]}
+          width="md"
+          name="path"
+          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.path' })}
+        />
+        <ProFormTextArea
+          label={intl.formatMessage({ id: 'pages.permission.field.description' })}
+          width="md"
+          name="description"
+          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.description' })}
+          rules={[
+            {
+              max: 200,
+              message: intl.formatMessage({ id: 'pages.permission.validation.descriptionMax' }),
+            },
+          ]}
         />
       </ModalForm>
       <UpdateForm

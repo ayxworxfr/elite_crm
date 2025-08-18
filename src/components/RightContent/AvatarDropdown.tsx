@@ -1,3 +1,4 @@
+import { TokenManager } from '@/services/auth/tokenManager';
 import {
   LogoutOutlined,
   SettingOutlined,
@@ -71,6 +72,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({
   const onMenuClick: MenuProps['onClick'] = (event) => {
     const { key } = event;
     if (key === 'logout') {
+      // 清除所有token
+      TokenManager.getInstance().clearTokens();
+
       flushSync(() => {
         setInitialState((s) => ({ ...s, currentUser: undefined }));
       });
@@ -105,20 +109,20 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({
   const menuItems = [
     ...(menu
       ? [
-          {
-            key: 'center',
-            icon: <UserOutlined />,
-            label: '个人中心',
-          },
-          {
-            key: 'settings',
-            icon: <SettingOutlined />,
-            label: '个人设置',
-          },
-          {
-            type: 'divider' as const,
-          },
-        ]
+        {
+          key: 'center',
+          icon: <UserOutlined />,
+          label: '个人中心',
+        },
+        {
+          key: 'settings',
+          icon: <SettingOutlined />,
+          label: '个人设置',
+        },
+        {
+          type: 'divider' as const,
+        },
+      ]
       : []),
     {
       key: 'logout',

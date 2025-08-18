@@ -52,4 +52,6 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+  'menu.sales-opportunity': '销售机会管理',
+  'menu.contract': '合同管理',
 };
