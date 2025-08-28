@@ -61,7 +61,7 @@ export default {
   'pages.searchTable.nameStatus.abnormal': 'غیرطبیعی',
   'pages.searchTable.titleUpdatedAt': 'آخرین برنامه ریزی در',
   'pages.searchTable.exception': 'لطفا دلیل استثنا را وارد کنید!',
-  'pages.searchTable.titleOption': 'گزینه',
+
   'pages.searchTable.config': 'پیکربندی',
   'pages.searchTable.subscribeAlert': 'مشترک شدن در هشدارها',
   'pages.searchTable.title': 'فرم درخواست',

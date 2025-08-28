@@ -122,10 +122,10 @@ const ContractList: React.FC = () => {
     const handleStatusUpdate = async (contractId: number, newStatus: number) => {
         try {
             await updateContractStatus({ contract_id: contractId, status: newStatus });
-            message.success(intl.formatMessage({ id: 'pages.contract.message.statusUpdateSuccess' }));
+            message.success(intl.formatMessage({ id: 'common.message.updateSuccess' }));
             actionRef.current?.reload();
         } catch (error) {
-            message.error(intl.formatMessage({ id: 'pages.contract.message.statusUpdateFailed' }));
+            message.error(intl.formatMessage({ id: 'common.message.updateFailed' }));
         }
     };
 
@@ -177,7 +177,7 @@ const ContractList: React.FC = () => {
             hideInSearch: true,
         },
         {
-            title: intl.formatMessage({ id: 'pages.contract.field.status' }),
+            title: intl.formatMessage({ id: 'common.field.status' }),
             dataIndex: 'status',
             valueType: 'select',
             valueEnum: {
@@ -382,7 +382,7 @@ const ContractList: React.FC = () => {
                     name="payment_terms"
                 />
                 <ProFormTextArea
-                    label={intl.formatMessage({ id: 'pages.contract.field.description' })}
+                    label={intl.formatMessage({ id: 'common.field.description' })}
                     width="md"
                     name="description"
                 />

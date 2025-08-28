@@ -63,7 +63,7 @@ export default {
   'pages.searchTable.nameStatus.abnormal': '異常',
   'pages.searchTable.titleUpdatedAt': '最終スケジュール',
   'pages.searchTable.exception': '例外の理由を入力してください！',
-  'pages.searchTable.titleOption': 'オプション',
+
   'pages.searchTable.config': '構成',
   'pages.searchTable.subscribeAlert': 'アラートを購読する',
   'pages.searchTable.title': 'お問い合わせフォーム',
@@ -157,6 +157,6 @@ export default {
   'pages.contract.message.deleting': '契約を削除中...',
   'pages.contract.message.deleteSuccess': '契約が正常に削除されました！',
   'pages.contract.message.deleteFailed': '契約の削除に失敗しました。もう一度お試しください！',
-  'pages.contract.message.statusUpdateSuccess': 'ステータスが正常に更新されました！',
-  'pages.contract.message.statusUpdateFailed': 'ステータスの更新に失敗しました。もう一度お試しください！',
+
+
 };

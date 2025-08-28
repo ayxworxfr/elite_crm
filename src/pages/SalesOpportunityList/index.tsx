@@ -70,60 +70,60 @@ const SalesOpportunityList: React.FC = () => {
 
     // 处理函数
     const handleAdd = async (fields: API.SalesOpportunity) => {
-        const hide = message.loading(intl.formatMessage({ id: 'pages.salesOpportunity.message.adding' }));
+        const hide = message.loading(intl.formatMessage({ id: 'common.message.adding' }));
         try {
             await addSalesOpportunity({ ...fields });
             hide();
-            message.success(intl.formatMessage({ id: 'pages.salesOpportunity.message.addSuccess' }));
+            message.success(intl.formatMessage({ id: 'common.message.addSuccess' }));
             return true;
         } catch (error) {
             hide();
-            message.error(intl.formatMessage({ id: 'pages.salesOpportunity.message.addFailed' }));
+            message.error(intl.formatMessage({ id: 'common.message.addFailed' }));
             return false;
         }
     };
 
     const handleUpdate = async (fields: FormValueType) => {
-        const hide = message.loading(intl.formatMessage({ id: 'pages.salesOpportunity.message.updating' }));
+        const hide = message.loading(intl.formatMessage({ id: 'common.message.updating' }));
         try {
             await updateSalesOpportunity(fields);
             hide();
-            message.success(intl.formatMessage({ id: 'pages.salesOpportunity.message.updateSuccess' }));
+            message.success(intl.formatMessage({ id: 'common.message.updateSuccess' }));
             return true;
         } catch (error) {
             hide();
-            message.error(intl.formatMessage({ id: 'pages.salesOpportunity.message.updateFailed' }));
+            message.error(intl.formatMessage({ id: 'common.message.updateFailed' }));
             return false;
         }
     };
 
     const handleRemove = async (selectedRows: API.SalesOpportunity[]) => {
-        const hide = message.loading(intl.formatMessage({ id: 'pages.salesOpportunity.message.deleting' }));
+        const hide = message.loading(intl.formatMessage({ id: 'common.message.deleting' }));
         if (!selectedRows) return true;
         try {
             await removeSalesOpportunity({
                 ids: selectedRows.map((row) => (row.opportunity_id ? row.opportunity_id : 0)),
             });
             hide();
-            message.success(intl.formatMessage({ id: 'pages.salesOpportunity.message.deleteSuccess' }));
+            message.success(intl.formatMessage({ id: 'common.message.deleteSuccess' }));
             return true;
         } catch (error) {
             hide();
-            message.error(intl.formatMessage({ id: 'pages.salesOpportunity.message.deleteFailed' }));
+            message.error(intl.formatMessage({ id: 'common.message.deleteFailed' }));
             return false;
         }
     };
 
     const handleAdvanceStage = async (fields: { opportunity_id: number; new_status: number }) => {
-        const hide = message.loading(intl.formatMessage({ id: 'pages.salesOpportunity.message.advancing' }));
+        const hide = message.loading(intl.formatMessage({ id: 'common.message.updating' }));
         try {
             await advanceOpportunityStage(fields);
             hide();
-            message.success(intl.formatMessage({ id: 'pages.salesOpportunity.message.advanceSuccess' }));
+            message.success(intl.formatMessage({ id: 'common.message.updateSuccess' }));
             return true;
         } catch (error) {
             hide();
-            message.error(intl.formatMessage({ id: 'pages.salesOpportunity.message.advanceFailed' }));
+            message.error(intl.formatMessage({ id: 'common.message.updateFailed' }));
             return false;
         }
     };
@@ -143,15 +143,15 @@ const SalesOpportunityList: React.FC = () => {
     };
 
     const handleAddActivity = async (fields: { opportunity_id: number; action_type: string; description: string }) => {
-        const hide = message.loading(intl.formatMessage({ id: 'pages.salesOpportunity.message.addingActivity' }));
+        const hide = message.loading(intl.formatMessage({ id: 'common.message.adding' }));
         try {
             await addOpportunityActivity(fields);
             hide();
-            message.success(intl.formatMessage({ id: 'pages.salesOpportunity.message.activitySuccess' }));
+            message.success(intl.formatMessage({ id: 'common.message.addSuccess' }));
             return true;
         } catch (error) {
             hide();
-            message.error(intl.formatMessage({ id: 'pages.salesOpportunity.message.activityFailed' }));
+            message.error(intl.formatMessage({ id: 'common.message.addFailed' }));
             return false;
         }
     };
@@ -189,9 +189,13 @@ const SalesOpportunityList: React.FC = () => {
         },
         {
             title: intl.formatMessage({ id: 'pages.salesOpportunity.table.owner' }),
-            dataIndex: ['owner', 'name'],
+            dataIndex: ['owner', 'username'],
             valueType: 'text',
             hideInSearch: true,
+            render: (_, record) => {
+                // 优先显示name，如果没有则显示username
+                return record.owner ? (record.owner.username) : '-';
+            },
         },
         {
             title: intl.formatMessage({ id: 'pages.salesOpportunity.field.ownerId' }),
@@ -230,7 +234,7 @@ const SalesOpportunityList: React.FC = () => {
             ),
         },
         {
-            title: intl.formatMessage({ id: 'pages.salesOpportunity.field.status' }),
+            title: intl.formatMessage({ id: 'common.field.status' }),
             dataIndex: 'status',
             valueType: 'select',
             valueEnum: {
@@ -286,7 +290,7 @@ const SalesOpportunityList: React.FC = () => {
             hideInForm: true,
         },
         {
-            title: intl.formatMessage({ id: 'pages.salesOpportunity.table.operation' }),
+            title: intl.formatMessage({ id: 'common.action.actions' }),
             dataIndex: 'option',
             valueType: 'option',
             render: (_, record) => [
@@ -297,7 +301,7 @@ const SalesOpportunityList: React.FC = () => {
                         setCurrentRow(record);
                     }}
                 >
-                    {intl.formatMessage({ id: 'pages.salesOpportunity.action.edit' })}
+                    {intl.formatMessage({ id: 'common.action.edit' })}
                 </a>,
                 <a
                     key="advance"
@@ -376,7 +380,7 @@ const SalesOpportunityList: React.FC = () => {
                 <FooterToolbar
                     extra={
                         <div>
-                            {intl.formatMessage({ id: 'pages.salesOpportunity.selected' })} <a style={{ fontWeight: 600 }}>{selectedRows.length}</a> {intl.formatMessage({ id: 'pages.salesOpportunity.items' })}
+                            {intl.formatMessage({ id: 'common.count.selected' })} <a style={{ fontWeight: 600 }}>{selectedRows.length}</a> {intl.formatMessage({ id: 'common.count.items' })}
                         </div>
                     }
                 >
@@ -387,7 +391,7 @@ const SalesOpportunityList: React.FC = () => {
                             actionRef.current?.reloadAndRest?.();
                         }}
                     >
-                        {intl.formatMessage({ id: 'pages.salesOpportunity.action.batchDelete' })}
+                        {intl.formatMessage({ id: 'common.action.batchDelete' })}
                     </Button>
                 </FooterToolbar>
             )}

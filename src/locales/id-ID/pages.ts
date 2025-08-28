@@ -62,7 +62,7 @@ export default {
   'pages.searchTable.nameStatus.abnormal': 'abnormal',
   'pages.searchTable.titleUpdatedAt': 'Terakhir diperbarui pada',
   'pages.searchTable.exception': 'Silakan masukkan alasan pengecualian!',
-  'pages.searchTable.titleOption': 'Opsi',
+
   'pages.searchTable.config': 'Konfigurasi',
   'pages.searchTable.subscribeAlert': 'Berlangganan peringatan',
   'pages.searchTable.title': 'Formulir Pencarian',
@@ -156,6 +156,6 @@ export default {
   'pages.contract.message.deleting': 'Menghapus kontrak...',
   'pages.contract.message.deleteSuccess': 'Kontrak berhasil dihapus!',
   'pages.contract.message.deleteFailed': 'Gagal menghapus kontrak, silakan coba lagi!',
-  'pages.contract.message.statusUpdateSuccess': 'Status berhasil diperbarui!',
-  'pages.contract.message.statusUpdateFailed': 'Gagal memperbarui status, silakan coba lagi!',
+
+
 };

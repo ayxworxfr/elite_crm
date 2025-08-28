@@ -50,25 +50,21 @@ export default {
   'pages.searchTable.ruleName': '规则名称为必填项',
   'pages.searchTable.titleCallNo': '服务调用次数',
   'pages.searchTable.titleStatus': '状态',
-  'pages.searchTable.nameStatus.default': '关闭',
-  'pages.searchTable.nameStatus.running': '运行中',
-  'pages.searchTable.nameStatus.online': '已上线',
-  'pages.searchTable.nameStatus.abnormal': '异常',
+
   'pages.searchTable.titleUpdatedAt': '上次更新时间',
   'pages.searchTable.exception': '请输入异常原因！',
-  'pages.searchTable.titleOption': '操作',
+
   'pages.searchTable.config': '配置',
   'pages.searchTable.subscribeAlert': '订阅警报',
   'pages.searchTable.title': '查询表格',
   'pages.searchTable.new': '新建',
-  'pages.searchTable.chosen': '已选择',
-  'pages.searchTable.item': '项',
+
   'pages.searchTable.totalServiceCalls': '服务调用次数总计',
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
   // crm_admin
-  'pages.searchTable.updateForm.permissionName.nameLabel': '权限名称',
+
   'pages.searchTable.updateForm.roleName.nameLabel': '角色名称',
   'pages.searchTable.updateForm.codeName.nameLabel': '编码',
   'pages.searchTable.titleCode': '编码',
@@ -91,12 +87,12 @@ export default {
   'pages.salesOpportunity.field.amount': '机会金额',
   'pages.salesOpportunity.field.probability': '成交概率',
   'pages.salesOpportunity.field.expectedCloseDate': '预期成交日期',
-  'pages.salesOpportunity.field.status': '状态',
+
   'pages.salesOpportunity.field.stage': '阶段',
   'pages.salesOpportunity.field.sourceId': '客户来源ID',
   'pages.salesOpportunity.field.nextAction': '下一步行动',
   'pages.salesOpportunity.field.nextActionDate': '下一步行动日期',
-  'pages.salesOpportunity.field.description': '描述',
+
   'pages.salesOpportunity.field.actionType': '活动类型',
 
   // 合同管理模块
@@ -116,11 +112,11 @@ export default {
   'pages.contract.field.amount': '合同金额',
   'pages.contract.field.startDate': '开始日期',
   'pages.contract.field.endDate': '结束日期',
-  'pages.contract.field.status': '状态',
+
   'pages.contract.field.signingDate': '签署日期',
   'pages.contract.field.contractType': '合同类型',
   'pages.contract.field.paymentTerms': '付款条件',
-  'pages.contract.field.description': '合同描述',
+
   'pages.contract.field.fileUrl': '文件URL',
   
   // 合同状态
@@ -146,18 +142,9 @@ export default {
   'pages.contract.item.field.discount': '折扣',
   'pages.contract.item.field.amount': '金额',
   
-  // 操作消息
-  'pages.contract.message.creating': '正在创建合同...',
-  'pages.contract.message.createSuccess': '合同创建成功！',
-  'pages.contract.message.createFailed': '合同创建失败，请重试！',
-  'pages.contract.message.updating': '正在更新合同...',
-  'pages.contract.message.updateSuccess': '合同更新成功！',
-  'pages.contract.message.updateFailed': '合同更新失败，请重试！',
-  'pages.contract.message.deleting': '正在删除合同...',
-  'pages.contract.message.deleteSuccess': '合同删除成功！',
-  'pages.contract.message.deleteFailed': '合同删除失败，请重试！',
-  'pages.contract.message.statusUpdateSuccess': '状态更新成功！',
-  'pages.contract.message.statusUpdateFailed': '状态更新失败，请重试！',
+
+
+
   'pages.salesOpportunity.field.actionDate': '活动日期',
   'pages.salesOpportunity.field.reason': '推进原因',
   'pages.salesOpportunity.field.newStatus': '新状态',
@@ -186,37 +173,26 @@ export default {
   'pages.salesOpportunity.table.owner': '负责人',
   'pages.salesOpportunity.table.source': '来源',
   'pages.salesOpportunity.table.createTime': '创建时间',
-  'pages.salesOpportunity.table.operation': '操作',
   
   // 操作按钮
-  'pages.salesOpportunity.action.edit': '编辑',
+
   'pages.salesOpportunity.action.advance': '推进阶段',
   'pages.salesOpportunity.action.activity': '添加活动',
   'pages.salesOpportunity.action.lose': '标记失败',
   'pages.salesOpportunity.action.analytics': '销售分析',
-  'pages.salesOpportunity.action.batchDelete': '批量删除',
-  'pages.salesOpportunity.action.export': '导出报告',
-  'pages.salesOpportunity.action.refresh': '刷新数据',
+
   
   // 提示信息
-  'pages.salesOpportunity.message.adding': '正在添加',
-  'pages.salesOpportunity.message.addSuccess': '添加成功',
-  'pages.salesOpportunity.message.addFailed': '添加失败，请重试！',
-  'pages.salesOpportunity.message.updating': '正在更新',
-  'pages.salesOpportunity.message.updateSuccess': '更新成功',
-  'pages.salesOpportunity.message.updateFailed': '更新失败，请重试！',
-  'pages.salesOpportunity.message.deleting': '正在删除',
-  'pages.salesOpportunity.message.deleteSuccess': '删除成功，即将刷新',
-  'pages.salesOpportunity.message.deleteFailed': '删除失败，请重试',
-  'pages.salesOpportunity.message.advancing': '正在推进阶段',
-  'pages.salesOpportunity.message.advanceSuccess': '阶段推进成功',
-  'pages.salesOpportunity.message.advanceFailed': '阶段推进失败，请重试！',
+
+
+
+
   'pages.salesOpportunity.message.losing': '正在标记失败',
   'pages.salesOpportunity.message.loseSuccess': '标记失败成功',
   'pages.salesOpportunity.message.loseFailed': '标记失败，请重试！',
-  'pages.salesOpportunity.message.addingActivity': '正在添加活动',
-  'pages.salesOpportunity.message.activitySuccess': '活动添加成功',
-  'pages.salesOpportunity.message.activityFailed': '活动添加失败，请重试！',
+
+
+
   'pages.salesOpportunity.message.analyticsFailed': '获取分析数据失败',
   'pages.salesOpportunity.message.exportDeveloping': '导出功能开发中...',
   
@@ -236,7 +212,7 @@ export default {
   'pages.salesOpportunity.validation.stageMax': '阶段标识不能超过20个字符',
   'pages.salesOpportunity.validation.sourceIdMin': '客户来源ID必须大于0',
   'pages.salesOpportunity.validation.nextActionMax': '下一步行动不能超过255个字符',
-  'pages.salesOpportunity.validation.descriptionMax': '描述不能超过1000个字符',
+
   'pages.salesOpportunity.validation.actionTypeRequired': '请选择活动类型',
   'pages.salesOpportunity.validation.actionDateRequired': '请选择活动日期',
   'pages.salesOpportunity.validation.descriptionRequired': '请输入活动描述',
@@ -246,8 +222,8 @@ export default {
   
   // 占位符
   'pages.salesOpportunity.placeholder.opportunityName': '请输入销售机会名称',
-  'pages.salesOpportunity.placeholder.customerId': '请输入客户ID',
-  'pages.salesOpportunity.placeholder.ownerId': '请输入负责人ID',
+  'pages.salesOpportunity.placeholder.customer': '请选择客户',
+  'pages.salesOpportunity.placeholder.owner': '请选择负责人',
   'pages.salesOpportunity.placeholder.amount': '请输入机会金额',
   'pages.salesOpportunity.placeholder.probability': '请输入成交概率(0-100)',
   'pages.salesOpportunity.placeholder.expectedCloseDate': '请选择预期成交日期',
@@ -256,7 +232,7 @@ export default {
   'pages.salesOpportunity.placeholder.sourceId': '请输入客户来源ID',
   'pages.salesOpportunity.placeholder.nextAction': '请输入下一步行动计划',
   'pages.salesOpportunity.placeholder.nextActionDate': '请选择下一步行动日期',
-  'pages.salesOpportunity.placeholder.description': '请输入销售机会描述',
+
   'pages.salesOpportunity.placeholder.actionType': '请选择活动类型',
   'pages.salesOpportunity.placeholder.actionDate': '请选择活动日期',
   'pages.salesOpportunity.placeholder.actionDescription': '请详细描述此次活动的内容、结果和下一步计划',
@@ -311,8 +287,7 @@ export default {
   'pages.salesOpportunity.analytics.percentageSuffix': '%',
   
   // 其他
-  'pages.salesOpportunity.selected': '已选择',
-  'pages.salesOpportunity.items': '项',
+
   'pages.salesOpportunity.failReasonPrompt': '请输入失败原因：',
   
   // 角色管理模块
@@ -320,36 +295,12 @@ export default {
   'pages.role.list.title': '角色列表',
   'pages.role.create.title': '新建角色',
   'pages.role.edit.title': '编辑角色',
-  'pages.role.field.name': '角色名称',
-  'pages.role.field.code': '角色编码',
-  'pages.role.field.description': '角色描述',
-  'pages.role.field.status': '状态',
-  'pages.role.placeholder.name': '请输入角色名称',
-  'pages.role.placeholder.code': '请输入角色编码',
-  'pages.role.placeholder.description': '请输入角色描述',
-  'pages.role.validation.nameRequired': '请输入角色名称',
-  'pages.role.validation.codeRequired': '请输入角色编码',
-  'pages.role.validation.nameMax': '角色名称不能超过50个字符',
-  'pages.role.validation.codeMax': '角色编码不能超过50个字符',
-  'pages.role.validation.descriptionMax': '角色描述不能超过200个字符',
-  'pages.role.status.default': '关闭',
-  'pages.role.status.running': '运行中',
-  'pages.role.status.online': '已上线',
-  'pages.role.status.abnormal': '异常',
-  'pages.role.message.adding': '正在添加角色...',
-  'pages.role.message.addSuccess': '角色添加成功',
-  'pages.role.message.addFailed': '角色添加失败，请重试',
-  'pages.role.message.updating': '正在更新角色...',
-  'pages.role.message.updateSuccess': '角色更新成功',
-  'pages.role.message.updateFailed': '角色更新失败，请重试',
-  'pages.role.message.deleting': '正在删除角色...',
-  'pages.role.message.deleteSuccess': '角色删除成功',
-  'pages.role.message.deleteFailed': '角色删除失败，请重试',
-  'pages.role.action.edit': '编辑',
-  'pages.role.action.delete': '删除',
-  'pages.role.action.batchDelete': '批量删除',
-  'pages.role.selected': '已选择',
-  'pages.role.items': '项',
+
+
+
+
+
+
   
   // 角色表单相关
   'pages.searchTable.updateForm.roleConfig': '角色配置',
@@ -371,40 +322,21 @@ export default {
   'pages.permission.list.title': '权限列表',
   'pages.permission.create.title': '新建权限',
   'pages.permission.edit.title': '编辑权限',
-  'pages.permission.field.name': '权限名称',
-  'pages.permission.field.code': '权限编码',
-  'pages.permission.field.description': '权限描述',
+
   'pages.permission.field.method': '请求方法',
   'pages.permission.field.path': '请求路径',
-  'pages.permission.field.status': '状态',
-  'pages.permission.placeholder.name': '请输入权限名称',
-  'pages.permission.placeholder.code': '请输入权限编码',
-  'pages.permission.placeholder.description': '请输入权限描述',
+
+
   'pages.permission.placeholder.method': '请输入请求方法',
   'pages.permission.placeholder.path': '请输入请求路径',
-  'pages.permission.validation.nameRequired': '请输入权限名称',
-  'pages.permission.validation.codeRequired': '请输入权限编码',
+
   'pages.permission.validation.methodRequired': '请输入请求方法',
   'pages.permission.validation.pathRequired': '请输入请求路径',
-  'pages.permission.validation.nameMax': '权限名称不能超过50个字符',
-  'pages.permission.validation.codeMax': '权限编码不能超过50个字符',
-  'pages.permission.validation.descriptionMax': '权限描述不能超过200个字符',
+
   'pages.permission.validation.methodMax': '请求方法不能超过10个字符',
   'pages.permission.validation.pathMax': '请求路径不能超过200个字符',
-  'pages.permission.message.adding': '正在添加权限...',
-  'pages.permission.message.addSuccess': '权限添加成功',
-  'pages.permission.message.addFailed': '权限添加失败，请重试',
-  'pages.permission.message.updating': '正在更新权限...',
-  'pages.permission.message.updateSuccess': '权限更新成功',
-  'pages.permission.message.updateFailed': '权限更新失败，请重试',
-  'pages.permission.message.deleting': '正在删除权限...',
-  'pages.permission.message.deleteSuccess': '权限删除成功',
-  'pages.permission.message.deleteFailed': '权限删除失败，请重试',
-  'pages.permission.action.edit': '编辑',
-  'pages.permission.action.delete': '删除',
-  'pages.permission.action.batchDelete': '批量删除',
-  'pages.permission.selected': '已选择',
-  'pages.permission.items': '项',
+
+
   
   // 用户管理模块
   'pages.user.title': '用户管理',
@@ -418,7 +350,7 @@ export default {
   'pages.user.field.avatar': '头像',
   'pages.user.field.department': '部门',
   'pages.user.field.roles': '角色',
-  'pages.user.field.status': '状态',
+
   'pages.user.placeholder.username': '请输入用户名',
   'pages.user.placeholder.password': '请输入密码',
   'pages.user.placeholder.email': '请输入邮箱',
@@ -428,26 +360,15 @@ export default {
   'pages.user.validation.usernameRequired': '请输入用户名',
   'pages.user.validation.passwordRange': '密码长度需在6-20位',
   'pages.user.validation.rolesRequired': '请至少选择一个角色',
-  'pages.user.message.adding': '正在添加用户...',
-  'pages.user.message.addSuccess': '用户添加成功',
-  'pages.user.message.addFailed': '用户添加失败，请重试',
-  'pages.user.message.updating': '正在更新用户...',
-  'pages.user.message.updateSuccess': '用户更新成功',
-  'pages.user.message.updateFailed': '用户更新失败，请重试',
-  'pages.user.message.deleting': '正在删除用户...',
-  'pages.user.message.deleteSuccess': '用户删除成功',
-  'pages.user.message.deleteFailed': '用户删除失败，请重试',
+
   
   // 权限状态
-  'pages.permission.status.default': '关闭',
-  'pages.permission.status.running': '运行中',
-  'pages.permission.status.online': '已上线',
-  'pages.permission.status.abnormal': '异常',
+
   
   // 权限表单相关
   'pages.searchTable.updateForm.permissionConfig': '权限配置',
   'pages.searchTable.updateForm.permissionDesc.descLabel': '权限描述',
-  'pages.searchTable.updateForm.permissionDesc.descPlaceholder': '请输入至少五个字符',
+
   'pages.searchTable.updateForm.permissionProps.title': '配置权限属性',
   'pages.searchTable.updateForm.permission.methodLabel': '请求方法',
   'pages.searchTable.updateForm.permissionProps.templateLabel': '权限模板',

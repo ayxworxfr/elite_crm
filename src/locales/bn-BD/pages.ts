@@ -59,7 +59,7 @@ export default {
   'pages.searchTable.nameStatus.abnormal': 'অস্বাভাবিক',
   'pages.searchTable.titleUpdatedAt': 'সর্বশেষ নির্ধারিত',
   'pages.searchTable.exception': 'ব্যতিক্রম জন্য কারণ লিখুন!',
-  'pages.searchTable.titleOption': 'অপশন',
+
   'pages.searchTable.config': 'কনফিগারেশন',
   'pages.searchTable.subscribeAlert': 'সতর্কতা সাবস্ক্রাইব করুন',
   'pages.searchTable.title': 'ইনকয়েরি ফরম',

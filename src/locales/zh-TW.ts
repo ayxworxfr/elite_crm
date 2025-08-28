@@ -1,3 +1,4 @@
+import common from './zh-TW/common';
 import component from './zh-TW/component';
 import globalHeader from './zh-TW/globalHeader';
 import menu from './zh-TW/menu';
@@ -12,6 +13,7 @@ export default {
   'layout.user.link.privacy': '隱私',
   'layout.user.link.terms': '條款',
   'app.preview.down.block': '下載此頁面到本地項目',
+  ...common,
   ...pages,
   ...globalHeader,
   ...menu,

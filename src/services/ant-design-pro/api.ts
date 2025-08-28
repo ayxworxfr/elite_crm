@@ -346,6 +346,11 @@ export async function removeUser(params: { ids: number[] }) {
 }
 
 /**
+ * 客户管理
+ */
+export const getCustomerList = createPageQuery<API.Customer>('/api/protected/customer/list');
+
+/**
  * 获取销售机会列表
  */
 export const getSalesOpportunityList = createPageQuery<API.SalesOpportunity>('/api/protected/sales/opportunity/list');

@@ -56,19 +56,15 @@ export default {
   'pages.searchTable.ruleName': 'Rule name is required',
   'pages.searchTable.titleCallNo': 'Number of Service Calls',
   'pages.searchTable.titleStatus': 'Status',
-  'pages.searchTable.nameStatus.default': 'default',
-  'pages.searchTable.nameStatus.running': 'running',
-  'pages.searchTable.nameStatus.online': 'online',
-  'pages.searchTable.nameStatus.abnormal': 'abnormal',
+
   'pages.searchTable.titleUpdatedAt': 'Last Updated at',
   'pages.searchTable.exception': 'Please enter the reason for the exception!',
-  'pages.searchTable.titleOption': 'Option',
+
   'pages.searchTable.config': 'Configuration',
   'pages.searchTable.subscribeAlert': 'Subscribe to alerts',
   'pages.searchTable.title': 'Enquiry Form',
   'pages.searchTable.new': 'New',
-  'pages.searchTable.chosen': 'chosen',
-  'pages.searchTable.item': 'item',
+
   'pages.searchTable.totalServiceCalls': 'Total Number of Service Calls',
   'pages.searchTable.tenThousand': '0000',
   'pages.searchTable.batchDeletion': 'batch deletion',
@@ -90,12 +86,12 @@ export default {
   'pages.salesOpportunity.field.amount': 'Amount',
   'pages.salesOpportunity.field.probability': 'Probability',
   'pages.salesOpportunity.field.expectedCloseDate': 'Expected Close Date',
-  'pages.salesOpportunity.field.status': 'Status',
+
   'pages.salesOpportunity.field.stage': 'Stage',
   'pages.salesOpportunity.field.sourceId': 'Source ID',
   'pages.salesOpportunity.field.nextAction': 'Next Action',
   'pages.salesOpportunity.field.nextActionDate': 'Next Action Date',
-  'pages.salesOpportunity.field.description': 'Description',
+
   'pages.salesOpportunity.field.actionType': 'Action Type',
   'pages.salesOpportunity.field.actionDate': 'Action Date',
 
@@ -116,11 +112,11 @@ export default {
   'pages.contract.field.amount': 'Contract Amount',
   'pages.contract.field.startDate': 'Start Date',
   'pages.contract.field.endDate': 'End Date',
-  'pages.contract.field.status': 'Status',
+
   'pages.contract.field.signingDate': 'Signing Date',
   'pages.contract.field.contractType': 'Contract Type',
   'pages.contract.field.paymentTerms': 'Payment Terms',
-  'pages.contract.field.description': 'Contract Description',
+
   'pages.contract.field.fileUrl': 'File URL',
   
   // Contract Status
@@ -146,18 +142,9 @@ export default {
   'pages.contract.item.field.discount': 'Discount',
   'pages.contract.item.field.amount': 'Amount',
   
-  // Operation Messages
-  'pages.contract.message.creating': 'Creating contract...',
-  'pages.contract.message.createSuccess': 'Contract created successfully!',
-  'pages.contract.message.createFailed': 'Contract creation failed, please try again!',
-  'pages.contract.message.updating': 'Updating contract...',
-  'pages.contract.message.updateSuccess': 'Contract updated successfully!',
-  'pages.contract.message.updateFailed': 'Contract update failed, please try again!',
-  'pages.contract.message.deleting': 'Deleting contract...',
-  'pages.contract.message.deleteSuccess': 'Contract deleted successfully!',
-  'pages.contract.message.deleteFailed': 'Contract deletion failed, please try again!',
-  'pages.contract.message.statusUpdateSuccess': 'Status updated successfully!',
-  'pages.contract.message.statusUpdateFailed': 'Status update failed, please try again!',
+
+
+
   
   // Status Options
   'pages.salesOpportunity.status.initial': 'Initial Contact',
@@ -183,37 +170,26 @@ export default {
   'pages.salesOpportunity.table.owner': 'Owner',
   'pages.salesOpportunity.table.source': 'Source',
   'pages.salesOpportunity.table.createTime': 'Create Time',
-  'pages.salesOpportunity.table.operation': 'Operation',
   
   // Action Buttons
-  'pages.salesOpportunity.action.edit': 'Edit',
+
   'pages.salesOpportunity.action.advance': 'Advance Stage',
   'pages.salesOpportunity.action.activity': 'Add Activity',
   'pages.salesOpportunity.action.lose': 'Mark Lost',
   'pages.salesOpportunity.action.analytics': 'Sales Analytics',
-  'pages.salesOpportunity.action.batchDelete': 'Batch Delete',
-  'pages.salesOpportunity.action.export': 'Export Report',
-  'pages.salesOpportunity.action.refresh': 'Refresh Data',
+
   
   // Messages
-  'pages.salesOpportunity.message.adding': 'Adding...',
-  'pages.salesOpportunity.message.addSuccess': 'Added successfully',
-  'pages.salesOpportunity.message.addFailed': 'Adding failed, please try again!',
-  'pages.salesOpportunity.message.updating': 'Updating...',
-  'pages.salesOpportunity.message.updateSuccess': 'Updated successfully',
-  'pages.salesOpportunity.message.updateFailed': 'Update failed, please try again!',
-  'pages.salesOpportunity.message.deleting': 'Deleting...',
-  'pages.salesOpportunity.message.deleteSuccess': 'Deleted successfully, will refresh soon',
-  'pages.salesOpportunity.message.deleteFailed': 'Delete failed, please try again',
-  'pages.salesOpportunity.message.advancing': 'Advancing stage...',
-  'pages.salesOpportunity.message.advanceSuccess': 'Stage advanced successfully',
-  'pages.salesOpportunity.message.advanceFailed': 'Stage advancement failed, please try again!',
+
+
+
+
   'pages.salesOpportunity.message.losing': 'Marking as lost...',
   'pages.salesOpportunity.message.loseSuccess': 'Marked as lost successfully',
   'pages.salesOpportunity.message.loseFailed': 'Failed to mark as lost, please try again!',
-  'pages.salesOpportunity.message.addingActivity': 'Adding activity...',
-  'pages.salesOpportunity.message.activitySuccess': 'Activity added successfully',
-  'pages.salesOpportunity.message.activityFailed': 'Failed to add activity, please try again!',
+
+
+
   'pages.salesOpportunity.message.analyticsFailed': 'Failed to get analytics data',
   'pages.salesOpportunity.message.exportDeveloping': 'Export feature is under development...',
   
@@ -233,7 +209,7 @@ export default {
   'pages.salesOpportunity.validation.stageMax': 'Stage cannot exceed 20 characters',
   'pages.salesOpportunity.validation.sourceIdMin': 'Source ID must be greater than 0',
   'pages.salesOpportunity.validation.nextActionMax': 'Next action cannot exceed 255 characters',
-  'pages.salesOpportunity.validation.descriptionMax': 'Description cannot exceed 1000 characters',
+
   'pages.salesOpportunity.validation.actionTypeRequired': 'Please select action type',
   'pages.salesOpportunity.validation.actionDateRequired': 'Please select action date',
   'pages.salesOpportunity.validation.descriptionRequired': 'Please enter activity description',
@@ -243,8 +219,8 @@ export default {
   
   // Placeholders
   'pages.salesOpportunity.placeholder.opportunityName': 'Please enter sales opportunity name',
-  'pages.salesOpportunity.placeholder.customerId': 'Please enter customer ID',
-  'pages.salesOpportunity.placeholder.ownerId': 'Please enter owner ID',
+  'pages.salesOpportunity.placeholder.customer': 'Please select customer',
+  'pages.salesOpportunity.placeholder.owner': 'Please select owner',
   'pages.salesOpportunity.placeholder.amount': 'Please enter opportunity amount',
   'pages.salesOpportunity.placeholder.probability': 'Please enter probability (0-100)',
   'pages.salesOpportunity.placeholder.expectedCloseDate': 'Please select expected close date',
@@ -253,7 +229,7 @@ export default {
   'pages.salesOpportunity.placeholder.sourceId': 'Please enter customer source ID',
   'pages.salesOpportunity.placeholder.nextAction': 'Please enter next action plan',
   'pages.salesOpportunity.placeholder.nextActionDate': 'Please select next action date',
-  'pages.salesOpportunity.placeholder.description': 'Please enter sales opportunity description',
+
   'pages.salesOpportunity.placeholder.actionType': 'Please select action type',
   'pages.salesOpportunity.placeholder.actionDate': 'Please select action date',
   'pages.salesOpportunity.placeholder.actionDescription': 'Please describe the content, results and next steps of this activity in detail',
@@ -308,8 +284,7 @@ export default {
   'pages.salesOpportunity.analytics.percentageSuffix': '%',
   
   // Others
-  'pages.salesOpportunity.selected': 'Selected',
-  'pages.salesOpportunity.items': 'items',
+
   'pages.salesOpportunity.failReasonPrompt': 'Please enter the reason for failure:',
   
   // Role Management Module
@@ -317,40 +292,9 @@ export default {
   'pages.role.list.title': 'Role List',
   'pages.role.create.title': 'Create Role',
   'pages.role.edit.title': 'Edit Role',
-  'pages.role.field.name': 'Role Name',
-  'pages.role.field.code': 'Role Code',
-  'pages.role.field.description': 'Role Description',
-  'pages.role.field.status': 'Status',
-  'pages.role.placeholder.name': 'Please enter role name',
-  'pages.role.placeholder.code': 'Please enter role code',
-  'pages.role.placeholder.description': 'Please enter role description',
-  'pages.role.validation.nameRequired': 'Please enter role name',
-  'pages.role.validation.codeRequired': 'Please enter role code',
-  'pages.role.validation.nameMax': 'Role name cannot exceed 50 characters',
-  'pages.role.validation.codeMax': 'Role code cannot exceed 50 characters',
-  'pages.role.validation.descriptionMax': 'Role description cannot exceed 200 characters',
-  'pages.role.status.default': 'Shut down',
-  'pages.role.status.running': 'Running',
-  'pages.role.status.online': 'Online',
-  'pages.role.status.abnormal': 'Abnormal',
-  'pages.role.message.adding': 'Adding role...',
-  'pages.role.message.addSuccess': 'Role added successfully',
-  'pages.role.message.addFailed': 'Failed to add role, please try again',
-  'pages.role.message.updating': 'Updating role...',
-  'pages.role.message.updateSuccess': 'Role updated successfully',
-  'pages.role.message.updateFailed': 'Failed to update role, please try again',
-  'pages.role.message.deleting': 'Deleting role...',
-  'pages.role.message.deleteSuccess': 'Role deleted successfully',
-  'pages.role.message.deleteFailed': 'Failed to delete role, please try again',
-  'pages.role.action.edit': 'Edit',
-  'pages.role.action.delete': 'Delete',
-  'pages.role.action.batchDelete': 'Batch Delete',
-  'pages.role.selected': 'Selected',
-  'pages.role.items': 'items',
-  
+
   // Role Form Related
   'pages.searchTable.updateForm.roleConfig': 'Role Configuration',
-  'pages.searchTable.updateForm.basicConfig': 'Basic Information',
   'pages.searchTable.updateForm.role.nameLabel': 'Role Name',
   'pages.searchTable.updateForm.role.namePlaceholder': 'Please enter role name!',
   'pages.searchTable.updateForm.role.codeLabel': 'Role Code',
@@ -369,40 +313,21 @@ export default {
   'pages.permission.list.title': 'Permission List',
   'pages.permission.create.title': 'Create Permission',
   'pages.permission.edit.title': 'Edit Permission',
-  'pages.permission.field.name': 'Permission Name',
-  'pages.permission.field.code': 'Permission Code',
-  'pages.permission.field.description': 'Permission Description',
+
   'pages.permission.field.method': 'Request Method',
   'pages.permission.field.path': 'Request Path',
-  'pages.permission.field.status': 'Status',
-  'pages.permission.placeholder.name': 'Please enter permission name',
-  'pages.permission.placeholder.code': 'Please enter permission code',
-  'pages.permission.placeholder.description': 'Please enter permission description',
+
+
   'pages.permission.placeholder.method': 'Please enter request method',
   'pages.permission.placeholder.path': 'Please enter request path',
-  'pages.permission.validation.nameRequired': 'Please enter permission name',
-  'pages.permission.validation.codeRequired': 'Please enter permission code',
+
   'pages.permission.validation.methodRequired': 'Please enter request method',
   'pages.permission.validation.pathRequired': 'Please enter request path',
-  'pages.permission.validation.nameMax': 'Permission name cannot exceed 50 characters',
-  'pages.permission.validation.codeMax': 'Permission code cannot exceed 50 characters',
-  'pages.permission.validation.descriptionMax': 'Permission description cannot exceed 200 characters',
+
   'pages.permission.validation.methodMax': 'Request method cannot exceed 10 characters',
   'pages.permission.validation.pathMax': 'Request path cannot exceed 200 characters',
-  'pages.permission.message.adding': 'Adding permission...',
-  'pages.permission.message.addSuccess': 'Permission added successfully',
-  'pages.permission.message.addFailed': 'Failed to add permission, please try again',
-  'pages.permission.message.updating': 'Updating permission...',
-  'pages.permission.message.updateSuccess': 'Permission updated successfully',
-  'pages.permission.message.updateFailed': 'Failed to update permission, please try again',
-  'pages.permission.message.deleting': 'Deleting permission...',
-  'pages.permission.message.deleteSuccess': 'Permission deleted successfully',
-  'pages.permission.message.deleteFailed': 'Failed to delete permission, please try again',
-  'pages.permission.action.edit': 'Edit',
-  'pages.permission.action.delete': 'Delete',
-  'pages.permission.action.batchDelete': 'Batch Delete',
-  'pages.permission.selected': 'Selected',
-  'pages.permission.items': 'items',
+
+
   
   // User Management Module
   'pages.user.title': 'User Management',
@@ -416,7 +341,7 @@ export default {
   'pages.user.field.avatar': 'Avatar',
   'pages.user.field.department': 'Department',
   'pages.user.field.roles': 'Roles',
-  'pages.user.field.status': 'Status',
+
   'pages.user.placeholder.username': 'Please enter username',
   'pages.user.placeholder.password': 'Please enter password',
   'pages.user.placeholder.email': 'Please enter email',
@@ -426,26 +351,15 @@ export default {
   'pages.user.validation.usernameRequired': 'Please enter username',
   'pages.user.validation.passwordRange': 'Password length must be 6-20',
   'pages.user.validation.rolesRequired': 'Please select at least one role',
-  'pages.user.message.adding': 'Adding user...',
-  'pages.user.message.addSuccess': 'User added successfully',
-  'pages.user.message.addFailed': 'Failed to add user, please try again',
-  'pages.user.message.updating': 'Updating user...',
-  'pages.user.message.updateSuccess': 'User updated successfully',
-  'pages.user.message.updateFailed': 'Failed to update user, please try again',
-  'pages.user.message.deleting': 'Deleting user...',
-  'pages.user.message.deleteSuccess': 'User deleted successfully',
-  'pages.user.message.deleteFailed': 'Failed to delete user, please try again',
+
   
   // Permission Status
-  'pages.permission.status.default': 'Shut down',
-  'pages.permission.status.running': 'Running',
-  'pages.permission.status.online': 'Online',
-  'pages.permission.status.abnormal': 'Abnormal',
+
   
   // Permission Form Related
   'pages.searchTable.updateForm.permissionConfig': 'Permission Configuration',
   'pages.searchTable.updateForm.permissionDesc.descLabel': 'Permission Description',
-  'pages.searchTable.updateForm.permissionDesc.descPlaceholder': 'Please enter at least 5 characters',
+
   'pages.searchTable.updateForm.permissionProps.title': 'Configure Permission Properties',
   'pages.searchTable.updateForm.permission.methodLabel': 'Request Method',
   'pages.searchTable.updateForm.permissionProps.templateLabel': 'Permission Template',

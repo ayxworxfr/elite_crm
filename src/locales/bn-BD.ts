@@ -1,3 +1,4 @@
+import common from './bn-BD/common';
 import component from './bn-BD/component';
 import globalHeader from './bn-BD/globalHeader';
 import menu from './bn-BD/menu';
@@ -15,6 +16,7 @@ export default {
   'app.welcome.link.fetch-blocks': 'সমস্ত ব্লক পান',
   'app.welcome.link.block-list':
     '`block` ডেভেলপমেন্ট এর উপর ভিত্তি করে দ্রুত স্ট্যান্ডার্ড, পৃষ্ঠাসমূহ তৈরি করুন।',
+  ...common,
   ...globalHeader,
   ...menu,
   ...settingDrawer,

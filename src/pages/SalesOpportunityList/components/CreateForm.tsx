@@ -8,6 +8,7 @@ import {
 } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
 import React from 'react';
+import { getCustomerList, getUserList } from '@/services/ant-design-pro/api';
 
 export type CreateFormProps = {
     open: boolean;
@@ -63,24 +64,55 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
                 ]}
             />
 
-            <ProFormDigit
+            <ProFormSelect
                 name="customer_id"
-                label={intl.formatMessage({ id: 'pages.salesOpportunity.field.customerId' })}
-                placeholder={intl.formatMessage({ id: 'pages.salesOpportunity.placeholder.customerId' })}
+                label={intl.formatMessage({ id: 'pages.salesOpportunity.table.customer' })}
+                placeholder={intl.formatMessage({ id: 'pages.salesOpportunity.placeholder.customer' })}
                 rules={[
                     { required: true, message: intl.formatMessage({ id: 'pages.salesOpportunity.validation.customerIdRequired' }) },
-                    { type: 'number', min: 1, message: intl.formatMessage({ id: 'pages.salesOpportunity.validation.customerIdMin' }) },
                 ]}
+                request={async () => {
+                    try {
+                        const res = await getCustomerList({ current: 1, pageSize: 200 });
+                        return (res.data || []).map((customer: API.Customer) => ({
+                            label: customer.customer_name,
+                            value: customer.customer_id,
+                        }));
+                    } catch (error) {
+                        // 如果客户API不存在，返回空数组
+                        console.warn('Customer API not available, using fallback');
+                        return [];
+                    }
+                }}
+                showSearch
+                fieldProps={{
+                    optionFilterProp: 'label',
+                }}
             />
 
-            <ProFormDigit
+            <ProFormSelect
                 name="owner_id"
-                label={intl.formatMessage({ id: 'pages.salesOpportunity.field.ownerId' })}
-                placeholder={intl.formatMessage({ id: 'pages.salesOpportunity.placeholder.ownerId' })}
+                label={intl.formatMessage({ id: 'pages.salesOpportunity.table.owner' })}
+                placeholder={intl.formatMessage({ id: 'pages.salesOpportunity.placeholder.owner' })}
                 rules={[
                     { required: true, message: intl.formatMessage({ id: 'pages.salesOpportunity.validation.ownerIdRequired' }) },
-                    { type: 'number', min: 1, message: intl.formatMessage({ id: 'pages.salesOpportunity.validation.ownerIdMin' }) },
                 ]}
+                request={async () => {
+                    try {
+                        const res = await getUserList({ current: 1, pageSize: 200 });
+                        return (res.data || []).map((user: API.User) => ({
+                            label: user.username,  // 优先使用name，如果没有则使用username
+                            value: user.id,
+                        }));
+                    } catch (error) {
+                        console.error('Failed to load users:', error);
+                        return [];
+                    }
+                }}
+                showSearch
+                fieldProps={{
+                    optionFilterProp: 'label',
+                }}
             />
 
             <ProFormDigit
@@ -93,8 +125,14 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
                 ]}
                 fieldProps={{
                     precision: 2,
-                    formatter: (value) => `¥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-                    parser: (value) => Number(value!.replace(/\¥\s?|(,*)/g, '')),
+                    formatter: (value) => {
+                        if (!value && value !== 0) return '';
+                        return `¥ ${Number(value || 0).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                    },
+                    parser: (value) => {
+                        if (!value) return 0;
+                        return parseFloat(value.replace(/¥\s?|,/g, '')) || 0;
+                    },
                 }}
             />
 
@@ -108,8 +146,14 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
                 ]}
                 fieldProps={{
                     precision: 2,
-                    formatter: (value) => `${value}%`,
-                    parser: (value) => Number(value!.replace('%', '')),
+                    formatter: (value) => {
+                        if (!value && value !== 0) return '';
+                        return `${Number(value).toFixed(2)}%`;
+                    },
+                    parser: (value) => {
+                        if (!value) return 0;
+                        return parseFloat(value.replace('%', '')) || 0;
+                    },
                 }}
             />
 
@@ -127,7 +171,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
             <ProFormSelect
                 name="status"
-                label={intl.formatMessage({ id: 'pages.salesOpportunity.field.status' })}
+                label={intl.formatMessage({ id: 'common.field.status' })}
                 placeholder={intl.formatMessage({ id: 'pages.salesOpportunity.placeholder.status' })}
                 options={statusOptions}
                 rules={[
@@ -173,10 +217,10 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
             <ProFormTextArea
                 name="description"
-                label={intl.formatMessage({ id: 'pages.salesOpportunity.field.description' })}
-                placeholder={intl.formatMessage({ id: 'pages.salesOpportunity.placeholder.description' })}
+                label={intl.formatMessage({ id: 'common.field.description' })}
+                placeholder={intl.formatMessage({ id: 'common.placeholder.description' })}
                 rules={[
-                    { max: 1000, message: intl.formatMessage({ id: 'pages.salesOpportunity.validation.descriptionMax' }) },
+                    { max: 200, message: intl.formatMessage({ id: 'common.validation.descriptionMax' }) },
                 ]}
                 fieldProps={{
                     rows: 4,

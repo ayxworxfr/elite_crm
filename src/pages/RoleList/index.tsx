@@ -55,15 +55,15 @@ const RoleList: React.FC = () => {
    * @param fields
    */
   const handleAdd = async (fields: API.Role) => {
-    const hide = message.loading(intl.formatMessage({ id: 'pages.role.message.adding' }));
+    const hide = message.loading(intl.formatMessage({ id: 'common.message.adding' }));
     try {
       await addRole({ ...fields });
       hide();
-      message.success(intl.formatMessage({ id: 'pages.role.message.addSuccess' }));
+      message.success(intl.formatMessage({ id: 'common.message.addSuccess' }));
       return true;
     } catch (error) {
       hide();
-      message.error(intl.formatMessage({ id: 'pages.role.message.addFailed' }));
+      message.error(intl.formatMessage({ id: 'common.message.addFailed' }));
       return false;
     }
   };
@@ -75,16 +75,16 @@ const RoleList: React.FC = () => {
    * @param fields
    */
   const handleUpdate = async (fields: FormValueType) => {
-    const hide = message.loading(intl.formatMessage({ id: 'pages.role.message.updating' }));
+    const hide = message.loading(intl.formatMessage({ id: 'common.message.updating' }));
     try {
       await updateRole(fields);
       hide();
 
-      message.success(intl.formatMessage({ id: 'pages.role.message.updateSuccess' }));
+      message.success(intl.formatMessage({ id: 'common.message.updateSuccess' }));
       return true;
     } catch (error) {
       hide();
-      message.error(intl.formatMessage({ id: 'pages.role.message.updateFailed' }));
+      message.error(intl.formatMessage({ id: 'common.message.updateFailed' }));
       return false;
     }
   };
@@ -96,18 +96,18 @@ const RoleList: React.FC = () => {
    * @param selectedRows
    */
   const handleRemove = async (selectedRows: API.Role[]) => {
-    const hide = message.loading(intl.formatMessage({ id: 'pages.role.message.deleting' }));
+    const hide = message.loading(intl.formatMessage({ id: 'common.message.deleting' }));
     if (!selectedRows) return true;
     try {
       await removeRole({
         ids: selectedRows.map((row) => (row.id ? row.id : 0)),
       });
       hide();
-      message.success(intl.formatMessage({ id: 'pages.role.message.deleteSuccess' }));
+      message.success(intl.formatMessage({ id: 'common.message.deleteSuccess' }));
       return true;
     } catch (error) {
       hide();
-      message.error(intl.formatMessage({ id: 'pages.role.message.deleteFailed' }));
+      message.error(intl.formatMessage({ id: 'common.message.deleteFailed' }));
       return false;
     }
   };
@@ -172,7 +172,7 @@ const RoleList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.searchTable.titleOption' }),
+      title: intl.formatMessage({ id: 'common.action.actions' }),
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
@@ -268,46 +268,46 @@ const RoleList: React.FC = () => {
         }}
       >
         <ProFormText
-          label={intl.formatMessage({ id: 'pages.role.field.name' })}
+          label={intl.formatMessage({ id: 'common.field.name' })}
           rules={[
             {
               required: true,
-              message: intl.formatMessage({ id: 'pages.role.validation.nameRequired' }),
+              message: intl.formatMessage({ id: 'common.validation.nameRequired' }),
             },
             {
               max: 50,
-              message: intl.formatMessage({ id: 'pages.role.validation.nameMax' }),
+              message: intl.formatMessage({ id: 'common.validation.nameMax' }),
             },
           ]}
           width="md"
           name="name"
-          placeholder={intl.formatMessage({ id: 'pages.role.placeholder.name' })}
+          placeholder={intl.formatMessage({ id: 'common.placeholder.name' })}
         />
         <ProFormText
-          label={intl.formatMessage({ id: 'pages.role.field.code' })}
+          label={intl.formatMessage({ id: 'common.field.code' })}
           rules={[
             {
               required: true,
-              message: intl.formatMessage({ id: 'pages.role.validation.codeRequired' }),
+              message: intl.formatMessage({ id: 'common.validation.codeRequired' }),
             },
             {
               max: 50,
-              message: intl.formatMessage({ id: 'pages.role.validation.codeMax' }),
+              message: intl.formatMessage({ id: 'common.validation.codeMax' }),
             },
           ]}
           width="md"
           name="code"
-          placeholder={intl.formatMessage({ id: 'pages.role.placeholder.code' })}
+          placeholder={intl.formatMessage({ id: 'common.placeholder.code' })}
         />
         <ProFormTextArea
-          label={intl.formatMessage({ id: 'pages.role.field.description' })}
+          label={intl.formatMessage({ id: 'common.field.description' })}
           width="md"
           name="description"
-          placeholder={intl.formatMessage({ id: 'pages.role.placeholder.description' })}
+          placeholder={intl.formatMessage({ id: 'common.placeholder.description' })}
           rules={[
             {
               max: 200,
-              message: intl.formatMessage({ id: 'pages.role.validation.descriptionMax' }),
+              message: intl.formatMessage({ id: 'common.validation.descriptionMax' }),
             },
           ]}
         />
