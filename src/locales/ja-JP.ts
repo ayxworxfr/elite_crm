@@ -1,3 +1,4 @@
+import common from './ja-JP/common';
 import component from './ja-JP/component';
 import globalHeader from './ja-JP/globalHeader';
 import menu from './ja-JP/menu';
@@ -15,6 +16,7 @@ export default {
     'このページをローカルプロジェクトにダウンロードしてください',
   'app.welcome.link.fetch-blocks': '',
   'app.welcome.link.block-list': '',
+  ...common,
   ...globalHeader,
   ...menu,
   ...settingDrawer,

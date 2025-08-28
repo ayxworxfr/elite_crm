@@ -12,7 +12,7 @@ export default {
   // Common Actions
   'common.action.edit': 'Edit',
   'common.action.delete': 'Delete',
-  'common.action.actions': 'Actions',
+  'common.action.actions': 'Option',
   'common.action.view': 'View',
   'common.action.add': 'Add',
   'common.action.update': 'Update',

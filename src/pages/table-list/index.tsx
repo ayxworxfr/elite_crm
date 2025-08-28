@@ -172,7 +172,7 @@ const TableList: React.FC = () => {
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.titleOption"
+          id="common.action.actions"
           defaultMessage="Operating"
         />
       ),

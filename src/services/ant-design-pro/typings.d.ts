@@ -228,6 +228,19 @@ declare namespace API {
     create_time?: string;
   };
 
+  /** 客户 */
+  type Customer = {
+    customer_id?: number;
+    customer_name: string;
+    company?: string;
+    phone?: string;
+    email?: string;
+    address?: string;
+    status?: number;
+    create_time?: string;
+    update_time?: string;
+  };
+
   /** 客户来源 */
   type CustomerSource = {
     source_id?: number;

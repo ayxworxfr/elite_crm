@@ -57,7 +57,7 @@ export default {
   'pages.searchTable.nameStatus.abnormal': '異常',
   'pages.searchTable.titleUpdatedAt': '上次調度時間',
   'pages.searchTable.exception': '請輸入異常原因！',
-  'pages.searchTable.titleOption': '操作',
+
   'pages.searchTable.config': '配置',
   'pages.searchTable.subscribeAlert': '訂閱警報',
   'pages.searchTable.title': '查詢表格',
@@ -151,6 +151,6 @@ export default {
   'pages.contract.message.deleting': '正在刪除合同...',
   'pages.contract.message.deleteSuccess': '合同刪除成功！',
   'pages.contract.message.deleteFailed': '合同刪除失敗，請重試！',
-  'pages.contract.message.statusUpdateSuccess': '狀態更新成功！',
-  'pages.contract.message.statusUpdateFailed': '狀態更新失敗，請重試！',
+
+
 };

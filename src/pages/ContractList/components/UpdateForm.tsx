@@ -134,7 +134,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                 name="end_date"
             />
             <ProFormSelect
-                label={intl.formatMessage({ id: 'pages.contract.field.status' })}
+                label={intl.formatMessage({ id: 'common.field.status' })}
                 width="md"
                 name="status"
                 options={contractStatusOptions}
@@ -156,7 +156,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                 name="payment_terms"
             />
             <ProFormTextArea
-                label={intl.formatMessage({ id: 'pages.contract.field.description' })}
+                label={intl.formatMessage({ id: 'common.field.description' })}
                 width="md"
                 name="description"
             />

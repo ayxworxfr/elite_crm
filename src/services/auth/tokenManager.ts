@@ -1,4 +1,5 @@
 import { API_BASE_URL } from '@/services/config';
+import { request } from '@umijs/max';
 import { TOKEN_CONFIG } from './config';
 
 export class TokenManager {
@@ -71,19 +72,17 @@ export class TokenManager {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}${TOKEN_CONFIG.refreshApiPath}`, {
-        method: 'POST',
-        headers: {
-          [TOKEN_CONFIG.headerNames.contentType]: 'application/json',
-        },
-        body: JSON.stringify({ refresh_token: refreshToken }),
-      });
+      const response = await request<API.APIResult<API.RefreshTokenResult>>(
+        `${API_BASE_URL}${TOKEN_CONFIG.refreshApiPath}`, {
+          method: 'POST',
+          data: { refresh_token: refreshToken },
+        });
 
-      if (!response.ok) {
+      const data = response.data;
+      if (!response) {
         throw new Error('Refresh failed');
       }
 
-      const data = await response.json();
       if (data.access_token) {
         this.setTokens(data.access_token, data.refresh_token || refreshToken);
         return data.access_token;

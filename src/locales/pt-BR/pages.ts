@@ -63,7 +63,7 @@ export default {
   'pages.searchTable.nameStatus.abnormal': 'anormal',
   'pages.searchTable.titleUpdatedAt': 'Última programação em',
   'pages.searchTable.exception': 'Por favor, indique o motivo da exceção!',
-  'pages.searchTable.titleOption': 'Opção',
+
   'pages.searchTable.config': 'Configuração',
   'pages.searchTable.subscribeAlert': 'Inscreva-se para receber alertas',
   'pages.searchTable.title': 'Formulário de Consulta',
@@ -157,6 +157,6 @@ export default {
   'pages.contract.message.deleting': 'Excluindo contrato...',
   'pages.contract.message.deleteSuccess': 'Contrato excluído com sucesso!',
   'pages.contract.message.deleteFailed': 'Falha ao excluir contrato, tente novamente!',
-  'pages.contract.message.statusUpdateSuccess': 'Status atualizado com sucesso!',
-  'pages.contract.message.statusUpdateFailed': 'Falha ao atualizar status, tente novamente!',
+
+
 };

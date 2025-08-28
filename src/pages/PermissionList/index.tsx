@@ -55,15 +55,15 @@ const PermissionList: React.FC = () => {
    * @param fields
    */
   const handleAdd = async (fields: API.Permission) => {
-    const hide = message.loading(intl.formatMessage({ id: 'pages.permission.message.adding' }));
+    const hide = message.loading(intl.formatMessage({ id: 'common.message.adding' }));
     try {
       await addPermission({ ...fields });
       hide();
-      message.success(intl.formatMessage({ id: 'pages.permission.message.addSuccess' }));
+      message.success(intl.formatMessage({ id: 'common.message.addSuccess' }));
       return true;
     } catch (error) {
       hide();
-      message.error(intl.formatMessage({ id: 'pages.permission.message.addFailed' }));
+      message.error(intl.formatMessage({ id: 'common.message.addFailed' }));
       return false;
     }
   };
@@ -75,16 +75,16 @@ const PermissionList: React.FC = () => {
    * @param fields
    */
   const handleUpdate = async (fields: FormValueType) => {
-    const hide = message.loading(intl.formatMessage({ id: 'pages.permission.message.updating' }));
+    const hide = message.loading(intl.formatMessage({ id: 'common.message.updating' }));
     try {
       await updatePermission(fields);
       hide();
 
-      message.success(intl.formatMessage({ id: 'pages.permission.message.updateSuccess' }));
+      message.success(intl.formatMessage({ id: 'common.message.updateSuccess' }));
       return true;
     } catch (error) {
       hide();
-      message.error(intl.formatMessage({ id: 'pages.permission.message.updateFailed' }));
+      message.error(intl.formatMessage({ id: 'common.message.updateFailed' }));
       return false;
     }
   };
@@ -96,25 +96,25 @@ const PermissionList: React.FC = () => {
    * @param selectedRows
    */
   const handleRemove = async (selectedRows: API.Permission[]) => {
-    const hide = message.loading(intl.formatMessage({ id: 'pages.permission.message.deleting' }));
+    const hide = message.loading(intl.formatMessage({ id: 'common.message.deleting' }));
     if (!selectedRows) return true;
     try {
       await removePermission({
         ids: selectedRows.map((row) => (row.id ? row.id : 0)),
       });
       hide();
-      message.success(intl.formatMessage({ id: 'pages.permission.message.deleteSuccess' }));
+      message.success(intl.formatMessage({ id: 'common.message.deleteSuccess' }));
       return true;
     } catch (error) {
       hide();
-      message.error(intl.formatMessage({ id: 'pages.permission.message.deleteFailed' }));
+      message.error(intl.formatMessage({ id: 'common.message.deleteFailed' }));
       return false;
     }
   };
 
   const columns: ProColumns<API.Permission>[] = [
     {
-      title: intl.formatMessage({ id: 'pages.permission.field.name' }),
+      title: intl.formatMessage({ id: 'common.field.name' }),
       dataIndex: 'name',
       render: (dom, entity) => {
         return (
@@ -130,12 +130,12 @@ const PermissionList: React.FC = () => {
       },
     },
     {
-      title: intl.formatMessage({ id: 'pages.permission.field.code' }),
+      title: intl.formatMessage({ id: 'common.field.code' }),
       dataIndex: 'code',
       valueType: 'textarea',
     },
     {
-      title: intl.formatMessage({ id: 'pages.permission.field.description' }),
+      title: intl.formatMessage({ id: 'common.field.description' }),
       dataIndex: 'description',
       valueType: 'textarea',
     },
@@ -150,7 +150,7 @@ const PermissionList: React.FC = () => {
       valueType: 'textarea',
     },
     {
-      title: intl.formatMessage({ id: 'pages.permission.field.status' }),
+      title: intl.formatMessage({ id: 'common.field.status' }),
       dataIndex: 'status',
       hideInForm: true,
       valueEnum: {
@@ -190,7 +190,7 @@ const PermissionList: React.FC = () => {
     {
       title: (
         <FormattedMessage
-          id="pages.searchTable.titleOption"
+          id="common.action.actions"
           defaultMessage="Operating"
         />
       ),
@@ -246,7 +246,7 @@ const PermissionList: React.FC = () => {
         <FooterToolbar
           extra={
             <div>
-              {intl.formatMessage({ id: 'pages.permission.selected' })} <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> {intl.formatMessage({ id: 'pages.permission.items' })}
+              {intl.formatMessage({ id: 'common.count.selected' })} <a style={{ fontWeight: 600 }}>{selectedRowsState.length}</a> {intl.formatMessage({ id: 'common.count.items' })}
             </div>
           }
         >
@@ -257,7 +257,7 @@ const PermissionList: React.FC = () => {
               actionRef.current?.reloadAndRest?.();
             }}
           >
-            {intl.formatMessage({ id: 'pages.permission.action.batchDelete' })}
+            {intl.formatMessage({ id: 'common.action.batchDelete' })}
           </Button>
         </FooterToolbar>
       )}
@@ -277,36 +277,36 @@ const PermissionList: React.FC = () => {
         }}
       >
         <ProFormText
-          label={intl.formatMessage({ id: 'pages.permission.field.name' })}
+          label={intl.formatMessage({ id: 'common.field.name' })}
           rules={[
             {
               required: true,
-              message: intl.formatMessage({ id: 'pages.permission.validation.nameRequired' }),
+              message: intl.formatMessage({ id: 'common.validation.nameRequired' }),
             },
             {
               max: 50,
-              message: intl.formatMessage({ id: 'pages.permission.validation.nameMax' }),
+              message: intl.formatMessage({ id: 'common.validation.nameMax' }),
             },
           ]}
           width="md"
           name="name"
-          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.name' })}
+          placeholder={intl.formatMessage({ id: 'common.placeholder.name' })}
         />
         <ProFormText
-          label={intl.formatMessage({ id: 'pages.permission.field.code' })}
+          label={intl.formatMessage({ id: 'common.field.code' })}
           rules={[
             {
               required: true,
-              message: intl.formatMessage({ id: 'pages.permission.validation.codeRequired' }),
+              message: intl.formatMessage({ id: 'common.validation.codeRequired' }),
             },
             {
               max: 50,
-              message: intl.formatMessage({ id: 'pages.permission.validation.codeMax' }),
+              message: intl.formatMessage({ id: 'common.validation.codeMax' }),
             },
           ]}
           width="md"
           name="code"
-          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.code' })}
+          placeholder={intl.formatMessage({ id: 'common.placeholder.code' })}
         />
         <ProFormText
           label={intl.formatMessage({ id: 'pages.permission.field.method' })}
@@ -341,14 +341,14 @@ const PermissionList: React.FC = () => {
           placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.path' })}
         />
         <ProFormTextArea
-          label={intl.formatMessage({ id: 'pages.permission.field.description' })}
+          label={intl.formatMessage({ id: 'common.field.description' })}
           width="md"
           name="description"
-          placeholder={intl.formatMessage({ id: 'pages.permission.placeholder.description' })}
+          placeholder={intl.formatMessage({ id: 'common.placeholder.description' })}
           rules={[
             {
               max: 200,
-              message: intl.formatMessage({ id: 'pages.permission.validation.descriptionMax' }),
+              message: intl.formatMessage({ id: 'common.validation.descriptionMax' }),
             },
           ]}
         />

@@ -1,3 +1,4 @@
+import common from './fa-IR/common';
 import component from './fa-IR/component';
 import globalHeader from './fa-IR/globalHeader';
 import menu from './fa-IR/menu';
@@ -15,6 +16,7 @@ export default {
   'app.welcome.link.fetch-blocks': 'دریافت تمام بلوک',
   'app.welcome.link.block-list':
     'به سرعت صفحات استاندارد مبتنی بر توسعه "بلوک" را بسازید',
+  ...common,
   ...globalHeader,
   ...menu,
   ...settingDrawer,

@@ -64,8 +64,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <ProFormText
           name="name"
           label={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.permissionName.nameLabel',
-            defaultMessage: '权限名称',
+            id: 'common.field.name',
+            defaultMessage: '名称',
           })}
           width="md"
           rules={[
@@ -88,8 +88,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             defaultMessage: '权限描述',
           })}
           placeholder={intl.formatMessage({
-            id: 'pages.searchTable.updateForm.permissionDesc.descPlaceholder',
-            defaultMessage: '请输入至少五个字符',
+            id: 'common.placeholder.description',
+            defaultMessage: '请输入描述',
           })}
           permissions={[
             {
