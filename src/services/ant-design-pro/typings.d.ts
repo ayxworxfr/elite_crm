@@ -161,6 +161,7 @@ declare namespace API {
   type User = {
     id?: number;
     username: string;
+    name?: string; // 用户真实姓名
     password?: string;
     email?: string;
     phone?: string;
@@ -169,6 +170,20 @@ declare namespace API {
     department_name?: string;
     roles?: Role[];
     role_ids?: number[];
+    status?: number;
+    create_time?: string;
+    update_time?: string;
+  }
+
+  /** 部门 */
+  type Department = {
+    department_id: number;
+    department_name: string;
+    code?: string;
+    parent_id?: number;
+    manager?: User;
+    description?: string;
+    sort?: number;
     status?: number;
     create_time?: string;
     update_time?: string;
@@ -323,8 +338,11 @@ declare namespace API {
     contract_no: string;
     contract_name: string;
     customer_id: number;
+    customer?: Customer; // 客户信息
     opportunity_id?: number;
+    opportunity?: SalesOpportunity; // 销售机会信息
     owner_id: number;
+    owner?: User; // 负责人信息
     amount: number;
     start_date: string;
     end_date?: string;

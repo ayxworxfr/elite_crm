@@ -106,18 +106,32 @@ export default {
   // Field Labels
   'pages.contract.field.contractNo': 'Contract No.',
   'pages.contract.field.contractName': 'Contract Name',
-  'pages.contract.field.customerId': 'Customer ID',
-  'pages.contract.field.opportunityId': 'Opportunity ID',
-  'pages.contract.field.ownerId': 'Owner ID',
+  'pages.contract.field.customer': 'Customer',
+  'pages.contract.field.opportunity': 'Sales Opportunity',
+  'pages.contract.field.owner': 'Owner',
   'pages.contract.field.amount': 'Contract Amount',
   'pages.contract.field.startDate': 'Start Date',
   'pages.contract.field.endDate': 'End Date',
-
   'pages.contract.field.signingDate': 'Signing Date',
   'pages.contract.field.contractType': 'Contract Type',
   'pages.contract.field.paymentTerms': 'Payment Terms',
-
   'pages.contract.field.fileUrl': 'File URL',
+  
+  // Placeholders
+  'pages.contract.placeholder.customer': 'Please select customer',
+  'pages.contract.placeholder.opportunity': 'Please select sales opportunity',
+  'pages.contract.placeholder.owner': 'Please select owner',
+  'pages.contract.placeholder.amount': 'Please enter contract amount',
+  'pages.contract.placeholder.startDate': 'Please select start date',
+  'pages.contract.placeholder.endDate': 'Please select end date',
+  'pages.contract.placeholder.signingDate': 'Please select signing date',
+  
+  // Validation Messages
+  'pages.contract.validation.customerIdRequired': 'Please select customer',
+  'pages.contract.validation.ownerIdRequired': 'Please select owner',
+  'pages.contract.validation.amountRequired': 'Please enter contract amount',
+  'pages.contract.validation.amountMin': 'Contract amount must be greater than 0.01',
+  'pages.contract.validation.startDateRequired': 'Please select start date',
   
   // Contract Status
   'pages.contract.status.draft': 'Draft',
@@ -335,6 +349,7 @@ export default {
   'pages.user.create.title': 'Create User',
   'pages.user.edit.title': 'Edit User',
   'pages.user.field.username': 'Username',
+  'pages.user.field.name': 'Name',
   'pages.user.field.password': 'Password',
   'pages.user.field.email': 'Email',
   'pages.user.field.phone': 'Phone',
@@ -343,13 +358,24 @@ export default {
   'pages.user.field.roles': 'Roles',
 
   'pages.user.placeholder.username': 'Please enter username',
+  'pages.user.placeholder.name': 'Please enter real name',
   'pages.user.placeholder.password': 'Please enter password',
   'pages.user.placeholder.email': 'Please enter email',
   'pages.user.placeholder.phone': 'Please enter phone',
   'pages.user.placeholder.department': 'Please select department',
   'pages.user.placeholder.roles': 'Please select roles',
+  'pages.user.placeholder.status': 'Please select status',
+  
   'pages.user.validation.usernameRequired': 'Please enter username',
-  'pages.user.validation.passwordRange': 'Password length must be 6-20',
+  'pages.user.validation.usernameMin': 'Username must be at least 3 characters',
+  'pages.user.validation.usernameMax': 'Username cannot exceed 50 characters',
+  'pages.user.validation.nameMax': 'Name cannot exceed 50 characters',
+  'pages.user.validation.passwordRequired': 'Please enter password',
+  'pages.user.validation.passwordMin': 'Password must be at least 6 characters',
+  'pages.user.validation.emailRequired': 'Please enter email',
+  'pages.user.validation.emailFormat': 'Please enter a valid email format',
+  'pages.user.validation.phoneFormat': 'Please enter a valid phone number',
+  'pages.user.validation.statusRequired': 'Please select status',
   'pages.user.validation.rolesRequired': 'Please select at least one role',
 
   

@@ -324,6 +324,11 @@ export async function removePermission(params: { ids: number[] }) {
  */
 export const getUserList = createPageQuery<API.User>('/api/protected/user/list');
 
+/**
+ * 获取部门列表
+ */
+export const getDepartmentList = createPageQuery<API.Department>('/api/protected/department/list');
+
 export async function addUser(data: API.User) {
   return request('/api/protected/user', {
     method: 'POST',

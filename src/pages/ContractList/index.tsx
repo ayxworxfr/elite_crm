@@ -1,6 +1,9 @@
 import {
     createContract,
     getContractList,
+    getCustomerList,
+    getUserList,
+    getSalesOpportunityList,
     removeContract,
     updateContract,
     updateContractStatus,
@@ -92,7 +95,7 @@ const ContractList: React.FC = () => {
         try {
             await updateContract(fields);
             hide();
-            message.success(intl.formatMessage({ id: 'pages.contract.message.updateSuccess' }));
+            message.success(intl.formatMessage({ id: 'common.message.updateSuccess' }));
             return true;
         } catch (error) {
             hide();
@@ -154,9 +157,20 @@ const ContractList: React.FC = () => {
             valueType: 'text',
         },
         {
-            title: intl.formatMessage({ id: 'pages.contract.field.customerId' }),
-            dataIndex: 'customer_id',
+            title: intl.formatMessage({ id: 'pages.contract.field.customer' }),
+            dataIndex: ['customer', 'customer_name'],
             hideInSearch: true,
+            render: (_, record) => {
+                return record.customer?.customer_name || `Customer ID: ${record.customer_id}`;
+            },
+        },
+        {
+            title: intl.formatMessage({ id: 'pages.contract.field.owner' }),
+            dataIndex: ['owner', 'username'],
+            hideInSearch: true,
+            render: (_, record) => {
+                return record.owner?.name || record.owner?.username || `User ID: ${record.owner_id}`;
+            },
         },
         {
             title: intl.formatMessage({ id: 'pages.contract.field.amount' }),
@@ -328,30 +342,48 @@ const ContractList: React.FC = () => {
                     width="md"
                     name="contract_name"
                 />
-                <ProFormDigit
-                    rules={[
-                        {
-                            required: true,
-                            message: intl.formatMessage({ id: 'common.validation.required' }),
-                        },
-                    ]}
-                    label={intl.formatMessage({ id: 'pages.contract.field.customerId' })}
-                    width="md"
+                <ProFormSelect
                     name="customer_id"
+                    label={intl.formatMessage({ id: 'pages.contract.field.customer' })}
+                    placeholder={intl.formatMessage({ id: 'pages.contract.placeholder.customer' })}
+                    rules={[
+                        { required: true, message: intl.formatMessage({ id: 'pages.contract.validation.customerIdRequired' }) },
+                    ]}
+                    request={async () => {
+                        try {
+                            const res = await getCustomerList({ current: 1, pageSize: 200 });
+                            return (res.data || []).map((customer: API.Customer) => ({
+                                label: customer.customer_name,
+                                value: customer.customer_id,
+                            }));
+                        } catch (error) {
+                            console.warn('Customer API not available');
+                            return [];
+                        }
+                    }}
+                    showSearch
+                    fieldProps={{
+                        optionFilterProp: 'label',
+                    }}
                 />
                 <ProFormDigit
-                    rules={[
-                        {
-                            required: true,
-                            message: intl.formatMessage({ id: 'common.validation.required' }),
-                        },
-                    ]}
-                    label={intl.formatMessage({ id: 'pages.contract.field.amount' })}
-                    width="md"
                     name="amount"
-                    min={0}
+                    label={intl.formatMessage({ id: 'pages.contract.field.amount' })}
+                    placeholder={intl.formatMessage({ id: 'pages.contract.placeholder.amount' })}
+                    rules={[
+                        { required: true, message: intl.formatMessage({ id: 'pages.contract.validation.amountRequired' }) },
+                        { type: 'number', min: 0.01, message: intl.formatMessage({ id: 'pages.contract.validation.amountMin' }) },
+                    ]}
                     fieldProps={{
                         precision: 2,
+                        formatter: (value) => {
+                            if (!value && value !== 0) return '';
+                            return `¥ ${Number(value).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                        },
+                        parser: (value) => {
+                            if (!value) return 0;
+                            return parseFloat(value.replace(/¥\s?|,/g, '')) || 0;
+                        },
                     }}
                 />
                 <ProFormDatePicker
@@ -369,6 +401,51 @@ const ContractList: React.FC = () => {
                     label={intl.formatMessage({ id: 'pages.contract.field.endDate' })}
                     width="md"
                     name="end_date"
+                />
+                <ProFormSelect
+                    name="owner_id"
+                    label={intl.formatMessage({ id: 'pages.contract.field.owner' })}
+                    placeholder={intl.formatMessage({ id: 'pages.contract.placeholder.owner' })}
+                    rules={[
+                        { required: true, message: intl.formatMessage({ id: 'pages.contract.validation.ownerIdRequired' }) },
+                    ]}
+                    request={async () => {
+                        try {
+                            const res = await getUserList({ current: 1, pageSize: 200 });
+                            return (res.data || []).map((user: API.User) => ({
+                                label: user.name || user.username,
+                                value: user.id,
+                            }));
+                        } catch (error) {
+                            console.error('Failed to load users');
+                            return [];
+                        }
+                    }}
+                    showSearch
+                    fieldProps={{
+                        optionFilterProp: 'label',
+                    }}
+                />
+                <ProFormSelect
+                    name="opportunity_id"
+                    label={intl.formatMessage({ id: 'pages.contract.field.opportunity' })}
+                    placeholder={intl.formatMessage({ id: 'pages.contract.placeholder.opportunity' })}
+                    request={async () => {
+                        try {
+                            const res = await getSalesOpportunityList({ current: 1, pageSize: 200 });
+                            return (res.data || []).map((opportunity: API.SalesOpportunity) => ({
+                                label: opportunity.opportunity_name,
+                                value: opportunity.opportunity_id,
+                            }));
+                        } catch (error) {
+                            console.warn('SalesOpportunity API not available');
+                            return [];
+                        }
+                    }}
+                    showSearch
+                    fieldProps={{
+                        optionFilterProp: 'label',
+                    }}
                 />
                 <ProFormSelect
                     label={intl.formatMessage({ id: 'pages.contract.field.contractType' })}

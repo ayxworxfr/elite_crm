@@ -32,6 +32,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     const { open, onOpenChange, onFinish, values } = props;
     const intl = useIntl();
 
+    // 状态管理选中的值
+    const [selectedCustomerId, setSelectedCustomerId] = React.useState<number | undefined>();
+    const [selectedOwnerId, setSelectedOwnerId] = React.useState<number | undefined>();
+
     // 销售机会状态选项
     const statusOptions = [
         { value: 0, label: intl.formatMessage({ id: 'pages.salesOpportunity.status.initial' }) },
@@ -60,20 +64,16 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         return dateString.split('T')[0]; // 只取日期部分
     };
 
-    // 处理初始值，确保数据正确映射
+    // 处理初始值，从嵌套对象中正确提取ID字段
     const initialValues = React.useMemo(() => {
         if (!values || !values.opportunity_id) return {};
-
-        // 添加调试信息
-        console.log('UpdateForm values:', values);
-        console.log('Customer info:', values.customer);
-        console.log('Owner info:', values.owner);
 
         return {
             opportunity_id: values.opportunity_id,
             opportunity_name: values.opportunity_name,
-            customer_id: values.customer_id,
-            owner_id: values.owner_id,
+            // 从嵌套对象中提取正确的ID字段
+            customer_id: values.customer?.customer_id,
+            owner_id: values.owner?.id,
             // 确保金额为数值类型
             amount: values.amount ? Number(values.amount) : undefined,
             // 确保概率为数值类型
@@ -87,6 +87,14 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             description: values.description,
         };
     }, [values]);
+
+    // 表单关闭时重置选中状态
+    React.useEffect(() => {
+        if (!open) {
+            setSelectedCustomerId(undefined);
+            setSelectedOwnerId(undefined);
+        }
+    }, [open]);
 
     return (
         <ModalForm
@@ -135,52 +143,57 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                             value: customer.customer_id,
                         }));
 
-                        // 如果是编辑模式但没有完整的customer信息，尝试从options中找到对应的客户
-                        if (values?.customer_id && !values?.customer) {
-                            const currentCustomer = options.find(opt => opt.value === values.customer_id);
-                            if (currentCustomer) {
-                                console.log('Found customer in options:', currentCustomer);
-                            }
-                        }
-
                         // 如果是编辑模式且有customer关联信息，确保当前客户在选项中
-                        if (values?.customer && values.customer_id) {
-                            const existingOption = options.find(opt => opt.value === values.customer_id);
+                        if (values?.customer?.customer_name && values.customer?.customer_id) {
+                            const existingOption = options.find(opt => opt.value === values?.customer?.customer_id);
                             if (!existingOption) {
                                 options.unshift({
                                     label: values.customer.customer_name,
-                                    value: values.customer_id,
+                                    value: values.customer.customer_id,
                                 });
                             }
                         }
 
+                        // 在request函数内设置选中值
+                        const customerId = values?.customer?.customer_id;
+                        if (customerId && selectedCustomerId !== customerId) {
+                            setSelectedCustomerId(customerId);
+                        }
+
                         return options;
                     } catch (error) {
-                        // 如果客户API不存在，使用fallback
                         console.warn('Customer API not available, using fallback');
-                        if (values?.customer && values.customer_id) {
+
+                        // 在fallback中也要设置选中值
+                        const customerId = values?.customer?.customer_id;
+                        if (customerId && selectedCustomerId !== customerId) {
+                            setSelectedCustomerId(customerId);
+                        }
+
+                        // API失败时的fallback处理
+                        if (values?.customer?.customer_name && values.customer?.customer_id) {
                             return [{
                                 label: values.customer.customer_name,
-                                value: values.customer_id,
+                                value: values.customer.customer_id,
                             }];
                         }
-                        // 如果只有customer_id没有完整信息，至少显示ID
-                        if (values?.customer_id) {
+                        if (values?.customer?.customer_id) {
                             return [{
-                                label: `Customer ID: ${values.customer_id}`,
-                                value: values.customer_id,
+                                label: `Customer ID: ${values.customer.customer_id}`,
+                                value: values.customer.customer_id,
                             }];
                         }
                         return [];
                     }
                 }}
                 params={{
-                    // 传递当前值作为参数，确保request能感知到变化
-                    customerId: values?.customer_id
+                    customerId: values?.customer?.customer_id
                 }}
                 showSearch
                 fieldProps={{
                     optionFilterProp: 'label',
+                    value: selectedCustomerId,
+                    onChange: (value) => setSelectedCustomerId(value),
                 }}
             />
 
@@ -195,56 +208,61 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
                     try {
                         const res = await getUserList({ current: 1, pageSize: 200 });
                         const options = (res.data || []).map((user: API.User) => ({
-                            label: user.username,  // 优先使用name，如果没有则使用username
+                            label: user.name || user.username,
                             value: user.id,
                         }));
 
-                        // 如果是编辑模式但没有完整的owner信息，尝试从options中找到对应的负责人
-                        if (values?.owner_id && !values?.owner) {
-                            const currentOwner = options.find(opt => opt.value === values.owner_id);
-                            if (currentOwner) {
-                                console.log('Found owner in options:', currentOwner);
-                            }
-                        }
-
                         // 如果是编辑模式且有owner关联信息，确保当前负责人在选项中
-                        if (values?.owner && values.owner_id) {
-                            const existingOption = options.find(opt => opt.value === values.owner_id);
+                        if (values?.owner?.username && values.owner?.id) {
+                            const existingOption = options.find(opt => opt.value === values?.owner?.id);
                             if (!existingOption) {
                                 options.unshift({
                                     label: values.owner.username,
-                                    value: values.owner_id,
+                                    value: values.owner.id,
                                 });
                             }
+                        }
+
+                        // 在request函数内设置选中值
+                        const ownerId = values?.owner?.id;
+                        if (ownerId && selectedOwnerId !== ownerId) {
+                            setSelectedOwnerId(ownerId);
                         }
 
                         return options;
                     } catch (error) {
                         console.error('Failed to load users:', error);
-                        // 如果API失败，但有当前负责人信息，至少显示当前的
-                        if (values?.owner && values.owner_id) {
+
+                        // 在fallback中也要设置选中值
+                        const ownerId = values?.owner?.id;
+                        if (ownerId && selectedOwnerId !== ownerId) {
+                            setSelectedOwnerId(ownerId);
+                        }
+
+                        // API失败时的fallback处理
+                        if (values?.owner?.username && values.owner?.id) {
                             return [{
                                 label: values.owner.username,
-                                value: values.owner_id,
+                                value: values.owner.id,
                             }];
                         }
-                        // 如果只有owner_id没有完整信息，至少显示ID
-                        if (values?.owner_id) {
+                        if (values?.owner?.id) {
                             return [{
-                                label: `User ID: ${values.owner_id}`,
-                                value: values.owner_id,
+                                label: `User ID: ${values.owner.id}`,
+                                value: values.owner.id,
                             }];
                         }
                         return [];
                     }
                 }}
                 params={{
-                    // 传递当前值作为参数，确保request能感知到变化
-                    ownerId: values?.owner_id
+                    ownerId: values?.owner?.id
                 }}
                 showSearch
                 fieldProps={{
                     optionFilterProp: 'label',
+                    value: selectedOwnerId,
+                    onChange: (value) => setSelectedOwnerId(value),
                 }}
             />
 

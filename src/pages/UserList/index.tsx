@@ -1,15 +1,18 @@
-import { addUser, getRoleList, getUserList, removeUser, updateUser } from '@/services/ant-design-pro/api';
+import { addUser, getRoleList, getDepartmentList, getUserList, removeUser, updateUser } from '@/services/ant-design-pro/api';
 import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { FooterToolbar, ModalForm, PageContainer, ProFormSelect, ProFormText, ProTable } from '@ant-design/pro-components';
+import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
+import { FooterToolbar, ModalForm, PageContainer, ProDescriptions, ProFormSelect, ProFormText, ProTable } from '@ant-design/pro-components';
 import { useIntl } from '@umijs/max';
-import { Button, message, Popconfirm } from 'antd';
+import { Button, Drawer, message, Popconfirm } from 'antd';
 import React, { useRef, useState } from 'react';
+import type { FormValueType } from './components/UpdateForm';
+import UpdateForm from './components/UpdateForm';
 
 const UserList: React.FC = () => {
     const intl = useIntl();
     const [createModalOpen, setCreateModalOpen] = useState(false);
     const [updateModalOpen, setUpdateModalOpen] = useState(false);
+    const [showDetail, setShowDetail] = useState<boolean>(false);
     const [currentRow, setCurrentRow] = useState<API.User | undefined>();
     const [selectedRowsState, setSelectedRows] = useState<API.User[]>([]);
     const actionRef = useRef<ActionType | null>(null);
@@ -28,10 +31,10 @@ const UserList: React.FC = () => {
         }
     };
 
-    const handleUpdate = async (fields: API.User) => {
+    const handleUpdate = async (fields: FormValueType) => {
         const hide = message.loading(intl.formatMessage({ id: 'pages.user.message.updating' }));
         try {
-            await updateUser({ ...fields, id: currentRow?.id });
+            await updateUser({ ...fields, id: currentRow?.id } as API.User);
             hide();
             message.success(intl.formatMessage({ id: 'pages.user.message.updateSuccess' }));
             return true;
@@ -68,8 +71,27 @@ const UserList: React.FC = () => {
 
     const columns: ProColumns<API.User>[] = [
         {
-            title: intl.formatMessage({ id: 'common.field.name' }),
+            title: intl.formatMessage({ id: 'pages.user.field.username' }),
             dataIndex: 'username',
+            render: (dom, entity) => {
+                return (
+                    <a
+                        onClick={() => {
+                            setCurrentRow(entity);
+                            setShowDetail(true);
+                        }}
+                    >
+                        {dom}
+                    </a>
+                );
+            },
+        },
+        {
+            title: intl.formatMessage({ id: 'pages.user.field.name' }),
+            dataIndex: 'name',
+            render: (_, record) => {
+                return record.name || record.username;
+            },
         },
         {
             title: intl.formatMessage({ id: 'pages.user.field.email' }),
@@ -183,39 +205,93 @@ const UserList: React.FC = () => {
                     name="username"
                     label={intl.formatMessage({ id: 'pages.user.field.username' })}
                     placeholder={intl.formatMessage({ id: 'pages.user.placeholder.username' })}
-                    rules={[{ required: true, message: intl.formatMessage({ id: 'pages.user.validation.usernameRequired' }) }, { max: 50 }]}
+                    rules={[
+                        { required: true, message: intl.formatMessage({ id: 'pages.user.validation.usernameRequired' }) },
+                        { max: 50, message: intl.formatMessage({ id: 'pages.user.validation.usernameMax' }) },
+                        { min: 3, message: intl.formatMessage({ id: 'pages.user.validation.usernameMin' }) },
+                    ]}
                     fieldProps={{
                         id: 'create-username',
                         autoComplete: 'username'
                     }}
                 />
+
+                <ProFormText
+                    name="name"
+                    label={intl.formatMessage({ id: 'pages.user.field.name' })}
+                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.name' })}
+                    rules={[
+                        { max: 50, message: intl.formatMessage({ id: 'pages.user.validation.nameMax' }) },
+                    ]}
+                    fieldProps={{
+                        id: 'create-name',
+                        autoComplete: 'name'
+                    }}
+                />
+
                 <ProFormText.Password
                     name="password"
                     label={intl.formatMessage({ id: 'pages.user.field.password' })}
                     placeholder={intl.formatMessage({ id: 'pages.user.placeholder.password' })}
+                    rules={[
+                        { required: true, message: intl.formatMessage({ id: 'pages.user.validation.passwordRequired' }) },
+                        { min: 6, message: intl.formatMessage({ id: 'pages.user.validation.passwordMin' }) },
+                    ]}
                     fieldProps={{
                         id: 'create-password',
                         autoComplete: 'new-password'
                     }}
                 />
+
                 <ProFormText
                     name="email"
                     label={intl.formatMessage({ id: 'pages.user.field.email' })}
                     placeholder={intl.formatMessage({ id: 'pages.user.placeholder.email' })}
+                    rules={[
+                        { required: true, message: intl.formatMessage({ id: 'pages.user.validation.emailRequired' }) },
+                        { type: 'email', message: intl.formatMessage({ id: 'pages.user.validation.emailFormat' }) },
+                    ]}
                     fieldProps={{
                         id: 'create-email',
                         autoComplete: 'email'
                     }}
                 />
+
                 <ProFormText
                     name="phone"
                     label={intl.formatMessage({ id: 'pages.user.field.phone' })}
                     placeholder={intl.formatMessage({ id: 'pages.user.placeholder.phone' })}
+                    rules={[
+                        { pattern: /^1[3-9]\d{9}$/, message: intl.formatMessage({ id: 'pages.user.validation.phoneFormat' }) },
+                    ]}
                     fieldProps={{
                         id: 'create-phone',
                         autoComplete: 'tel'
                     }}
                 />
+
+                <ProFormSelect
+                    name="department_id"
+                    label={intl.formatMessage({ id: 'pages.user.field.department' })}
+                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.department' })}
+                    request={async () => {
+                        try {
+                            const res = await getDepartmentList({ current: 1, pageSize: 200 });
+                            return (res.data || []).map((dept: API.Department) => ({
+                                label: dept.department_name,
+                                value: dept.department_id,
+                            }));
+                        } catch (error) {
+                            console.warn('Department API not available');
+                            return [];
+                        }
+                    }}
+                    showSearch
+                    fieldProps={{
+                        optionFilterProp: 'label',
+                    }}
+                />
+
                 <ProFormSelect
                     name="role_ids"
                     label={intl.formatMessage({ id: 'pages.user.field.roles' })}
@@ -229,77 +305,65 @@ const UserList: React.FC = () => {
                         const res = await getRoleList({ current: 1, pageSize: 200 });
                         return (res.data || []).map((r: any) => ({ label: r.name, value: r.id }));
                     }}
+                    showSearch
+                />
+
+                <ProFormSelect
+                    name="status"
+                    label={intl.formatMessage({ id: 'common.field.status' })}
+                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.status' })}
+                    initialValue={1}
+                    options={[
+                        { label: intl.formatMessage({ id: 'common.status.disabled' }), value: 0 },
+                        { label: intl.formatMessage({ id: 'common.status.enabled' }), value: 1 },
+                    ]}
+                    rules={[
+                        { required: true, message: intl.formatMessage({ id: 'pages.user.validation.statusRequired' }) },
+                    ]}
                 />
             </ModalForm>
 
-            <ModalForm<API.User>
-                title={intl.formatMessage({ id: 'pages.user.edit.title' })}
-                width={520}
+            <UpdateForm
                 open={updateModalOpen}
-                onOpenChange={(open) => { if (!open) { setUpdateModalOpen(false); } }}
-                initialValues={currentRow}
-                modalProps={{ destroyOnHidden: true, maskClosable: false }}
+                onOpenChange={setUpdateModalOpen}
                 onFinish={async (value) => {
                     const success = await handleUpdate(value);
                     if (success) {
                         setUpdateModalOpen(false);
+                        setCurrentRow(undefined);
                         actionRef.current?.reload();
                     }
                     return success;
                 }}
+                values={currentRow || {}}
+            />
+
+            {/* 用户详情抽屉 */}
+            <Drawer
+                width={600}
+                open={showDetail}
+                onClose={() => {
+                    setCurrentRow(undefined);
+                    setShowDetail(false);
+                }}
+                closable={false}
             >
-                <ProFormText
-                    name="username"
-                    label={intl.formatMessage({ id: 'pages.user.field.username' })}
-                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.username' })}
-                    rules={[{ required: true, message: intl.formatMessage({ id: 'pages.user.validation.usernameRequired' }) }, { max: 50 }]}
-                    fieldProps={{
-                        id: 'edit-username',
-                        autoComplete: 'username'
-                    }}
-                />
-                <ProFormText.Password
-                    name="password"
-                    label={intl.formatMessage({ id: 'pages.user.field.password' })}
-                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.password' })}
-                    fieldProps={{
-                        id: 'edit-password',
-                        autoComplete: 'new-password'
-                    }}
-                />
-                <ProFormText
-                    name="email"
-                    label={intl.formatMessage({ id: 'pages.user.field.email' })}
-                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.email' })}
-                    fieldProps={{
-                        id: 'edit-email',
-                        autoComplete: 'email'
-                    }}
-                />
-                <ProFormText
-                    name="phone"
-                    label={intl.formatMessage({ id: 'pages.user.field.phone' })}
-                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.phone' })}
-                    fieldProps={{
-                        id: 'edit-phone',
-                        autoComplete: 'tel'
-                    }}
-                />
-                <ProFormSelect
-                    name="role_ids"
-                    label={intl.formatMessage({ id: 'pages.user.field.roles' })}
-                    placeholder={intl.formatMessage({ id: 'pages.user.placeholder.roles' })}
-                    rules={[{ required: true, message: intl.formatMessage({ id: 'pages.user.validation.rolesRequired' }) }]}
-                    fieldProps={{
-                        id: 'edit-role-ids',
-                        mode: 'multiple'
-                    }}
-                    request={async () => {
-                        const res = await getRoleList({ current: 1, pageSize: 200 });
-                        return (res.data || []).map((r: any) => ({ label: r.name, value: r.id }));
-                    }}
-                />
-            </ModalForm>
+                {currentRow?.username && (
+                    <>
+                        <ProDescriptions<API.User>
+                            column={2}
+                            title={currentRow?.name || currentRow?.username}
+                            request={async () => ({
+                                data: currentRow || {},
+                            })}
+                            params={{
+                                id: currentRow?.id,
+                            }}
+                            columns={columns as ProDescriptionsItemProps<API.User>[]}
+                        />
+                    </>
+                )}
+            </Drawer>
         </PageContainer>
     );
 };

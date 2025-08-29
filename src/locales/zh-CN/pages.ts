@@ -106,18 +106,32 @@ export default {
   // 字段标签
   'pages.contract.field.contractNo': '合同编号',
   'pages.contract.field.contractName': '合同名称',
-  'pages.contract.field.customerId': '客户ID',
-  'pages.contract.field.opportunityId': '商机ID',
-  'pages.contract.field.ownerId': '负责人ID',
+  'pages.contract.field.customer': '客户',
+  'pages.contract.field.opportunity': '销售机会',
+  'pages.contract.field.owner': '负责人',
   'pages.contract.field.amount': '合同金额',
   'pages.contract.field.startDate': '开始日期',
   'pages.contract.field.endDate': '结束日期',
-
   'pages.contract.field.signingDate': '签署日期',
   'pages.contract.field.contractType': '合同类型',
   'pages.contract.field.paymentTerms': '付款条件',
-
   'pages.contract.field.fileUrl': '文件URL',
+  
+  // 占位符
+  'pages.contract.placeholder.customer': '请选择客户',
+  'pages.contract.placeholder.opportunity': '请选择销售机会',
+  'pages.contract.placeholder.owner': '请选择负责人',
+  'pages.contract.placeholder.amount': '请输入合同金额',
+  'pages.contract.placeholder.startDate': '请选择开始日期',
+  'pages.contract.placeholder.endDate': '请选择结束日期',
+  'pages.contract.placeholder.signingDate': '请选择签署日期',
+  
+  // 验证消息
+  'pages.contract.validation.customerIdRequired': '请选择客户',
+  'pages.contract.validation.ownerIdRequired': '请选择负责人',
+  'pages.contract.validation.amountRequired': '请输入合同金额',
+  'pages.contract.validation.amountMin': '合同金额必须大于0.01',
+  'pages.contract.validation.startDateRequired': '请选择开始日期',
   
   // 合同状态
   'pages.contract.status.draft': '草稿',
@@ -344,6 +358,7 @@ export default {
   'pages.user.create.title': '新建用户',
   'pages.user.edit.title': '编辑用户',
   'pages.user.field.username': '用户名',
+  'pages.user.field.name': '姓名',
   'pages.user.field.password': '密码',
   'pages.user.field.email': '邮箱',
   'pages.user.field.phone': '手机号',
@@ -352,13 +367,24 @@ export default {
   'pages.user.field.roles': '角色',
 
   'pages.user.placeholder.username': '请输入用户名',
+  'pages.user.placeholder.name': '请输入真实姓名',
   'pages.user.placeholder.password': '请输入密码',
   'pages.user.placeholder.email': '请输入邮箱',
   'pages.user.placeholder.phone': '请输入手机号',
   'pages.user.placeholder.department': '请选择部门',
   'pages.user.placeholder.roles': '请选择角色',
+  'pages.user.placeholder.status': '请选择状态',
+  
   'pages.user.validation.usernameRequired': '请输入用户名',
-  'pages.user.validation.passwordRange': '密码长度需在6-20位',
+  'pages.user.validation.usernameMin': '用户名长度不能少于3位',
+  'pages.user.validation.usernameMax': '用户名长度不能超过50位',
+  'pages.user.validation.nameMax': '姓名长度不能超过50位',
+  'pages.user.validation.passwordRequired': '请输入密码',
+  'pages.user.validation.passwordMin': '密码长度不能少于6位',
+  'pages.user.validation.emailRequired': '请输入邮箱',
+  'pages.user.validation.emailFormat': '请输入正确的邮箱格式',
+  'pages.user.validation.phoneFormat': '请输入正确的手机号格式',
+  'pages.user.validation.statusRequired': '请选择状态',
   'pages.user.validation.rolesRequired': '请至少选择一个角色',
 
   
